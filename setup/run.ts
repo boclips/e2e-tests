@@ -6,10 +6,17 @@ import {
 } from './api/collectionApi';
 
 import { ensureAccessRuleAndReturnId } from './api/accessRuleApi';
-import { findOneAgeRange, getAgeRanges, insertAgeRange, } from './api/ageRangeApi';
+import {
+  findOneAgeRange,
+  getAgeRanges,
+  insertAgeRange,
+} from './api/ageRangeApi';
 import { ensureApiIntegrationAndReturnId } from './api/apiIntegrationApi';
 import { createContentPackage } from './api/contentPackageApi';
-import { getContentPartners, insertContentPartner, } from './api/contentPartnerApi';
+import {
+  getContentPartners,
+  insertContentPartner,
+} from './api/contentPartnerApi';
 import { getDisciplines, insertDiscipline } from './api/disciplineApi';
 import { getSubjects, insertSubject } from './api/subjectApi';
 import { getTags, insertTag } from './api/tagApi';
@@ -22,15 +29,25 @@ import {
   ltiIncludedCollectionsAccessRuleFixture,
 } from './fixture/accessRule';
 import { ageRangeFixtures } from './fixture/ageRanges';
-import { includedVideosApiIntegrationFixture, ltiApiIntegrationFixture, } from './fixture/apiIntegration';
-import { CollectionFixture, collectionFixtures, ltiCollectionFixture, } from './fixture/collections';
+import {
+  includedVideosApiIntegrationFixture,
+  ltiApiIntegrationFixture,
+} from './fixture/apiIntegration';
+import {
+  CollectionFixture,
+  collectionFixtures,
+  ltiCollectionFixture,
+} from './fixture/collections';
 import { contentPartnerFixtures } from './fixture/contentPartners';
 import { disciplineFixtures } from './fixture/disciplines';
 import { subjectFixtures } from './fixture/subjects';
 import { tagFixtures } from './fixture/tags';
 import { getParametrisedVideoFixtures } from './fixture/videos';
 import { generateToken } from './generateToken';
-import { getContentPartnerContracts, insertContentPartnerContract } from "./api/contentPartnerContractApi";
+import {
+  getContentPartnerContracts,
+  insertContentPartnerContract,
+} from './api/contentPartnerContractApi';
 
 if (!TOKEN_URL || !OPERATOR_USERNAME || !OPERATOR_PASSWORD) {
   throw new Error('Environment variables not set properly.');
@@ -153,28 +170,28 @@ async function setupClassroomAccessRule(token: string) {
 }
 
 async function insertContentPartners(token: string) {
-  await insertContentPartnerContract(token)
+  await insertContentPartnerContract(token);
   const contracts = await getContentPartnerContracts(token);
 
   if (!contracts || !(contracts.length > 0)) {
-    throw new Error('Cannot find contracts needed to create channels')
+    throw new Error('Cannot find contracts needed to create channels');
   }
 
-    return Promise.all(
-      contentPartnerFixtures.map(async contentPartnerFixture => {
-        return insertContentPartner(
-          {
-            name: contentPartnerFixture.name,
-            distributionMethods: contentPartnerFixture.distributionMethods,
-            accreditedToYtChannelId:
+  return Promise.all(
+    contentPartnerFixtures.map(async contentPartnerFixture => {
+      return insertContentPartner(
+        {
+          name: contentPartnerFixture.name,
+          distributionMethods: contentPartnerFixture.distributionMethods,
+          accreditedToYtChannelId:
             contentPartnerFixture.accreditedToYtChannelId,
-            currency: contentPartnerFixture.currency,
-            contractId: contracts[0].id,
-          },
-          token,
-        );
-      }),
-    );
+          currency: contentPartnerFixture.currency,
+          contractId: contracts[0].id,
+        },
+        token,
+      );
+    }),
+  );
 }
 
 async function setUp() {
