@@ -166,6 +166,18 @@ export class BackofficePage {
       .clear()
       .type('edit video title');
 
+    cy.get(By.dataQa('open-captions-modal'))
+      .first()
+      .click();
+
+    cy.get(By.dataQa('edit-caption-text'))
+      .clear()
+      .type('WEBVTT\n\n00:00:00.000 --> 00:00:25.460\ncaption 1 value');
+
+    cy.get(By.dataQa('submit-captions'))
+      .first()
+      .click();
+
     cy.get(By.dataQa('edit-video-form-description'))
       .clear()
       .type('edit video test');
