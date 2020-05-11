@@ -19,6 +19,12 @@ export class LtiDemoPage {
 
   public getResource() {
     cy.get('#select-resource-button').click();
-    // TODO check that resource was returned (waiting on a bug with LTI fixtures)
+    cy.wait(1000);
+    cy.get('iframe#lti-resource').then(it => {
+      const tiles = (it.contents()[0] as Document).querySelectorAll(
+        '.collectionTile',
+      );
+      expect(tiles).to.have.length(1);
+    });
   }
 }
