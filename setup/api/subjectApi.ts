@@ -38,6 +38,9 @@ export async function insertSubject(subject: SubjectFixture, token: string) {
 export async function getSubjects(): Promise<Subject[] | undefined> {
   const response = await fetch(Constants.API_URL + '/v1/subjects', {
     method: 'GET',
+    headers: {
+      'cache-control': 'nostore',
+    },
   });
   const payload: HypermediaWrapper = await response.json();
 
