@@ -116,6 +116,15 @@ export class BackofficePage {
     return this;
   }
 
+  public hasDownloadableAssets() {
+    cy.get(By.dataQa('video-files'))
+      .first()
+      .its('text')
+      .should('be', 'Download');
+
+    return this;
+  }
+
   public editRowInOrdersTable() {
     cy.get(By.dataQa('edit-row-button'))
       .first()

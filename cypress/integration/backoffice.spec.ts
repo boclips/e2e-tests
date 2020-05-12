@@ -18,18 +18,6 @@ context('Backoffice', () => {
       .contentPartnerTableHasData();
   });
 
-  it('should import an order CSV and set its currency', () => {
-    backoffice
-      .visit()
-      .logIn()
-      .goToOrdersPage()
-      .importOrderCSV()
-      .loadOrderById('129')
-      .updateOrderCurrency()
-      .updateOrderItemDuration('17 Years')
-      .updateOrderItemTerritory('World Wide');
-  });
-
   it('should import a job CSV and make sure the video ingestor picks it up', () => {
     backoffice
       .visit()
@@ -39,14 +27,6 @@ context('Backoffice', () => {
       .jobsTableHasData()
       .goToFirstJobDetails()
       .videosTableHasVideo();
-  });
-
-  it('should export a manifest', () => {
-    backoffice
-      .visit()
-      .logIn()
-      .goToOrdersPage()
-      .exportOrderCSV();
   });
 
   it('should create a content partner', () => {
@@ -121,14 +101,47 @@ context('Backoffice', () => {
       .validateVideoChange();
   });
 
-  it('should edit order', () => {
-    backoffice
-      .visit()
-      .logIn()
-      .gotToOrdersPage()
-      .selectOrderFromOrdersTable()
-      .editRowInOrdersTable()
-      .editOrder()
-      .validateOrder();
+  context('orders', () => {
+    it('should import an order CSV and set its currency', () => {
+      backoffice
+        .visit()
+        .logIn()
+        .goToOrdersPage()
+        .importOrderCSV()
+        .loadOrderById('129')
+        .updateOrderCurrency()
+        .updateOrderItemDuration('17 Years')
+        .updateOrderItemTerritory('World Wide');
+    });
+
+    it('should edit order', () => {
+      backoffice
+        .visit()
+        .logIn()
+        .gotToOrdersPage()
+        .selectOrderFromOrdersTable()
+        .editRowInOrdersTable()
+        .editOrder()
+        .validateOrder();
+    });
+
+    it('downloads order video assets', () => {
+      backoffice
+        .visit()
+        .logIn()
+        .gotToOrdersPage()
+        .selectOrderFromOrdersTable()
+        .hasDownloadableAssets();
+    });
+
+    it('should export a manifest', () => {
+      backoffice
+        .visit()
+        .logIn()
+        .goToOrdersPage()
+        .exportOrderCSV();
+    });
+
   });
+
 });
