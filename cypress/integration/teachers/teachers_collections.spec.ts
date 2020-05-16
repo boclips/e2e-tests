@@ -107,33 +107,9 @@ context('Teachers App Collections Journey', () => {
       .goToCollectionDetails(collectionTitle)
       .then(page => {
         page
-          .setVisibility(true)
           .setSubject(SUBJECT)
           .setName(newCollectionTitle)
           .itHasName(newCollectionTitle);
-      });
-  });
-
-  specify('Making a collection public and be discoverable by subject', () => {
-    const collectionTitle = uuid();
-
-    homepage
-      .menu()
-      .search(MINUTE_PHYSICS)
-      .createCollectionFromVideo(0, collectionTitle)
-
-      .menu()
-      .goToCollections()
-      .goToCollectionDetails(collectionTitle)
-      .then(page => {
-        page
-          .setVisibility(true)
-          .setSubject(SUBJECT)
-          .menu()
-          .goToHomepage()
-          .reload()
-          .goToDiscoverBySubject(SUBJECT)
-          .hasCollectionTitle(collectionTitle);
       });
   });
 

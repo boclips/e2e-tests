@@ -17,21 +17,6 @@ export class CollectionPage extends TeacherPage {
     return this;
   }
 
-  public setVisibility(isPublic: boolean): CollectionPage {
-    cy.get(By.dataQa('collection-edit-button')).click();
-    const visiblityCheckBox = cy.get(By.dataQa('visibility-edit'));
-
-    if (isPublic) {
-      visiblityCheckBox.check();
-    } else {
-      visiblityCheckBox.uncheck();
-    }
-
-    cy.contains('Save').click();
-
-    return this;
-  }
-
   public setSubject(subject: string): CollectionPage {
     cy.get(By.dataQa('collection-edit-button')).click();
 
@@ -102,11 +87,6 @@ export class CollectionPage extends TeacherPage {
         .should('be.visible')
         .click(),
     );
-  }
-
-  public showsSharingModal() {
-    cy.get('.share-code-dialog').should('be.visible');
-    return this;
   }
 
   private interactWithItem(index: number, callback: () => void) {
