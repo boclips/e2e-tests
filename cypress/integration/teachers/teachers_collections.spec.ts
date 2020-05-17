@@ -125,12 +125,5 @@ context('Teachers App Collections Journey', () => {
       .goToCollections()
       .inspectCollections(collections => (collectionCount = collections.length))
       .deleteCollection(collectionTitle)
-      .inspectCollections(collections =>
-        expect(
-          collections.filter(
-            collection => collection.title === collectionTitle,
-          ),
-        ).lengthOf(0),
-      );
   });
 });

@@ -1,6 +1,5 @@
 import { By } from '../../support/By';
 import VideoCollection from '../domain/VideoCollection';
-import { acceptDialog } from './AntUtils';
 import { CollectionPage, TeacherPage } from './index';
 
 export class CollectionsPage extends TeacherPage {
@@ -30,7 +29,14 @@ export class CollectionsPage extends TeacherPage {
       .find(By.dataQa('collection-edit-button'))
       .click();
     cy.get('[data-qa="delete-collection"]').click();
-    acceptDialog();
+
+    cy.get('.ant-modal-confirm-btns .ant-btn-primary')
+      .click()
+      .log('Confirmed deletion of collection');
+    cy.get('.ant-notification')
+      .should('be.visible')
+      .log('Notification informing user about collection deletion appeared');
+
     return this;
   }
 
