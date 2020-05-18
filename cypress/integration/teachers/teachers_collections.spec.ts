@@ -124,6 +124,13 @@ context('Teachers App Collections Journey', () => {
       .menu()
       .goToCollections()
       .inspectCollections(collections => (collectionCount = collections.length))
-      .deleteCollection(collectionTitle)
+      .deleteCollection(collectionTitle);
   });
+
+  specify('Curated collections are discoverable by subject', () => {
+    homepage
+      .goToDiscoverBySubject(SUBJECT)
+      .containsCollections()
+  });
+
 });

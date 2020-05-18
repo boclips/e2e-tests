@@ -338,6 +338,9 @@ export class TeachersHomepage extends TeacherPage {
     cy.get(By.dataQa('discipline-subject'))
       .contains(subject)
       .click();
+
+    cy.get(By.dataQa('discover-collections-list-page')).should('be.visible')
+
     return new DiscoverPage();
   }
 

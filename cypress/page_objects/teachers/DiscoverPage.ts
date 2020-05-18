@@ -2,10 +2,10 @@ import { By } from '../../support/By';
 import { TeacherPage } from './index';
 
 export class DiscoverPage extends TeacherPage {
-  public hasCollectionTitle(title: string) {
-    cy.get(By.dataQa('collection-title'))
-      .contains(title)
-      .should('be.visible');
+  public containsCollections() {
+    cy.get(By.dataQa('collection-card'))
+      .should('be.visible')
+      .log('Found at least one collection');
     return this;
   }
 }
