@@ -90,7 +90,7 @@ context('Teachers App Videos Journey', () => {
       .removeFilterTag('0m - 2m');
   });
 
-  specify.skip('Age range filter in search', () => {
+  specify('Age range filter in search', () => {
     homepage
       .visit()
       .menu()
