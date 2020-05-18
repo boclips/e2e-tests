@@ -232,38 +232,46 @@ export class TeachersHomepage extends TeacherPage {
 
   public bookmarkCollection(title: string) {
     this.getFirstCollectionCardBy(title)
-      .get(By.dataQa('open-button-menu'))
-      .click()
-      .get(By.dataQa('bookmark-collection'))
-      .should('be.visible')
-      .click()
-      .get(By.dataQa('open-button-menu'))
-      .click()
-      .get(By.dataQa('unbookmark-collection'))
-      .should('be.visible')
-      .get(By.dataQa('bookmark-collection'))
-      .should('not.be.visible')
-      .get('body')
+      .find(By.dataQa('open-button-menu'))
       .click();
+
+    cy.get(By.dataQa('bookmark-collection'))
+      .should('be.visible')
+      .click();
+
+    this.getFirstCollectionCardBy(title)
+      .find(By.dataQa('open-button-menu'))
+      .click();
+
+    cy.get(By.dataQa('unbookmark-collection'))
+      .should('be.visible')
+      .get(By.dataQa('bookmark-collection'))
+      .should('not.be.visible');
+
+    cy.get('footer').click();
 
     return this;
   }
 
   public unbookmarkCollection(title: string) {
     this.getFirstCollectionCardBy(title)
-      .get(By.dataQa('open-button-menu'))
-      .click()
-      .get(By.dataQa('unbookmark-collection'))
-      .should('be.visible')
-      .click()
-      .get(By.dataQa('open-button-menu'))
-      .click()
-      .get(By.dataQa('bookmark-collection'))
-      .should('be.visible')
-      .get(By.dataQa('unbookmark-collection'))
-      .should('not.be.visible')
-      .get('body')
+      .find(By.dataQa('open-button-menu'))
       .click();
+
+    cy.get(By.dataQa('unbookmark-collection'))
+      .should('be.visible')
+      .click();
+
+    this.getFirstCollectionCardBy(title)
+      .find(By.dataQa('open-button-menu'))
+      .click();
+
+    cy.get(By.dataQa('bookmark-collection'))
+      .should('be.visible')
+      .get(By.dataQa('unbookmark-collection'))
+      .should('not.be.visible');
+
+    cy.get('footer').click();
 
     return this;
   }
@@ -272,17 +280,17 @@ export class TeachersHomepage extends TeacherPage {
     collectionName: string,
     expectedState: boolean,
   ) {
-    cy.get(By.dataState(collectionName, 'collection-card'))
-      .get(By.dataQa('open-button-menu'))
-      .click()
-      .get(
-        By.dataQa(
-          `${expectedState ? 'unbookmark-collection' : 'bookmark-collection'}`,
-        ),
-      )
-      .should('be.visible')
-      .get('body')
+    this.getFirstCollectionCardBy(collectionName)
+      .find(By.dataQa('open-button-menu'))
       .click();
+
+    cy.get(
+      By.dataQa(
+        `${expectedState ? 'unbookmark-collection' : 'bookmark-collection'}`,
+      ),
+    ).should('be.visible');
+
+    cy.get('footer').click();
 
     return this;
   }
@@ -339,7 +347,7 @@ export class TeachersHomepage extends TeacherPage {
       .contains(subject)
       .click();
 
-    cy.get(By.dataQa('discover-collections-list-page')).should('be.visible')
+    cy.get(By.dataQa('discover-collections-list-page')).should('be.visible');
 
     return new DiscoverPage();
   }

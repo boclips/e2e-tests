@@ -129,8 +129,9 @@ context('Teachers App Collections Journey', () => {
 
   specify('Curated collections are discoverable by subject', () => {
     homepage
+      .menu()
+      .goToHomepage()
       .goToDiscoverBySubject(SUBJECT)
       .containsCollections()
   });
-
 });
