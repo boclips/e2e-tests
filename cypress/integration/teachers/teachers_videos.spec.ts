@@ -97,7 +97,10 @@ context('Teachers App Videos Journey', () => {
       .search(MINUTE_PHYSICS)
       .applyAgeRangeFilter('3 - 5', '3-5')
       .inspectResults(videos => {
-        expect(videos.length).to.be.eq(2, `There are two videos showing`);
+        expect(videos.length).to.be.greaterThan(
+          2,
+          `There are more than two videos showing up for the age range 3-5`,
+        );
       })
       .removeFilterTag('3-5');
   });
