@@ -79,6 +79,7 @@ export async function getParametrisedVideoFixtures(
     if (matchingSubjects.length === 0) {
       throw Error('Matched no subject, check fixtures.');
     }
+
     if (matchingSubjects.length > 1) {
       throw Error('Matched more than one subject, check fixtures.');
     }
@@ -97,6 +98,8 @@ export async function getParametrisedVideoFixtures(
         convertSubjectNameToId('Mathematics'),
         convertSubjectNameToId('Physics'),
       ],
+      ageRangeMin: 3,
+      ageRangeMax: 5,
     }),
     video({
       providerId: convertContentPartnerNameToId('Youtube CP'),
@@ -126,8 +129,8 @@ export async function getParametrisedVideoFixtures(
       ],
       playbackId: '0_in8dv3xq',
       duration: 'PT1M30S',
-      ageRangeMin: 10,
-      ageRangeMax: 13,
+      ageRangeMin: 3,
+      ageRangeMax: 5,
     }),
     video({
       providerId: convertContentPartnerNameToId('Minute Physics'),
