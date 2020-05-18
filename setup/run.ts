@@ -5,37 +5,50 @@ import {
   insertCollection,
 } from './api/collectionApi';
 
-import {ensureAccessRuleAndReturnId} from './api/accessRuleApi';
-import {findOneAgeRange, getAgeRanges, insertAgeRange,} from './api/ageRangeApi';
-import {ensureApiIntegrationAndReturnId} from './api/apiIntegrationApi';
-import {createContentPackage} from './api/contentPackageApi';
-import {getContentPartners, insertContentPartner,} from './api/contentPartnerApi';
-import {getDisciplines, insertDiscipline} from './api/disciplineApi';
-import {getSubjects, insertSubject} from './api/subjectApi';
-import {getTags, insertTag} from './api/tagApi';
-import {inserting} from './api/utilities';
-import {findVideos, insertVideo} from './api/videoApi';
-import {OPERATOR_PASSWORD, OPERATOR_USERNAME, TOKEN_URL} from './Constants';
+import { ensureAccessRuleAndReturnId } from './api/accessRuleApi';
+import {
+  findOneAgeRange,
+  getAgeRanges,
+  insertAgeRange,
+} from './api/ageRangeApi';
+import { ensureApiIntegrationAndReturnId } from './api/apiIntegrationApi';
+import { createContentPackage } from './api/contentPackageApi';
+import {
+  getContentPartners,
+  insertContentPartner,
+} from './api/contentPartnerApi';
+import { getDisciplines, insertDiscipline } from './api/disciplineApi';
+import { getSubjects, insertSubject } from './api/subjectApi';
+import { getTags, insertTag } from './api/tagApi';
+import { inserting } from './api/utilities';
+import { findVideos, insertVideo } from './api/videoApi';
+import { OPERATOR_PASSWORD, OPERATOR_USERNAME, TOKEN_URL } from './Constants';
 import {
   excludedVideoTypesAccessRuleFixture,
   includedVideosAccessRuleFixture,
   ltiIncludedCollectionsAccessRuleFixture,
 } from './fixture/accessRule';
-import {ageRangeFixtures} from './fixture/ageRanges';
-import {includedVideosApiIntegrationFixture, ltiApiIntegrationFixture,} from './fixture/apiIntegration';
+import { ageRangeFixtures } from './fixture/ageRanges';
+import {
+  includedVideosApiIntegrationFixture,
+  ltiApiIntegrationFixture,
+} from './fixture/apiIntegration';
 import {
   CollectionFixture,
   collectionWithoutSubjects,
   collectionWithSubjects,
   ltiCollectionFixture,
 } from './fixture/collections';
-import {contentPartnerFixtures} from './fixture/contentPartners';
-import {disciplineFixtures} from './fixture/disciplines';
-import {subjectFixtures} from './fixture/subjects';
-import {tagFixtures} from './fixture/tags';
-import {getParametrisedVideoFixtures} from './fixture/videos';
-import {generateToken} from './generateToken';
-import {getContentPartnerContracts, insertContentPartnerContract,} from './api/contentPartnerContractApi';
+import { contentPartnerFixtures } from './fixture/contentPartners';
+import { disciplineFixtures } from './fixture/disciplines';
+import { subjectFixtures } from './fixture/subjects';
+import { tagFixtures } from './fixture/tags';
+import { getParametrisedVideoFixtures } from './fixture/videos';
+import { generateToken } from './generateToken';
+import {
+  getContentPartnerContracts,
+  insertContentPartnerContract,
+} from './api/contentPartnerContractApi';
 
 if (!TOKEN_URL || !OPERATOR_USERNAME || !OPERATOR_PASSWORD) {
   throw new Error('Environment variables not set properly.');
@@ -78,7 +91,10 @@ async function insertDisciplines(token: string) {
   );
 }
 
-async function insertCollections(token: string, collectionFixtures: CollectionFixture[]) {
+async function insertCollections(
+  token: string,
+  collectionFixtures: CollectionFixture[],
+) {
   await Promise.all(
     collectionFixtures.map((collection: CollectionFixture) =>
       findOneCollectionId(collection.title, token).then(id => {
@@ -152,7 +168,7 @@ async function setupClassroomAccessRule(token: string) {
   );
 
   await createContentPackage(
-    {name: 'Classroom', accessRuleIds: [accessRuleId]},
+    { name: 'Classroom', accessRuleIds: [accessRuleId] },
     token,
   );
 }
@@ -172,7 +188,7 @@ async function insertContentPartners(token: string) {
           name: contentPartnerFixture.name,
           distributionMethods: contentPartnerFixture.distributionMethods,
           accreditedToYtChannelId:
-          contentPartnerFixture.accreditedToYtChannelId,
+            contentPartnerFixture.accreditedToYtChannelId,
           currency: contentPartnerFixture.currency,
           contractId: contracts[0].id,
         },
@@ -219,7 +235,7 @@ async function setUp() {
 
   inserting('collections');
   await insertCollections(token, collectionWithoutSubjects);
-  await insertCollections(token, collectionWithSubjects(subjects));
+  await insertCollections(token, collectionWithSubjects(await getSubjects()));
 
   inserting('LTI fixtures');
   await setupLtiFixtures(token);

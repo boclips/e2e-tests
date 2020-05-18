@@ -44,7 +44,7 @@ export async function getSubjects(): Promise<Subject[] | undefined> {
   if (payload && payload._embedded && payload._embedded.subjects) {
     return payload._embedded.subjects;
   } else {
-    return undefined;
+    throw Error('Could not fetch subjects, aborting!');
   }
 }
 

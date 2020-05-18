@@ -10,7 +10,7 @@ export interface CollectionFixture {
 export const collectionWithSubjects = (subjects: Subject[] | undefined) => {
   const biologySubjectId = subjects?.filter(
     subject => subject.name === 'Biology',
-  )[0].id;
+  )[0]?.id;
 
   if (biologySubjectId == null) {
     throw Error('Could not find Biology subject id, aborting!');
