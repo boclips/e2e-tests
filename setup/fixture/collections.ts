@@ -19,7 +19,7 @@ export const collectionWithSubjects = (subjects: Subject[] | undefined) => {
   return [
     {
       title: 'Biology collection',
-      public: true,
+      discoverable: true,
       promoted: true,
       subjects: [biologySubjectId],
     },
