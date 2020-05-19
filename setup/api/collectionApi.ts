@@ -3,8 +3,9 @@ import { API_URL } from '../Constants';
 import { CollectionFixture } from '../fixture/collections';
 import { LinksHolder } from './hateoas';
 import { assertApiResourceCreation, extractIdFromLocation } from './utilities';
-import URI from 'urijs';
 import 'urijs/src/URITemplate';
+
+const URI = require('urijs');
 
 interface HypermediaWrapper {
   _embedded: Collections;
