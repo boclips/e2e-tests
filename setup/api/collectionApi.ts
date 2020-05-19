@@ -1,4 +1,6 @@
 import fetch from 'node-fetch';
+import URI from 'urijs';
+import 'urijs/src/URITemplate';
 import { API_URL } from '../Constants';
 import { CollectionFixture } from '../fixture/collections';
 import { LinksHolder } from './hateoas';
@@ -106,9 +108,10 @@ export async function findOneCollectionId(
   token: string,
   promoted?: boolean,
 ): Promise<string | undefined> {
-  const myCollectionsUri = await getMyCollectionsLink(token);
+  const searchCollectionsUri = await getCollectionsLink(token);
 
-  const response = await fetch(myCollectionsUri, {
+  const url = URI.expand(searchCollectionsUri, {})
+  const response = await fetch(url, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -130,7 +133,7 @@ export async function findOneCollectionId(
   }
 }
 
-async function getMyCollectionsLink(token: string): Promise<string> {
+async function getCollectionsLink(token: string): Promise<string> {
   const response = await fetch(`${API_URL}/v1`, {
     method: 'GET',
     headers: {
@@ -143,5 +146,5 @@ async function getMyCollectionsLink(token: string): Promise<string> {
 
   const payload: LinksHolder = await response.json();
 
-  return payload._links.myCollections.href;
+  return payload._links.searchCollections.href;
 }
