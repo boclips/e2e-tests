@@ -2,7 +2,7 @@ import { Subject } from '../api/subjectApi';
 
 export interface CollectionFixture {
   title: string;
-  public: boolean;
+  discoverable: boolean;
   promoted?: boolean;
   subjects?: string[];
 }
@@ -27,11 +27,11 @@ export const collectionWithSubjects = (subjects: Subject[] | undefined) => {
 };
 
 export const collectionWithoutSubjects: CollectionFixture[] = [
-  { title: 'Minute Physics', public: true, promoted: true },
-  { title: 'Private collection', public: false },
+  { title: 'Minute Physics', discoverable: true, promoted: true },
+  { title: 'Private collection', discoverable: false },
 ];
 
 export const ltiCollectionFixture: CollectionFixture = {
   title: 'LTI Collection',
-  public: false,
+  discoverable: false,
 };
