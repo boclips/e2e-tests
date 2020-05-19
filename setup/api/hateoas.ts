@@ -4,7 +4,7 @@ export interface Link {
 
 export interface Links {
   self: Link;
-  myCollections: Link;
+  searchCollections: Link;
 }
 
 export interface LinksHolder {
