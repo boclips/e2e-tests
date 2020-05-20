@@ -33,5 +33,5 @@ export const collectionWithoutSubjects: CollectionFixture[] = [
 
 export const ltiCollectionFixture: CollectionFixture = {
   title: 'LTI Collection',
-  discoverable: false,
+  discoverable: true,
 };
