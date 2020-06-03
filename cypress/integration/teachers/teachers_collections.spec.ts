@@ -132,6 +132,6 @@ context('Teachers App Collections Journey', () => {
       .menu()
       .goToHomepage()
       .goToDiscoverBySubject(SUBJECT)
-      .containsCollections()
+      .containsCollections();
   });
 });

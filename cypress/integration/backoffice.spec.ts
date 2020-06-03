@@ -141,7 +141,5 @@ context('Backoffice', () => {
         .goToOrdersPage()
         .exportOrderCSV();
     });
-
   });
-
 });

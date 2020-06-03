@@ -5,7 +5,7 @@ import { LinksHolder } from './hateoas';
 import { assertApiResourceCreation, extractIdFromLocation } from './utilities';
 import 'urijs/src/URITemplate';
 
-const URI = require('urijs');
+import URI = require('urijs');
 
 interface HypermediaWrapper {
   _embedded: Collections;
