@@ -17,8 +17,6 @@ module.exports = {
     '@typescript-eslint/no-inferrable-types': 'off',
     '@typescript-eslint/ban-ts-ignore': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-namespace': 'off',
     'no-useless-escape': 'off',
     '@typescript-eslint/no-unused-vars': [
       'error',

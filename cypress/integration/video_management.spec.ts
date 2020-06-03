@@ -7,7 +7,7 @@ context('Video Management', () => {
       .visit()
       .logIn()
       .search('535')
-      .showsVideo((videos) => {
+      .showsVideo(videos => {
         expect(videos.length).to.equal(1);
         const [video] = videos;
         expect(video.id).to.equal('535');

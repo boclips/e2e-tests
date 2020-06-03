@@ -26,7 +26,9 @@ export async function assertApiResourceCreation(
   } else {
     const body = await response.text();
     console.error(
-      `The request to ${response.url} failed with status ${response.status}. See body below.`,
+      `The request to ${response.url} failed with status ${
+        response.status
+      }. See body below.`,
     );
     console.error(body);
     throw new Error(`💩 ${message} failed with status ${response.status}`);

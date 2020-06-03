@@ -21,7 +21,7 @@ export default class PublicMarketingCollectionPage {
   ) {
     cy.wait(1000)
       .get(By.dataQa('marketing-collection'))
-      .then((collectionNode) => {
+      .then(collectionNode => {
         const collection = Cypress.$(collectionNode);
         const videos = mapToVideos(
           collection.find(By.dataQa('marketing-video')),

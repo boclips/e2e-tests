@@ -10,7 +10,9 @@ export class CollectionPage extends TeacherPage {
 
   public setName(name: string): CollectionPage {
     cy.get(By.dataQa('collection-edit-button')).click();
-    cy.get(By.dataQa('title-edit')).clear().type(name);
+    cy.get(By.dataQa('title-edit'))
+      .clear()
+      .type(name);
     cy.contains('Save').click();
     return this;
   }
@@ -88,7 +90,10 @@ export class CollectionPage extends TeacherPage {
   }
 
   private interactWithItem(index: number, callback: () => void) {
-    this.itemsHtmlElements().eq(index).scrollIntoView().within(callback);
+    this.itemsHtmlElements()
+      .eq(index)
+      .scrollIntoView()
+      .within(callback);
     return this;
   }
 }

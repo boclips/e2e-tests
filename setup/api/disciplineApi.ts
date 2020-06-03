@@ -18,7 +18,6 @@ interface DisciplineLinks {
   subjects: Link;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Discipline {}
 
 export async function insertDiscipline(

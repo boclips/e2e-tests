@@ -12,7 +12,7 @@ export const findOneValidVideoId = () => {
         .then(() => {
           return getParametrisedVideoFixtures(token);
         })
-        .then((allInstructionalVideos) => {
+        .then(allInstructionalVideos => {
           return findOneVideoId(allInstructionalVideos[0].title, token);
         });
     });

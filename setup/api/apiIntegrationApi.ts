@@ -39,7 +39,7 @@ export async function findApiIntegrationIdByName(
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
-  }).then(async (response) => {
+  }).then(async response => {
     assertApiResourceLookup(response, `API integration [name=${name}]`);
     if (response.status === 404) {
       return undefined;

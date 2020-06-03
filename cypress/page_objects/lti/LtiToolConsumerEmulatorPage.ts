@@ -16,8 +16,12 @@ export class LtiToolConsumerEmulatorPage {
     cy.get('[name="endpoint"]')
       .clear()
       .type(`${Cypress.env('LTI_LAUNCH_URL')}${resourcePath}`);
-    cy.get('[name="key"]').clear().type(Cypress.env('LTI_CONSUMER_KEY'));
-    cy.get('[name="secret"]').clear().type(Cypress.env('LTI_CONSUMER_SECRET'));
+    cy.get('[name="key"]')
+      .clear()
+      .type(Cypress.env('LTI_CONSUMER_KEY'));
+    cy.get('[name="secret"]')
+      .clear()
+      .type(Cypress.env('LTI_CONSUMER_SECRET'));
 
     return this;
   }
@@ -111,8 +115,8 @@ export class LtiToolConsumerEmulatorPage {
     handleElement: (element: Cypress.Chainable) => void,
   ) {
     cy.get('iframe')
-      .then({ timeout: 30000 }, (iframe) => {
-        return new Promise((resolve) => {
+      .then({ timeout: 30000 }, iframe => {
+        return new Promise(resolve => {
           const intervalHandle = setInterval(() => {
             const isElementRendered =
               iframe.contents().find(selector).length > 0;
@@ -123,7 +127,7 @@ export class LtiToolConsumerEmulatorPage {
           }, 100);
         });
       })
-      .then((loadedIframeBody) => {
+      .then(loadedIframeBody => {
         handleElement(cy.wrap(loadedIframeBody).find(selector));
       });
 

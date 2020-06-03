@@ -64,7 +64,7 @@ class MarketingCollectionPage {
   public withVideos(callback: (videos: Video[]) => void) {
     const videos: Video[] = [];
     cy.get(By.dataQa('marketing-video'))
-      .then((videoCards) =>
+      .then(videoCards =>
         videoCards.each((idx, el: HTMLElement) => {
           videos.push({
             title: el.querySelector(By.dataQa('video-title'))!.textContent!,
@@ -93,7 +93,9 @@ class MarketingCollectionPage {
   }
 
   public goToPublicCollection() {
-    cy.wait(1000).get(By.dataQa('copy-link-button')).click();
+    cy.wait(1000)
+      .get(By.dataQa('copy-link-button'))
+      .click();
     return new PublicMarketingCollectionPage();
   }
 }
@@ -140,7 +142,7 @@ export class MarketingCollectionListPage {
     callback: (collections: MarketingCollectionSummary[]) => void,
   ) {
     cy.get(By.dataQa('marketing-collection-summary')).then(
-      (marketingCollections) => {
+      marketingCollections => {
         const allMarketingCollections: any = marketingCollections
           .toArray()
           .map((el: any) => {

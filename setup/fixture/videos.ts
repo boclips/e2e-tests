@@ -20,7 +20,7 @@ export interface VideoFixture {
 
 function video(params: Partial<VideoFixture>): VideoFixture {
   return {
-    providerId: params.providerId!,
+    providerId: params.providerId!!,
     providerVideoId: params.providerVideoId || 'ted-123',
     title: params.title || 'Richard St. John: 8 secrets of success',
     description: params.description || 'Video description',
@@ -52,7 +52,7 @@ export async function getParametrisedVideoFixtures(
     }
 
     const matchingContentPartners = contentPartners.filter(
-      (contentPartner) => contentPartner.name === contentPartnerName,
+      contentPartner => contentPartner.name === contentPartnerName,
     );
 
     if (matchingContentPartners.length === 0) {
@@ -74,7 +74,7 @@ export async function getParametrisedVideoFixtures(
       throw new Error('Subjects are undefined');
     }
 
-    const matchingSubjects = subjects.filter((s) => s.name === subjectName);
+    const matchingSubjects = subjects.filter(s => s.name === subjectName);
 
     if (matchingSubjects.length === 0) {
       throw Error('Matched no subject, check fixtures.');

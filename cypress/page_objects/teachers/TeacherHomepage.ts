@@ -190,7 +190,9 @@ export class TeachersHomepage extends TeacherPage {
   }
 
   public rateAndTagVideo(rating: number, tag?: string) {
-    cy.get(By.dataQa('rating-video-button')).first().click();
+    cy.get(By.dataQa('rating-video-button'))
+      .first()
+      .click();
 
     cy.get(By.dataQa('rate-video'))
       .find('.ant-rate-star')
@@ -233,7 +235,9 @@ export class TeachersHomepage extends TeacherPage {
       .find(By.dataQa('open-button-menu'))
       .click();
 
-    cy.get(By.dataQa('bookmark-collection')).should('be.visible').click();
+    cy.get(By.dataQa('bookmark-collection'))
+      .should('be.visible')
+      .click();
 
     this.getFirstCollectionCardBy(title)
       .find(By.dataQa('open-button-menu'))
@@ -254,7 +258,9 @@ export class TeachersHomepage extends TeacherPage {
       .find(By.dataQa('open-button-menu'))
       .click();
 
-    cy.get(By.dataQa('unbookmark-collection')).should('be.visible').click();
+    cy.get(By.dataQa('unbookmark-collection'))
+      .should('be.visible')
+      .click();
 
     this.getFirstCollectionCardBy(title)
       .find(By.dataQa('open-button-menu'))
@@ -337,7 +343,9 @@ export class TeachersHomepage extends TeacherPage {
   }
 
   public goToDiscoverBySubject(subject: string) {
-    cy.get(By.dataQa('discipline-subject')).contains(subject).click();
+    cy.get(By.dataQa('discipline-subject'))
+      .contains(subject)
+      .click();
 
     cy.get(By.dataQa('discover-collections-list-page')).should('be.visible');
 

@@ -53,7 +53,7 @@ export async function findAccessRuleByName(
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
-  }).then(async (response) => {
+  }).then(async response => {
     assertApiResourceLookup(response, `Access Rule [name=${name}]`);
 
     const payload: HypermediaWrapper = await response.json();

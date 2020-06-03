@@ -2,6 +2,7 @@ import fetch from 'node-fetch';
 import * as Constants from '../Constants';
 import { API_URL } from '../Constants';
 import { assertApiResourceCreation } from './utilities';
+import uuid = require('uuid');
 
 interface HypermediaWrapper {
   _links: any;

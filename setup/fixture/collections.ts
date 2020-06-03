@@ -9,7 +9,7 @@ export interface CollectionFixture {
 
 export const collectionWithSubjects = (subjects: Subject[] | undefined) => {
   const biologySubjectId = subjects?.filter(
-    (subject) => subject.name === 'Biology',
+    subject => subject.name === 'Biology',
   )[0]?.id;
 
   if (biologySubjectId == null) {

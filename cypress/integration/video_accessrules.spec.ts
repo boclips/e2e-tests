@@ -21,6 +21,6 @@ context('Video Access Rules', () => {
       token,
     )) as SelectedVideosAccessRule;
     const videos = await findVideos('Minute Physics', token);
-    expect(videos.map((it) => it.id)).to.deep.equal(accessRule.videoIds);
+    expect(videos.map(it => it.id)).to.deep.equal(accessRule.videoIds);
   });
 });

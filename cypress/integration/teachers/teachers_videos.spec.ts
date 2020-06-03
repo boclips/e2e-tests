@@ -72,7 +72,7 @@ context('Teachers App Videos Journey', () => {
       .menu()
       .search(MINUTE_PHYSICS)
       .applySubjectFilter(SUBJECT)
-      .inspectResults((videos) => {
+      .inspectResults(videos => {
         expect(videos.length).to.be.eq(3, `There are three videos showing`);
       })
       .removeFilterTag(SUBJECT);
@@ -84,7 +84,7 @@ context('Teachers App Videos Journey', () => {
       .menu()
       .search(MINUTE_PHYSICS)
       .applyDurationFilter('0m - 2m')
-      .inspectResults((videos) => {
+      .inspectResults(videos => {
         expect(videos.length).to.be.eq(8, `There are eight videos showing`);
       })
       .removeFilterTag('0m - 2m');
@@ -96,7 +96,7 @@ context('Teachers App Videos Journey', () => {
       .menu()
       .search(MINUTE_PHYSICS)
       .applyAgeRangeFilter('3 - 5', '3-5')
-      .inspectResults((videos) => {
+      .inspectResults(videos => {
         expect(videos.length).to.be.greaterThan(
           2,
           `There are more than two videos showing up for the age range 3-5`,
@@ -115,7 +115,7 @@ context('Teachers App Videos Journey', () => {
       .assertRatingOnFirstVideo(2)
       .assertPedagogicalTagOnFirstVideo('Hook')
       .goToFirstVideo()
-      .then((videoDetailsPage) => {
+      .then(videoDetailsPage => {
         videoDetailsPage
           .visit()
           .hasTitle()

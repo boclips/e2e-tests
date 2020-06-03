@@ -88,6 +88,6 @@ export async function findVideos(
   return payload._embedded.videos;
 }
 
-async function sleepForMillis(millis: number): Promise<unknown> {
-  return new Promise((resolve) => setTimeout(resolve, millis));
+async function sleepForMillis(millis: number): Promise<object> {
+  return new Promise(resolve => setTimeout(resolve, millis));
 }

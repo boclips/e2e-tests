@@ -4,7 +4,10 @@ import { CollectionsPage, TeachersHomepage } from './index';
 
 export class MenuPage {
   public search(searchQuery: string) {
-    cy.get(By.dataQa('search-input')).clear().type(searchQuery).type('{enter}');
+    cy.get(By.dataQa('search-input'))
+      .clear()
+      .type(searchQuery)
+      .type('{enter}');
     return new TeachersHomepage();
   }
 

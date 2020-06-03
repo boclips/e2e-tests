@@ -24,11 +24,15 @@ export class BackofficePage {
   }
 
   private static startOrderRowEdit(index: number = 0) {
-    cy.get(By.dataQa('edit-row-button')).eq(index).click({ force: true });
+    cy.get(By.dataQa('edit-row-button'))
+      .eq(index)
+      .click({ force: true });
   }
 
   private static saveOrderRowEdit() {
-    cy.get(By.dataQa('edit-form-save')).first().click({ force: true });
+    cy.get(By.dataQa('edit-form-save'))
+      .first()
+      .click({ force: true });
   }
 
   private static uploadToDropzone(
@@ -105,7 +109,9 @@ export class BackofficePage {
   }
 
   public selectOrderFromOrdersTable() {
-    cy.get(By.dataQa('order')).first().click();
+    cy.get(By.dataQa('order'))
+      .first()
+      .click();
 
     return this;
   }
@@ -120,17 +126,25 @@ export class BackofficePage {
   }
 
   public editRowInOrdersTable() {
-    cy.get(By.dataQa('edit-row-button')).first().click();
+    cy.get(By.dataQa('edit-row-button'))
+      .first()
+      .click();
 
     return this;
   }
 
   public editOrder() {
-    cy.get(By.dataQa('duration-edit-input')).clear().type('3 Years');
+    cy.get(By.dataQa('duration-edit-input'))
+      .clear()
+      .type('3 Years');
 
-    cy.get(By.dataQa('territory-edit-input')).clear().type('Asia');
+    cy.get(By.dataQa('territory-edit-input'))
+      .clear()
+      .type('Asia');
 
-    cy.get(By.dataQa('price-edit-input')).clear().type('100');
+    cy.get(By.dataQa('price-edit-input'))
+      .clear()
+      .type('100');
 
     cy.get(By.dataQa('edit-form-save')).click();
 
@@ -157,15 +171,21 @@ export class BackofficePage {
   }
 
   public editVideo() {
-    cy.get(By.dataQa('edit-video-form-title')).clear().type('edit video title');
+    cy.get(By.dataQa('edit-video-form-title'))
+      .clear()
+      .type('edit video title');
 
-    cy.get(By.dataQa('open-captions-modal')).first().click();
+    cy.get(By.dataQa('open-captions-modal'))
+      .first()
+      .click();
 
     cy.get(By.dataQa('edit-caption-text'))
       .clear()
       .type('WEBVTT\n\n00:00:00.000 --> 00:00:25.460\ncaption 1 value');
 
-    cy.get(By.dataQa('submit-captions')).first().click();
+    cy.get(By.dataQa('submit-captions'))
+      .first()
+      .click();
 
     cy.get(By.dataQa('edit-video-form-description'))
       .clear()
@@ -173,7 +193,9 @@ export class BackofficePage {
 
     cy.get(By.dataQa('subjects-select')).click();
 
-    cy.get(By.dataState('subject-item')).first().click();
+    cy.get(By.dataState('subject-item'))
+      .first()
+      .click();
 
     cy.get(By.dataQa('edit-video-form-title')).click();
     // cy.get(By.dataQa('oneToThree')).click();
@@ -194,13 +216,15 @@ export class BackofficePage {
     cy.get(By.dataQa('collection-description-input')).type(
       'collection test description',
     );
-    cy.get(By.dataQa('upload-dropzone')).then((dropzone) => {
+    cy.get(By.dataQa('upload-dropzone')).then(dropzone => {
       const content = '123,456,789';
       BackofficePage.uploadCSV(content, dropzone);
     });
 
     cy.get(By.dataQa('contracts-select')).click();
-    cy.get(By.dataState('contract-option')).first().click();
+    cy.get(By.dataState('contract-option'))
+      .first()
+      .click();
     cy.get(By.dataQa('collection-title-input')).click();
 
     return this;
@@ -225,7 +249,9 @@ export class BackofficePage {
   }
 
   public contentPartnerTableHasData() {
-    cy.get(By.dataQa('channel')).its('length').should('be.gte', 1);
+    cy.get(By.dataQa('channel'))
+      .its('length')
+      .should('be.gte', 1);
 
     return this;
   }
@@ -256,7 +282,9 @@ export class BackofficePage {
   }
 
   public goToFirstJobDetails() {
-    cy.get(By.dataQa('job')).first().click();
+    cy.get(By.dataQa('job'))
+      .first()
+      .click();
     return this;
   }
 
@@ -268,8 +296,8 @@ export class BackofficePage {
   }
 
   public importOrderCSV() {
-    findOneValidVideoId().then((videoId) => {
-      cy.get(By.dataQa('upload-dropzone')).then((dropzone) => {
+    findOneValidVideoId().then(videoId => {
+      cy.get(By.dataQa('upload-dropzone')).then(dropzone => {
         const content = `Order No,Order Through Platform,Month Date ,Order request Date,Order Fulfillment Date,Quarter,Member (request),Member (authorise) ID,Clip ID,Title,Source,Source Code,License Duration,Territory,Type,Price,Publisher,ISBN / PRODUCT DESCRIP,Language,Captioning,Trim,Notes,Remittance Notes,
 129,yes,Nov-15,05/11/15,,2015 Q4,Susan Andrews,871,${videoId},Learning from proximity to power,XKA Digital,123,5,Europe,Instructional Clips,£200 ,ICS,,,,,Complete,`;
         BackofficePage.uploadCSV(content, dropzone);
@@ -281,7 +309,7 @@ export class BackofficePage {
 
   public importJobCSV() {
     findOneValidVideoId().then(() => {
-      cy.get(By.dataQa('upload-dropzone')).then((dropzone) => {
+      cy.get(By.dataQa('upload-dropzone')).then(dropzone => {
         const content = `Provider,Unique ID,Title,Description,Creation Date,Keywords,Subject,Type ID,Legal Restrictions,URL
 Crash Course Artificial Intelligence,CCAI_01_CLEAN_What-Is-AI,What Is Artificial Intelligence? #1,"Artificial intelligence is everywhere",09/08/2019,"Crash course|Artificial intelligence",Computer Science,3,,https://kmvideowatchfolder.s3-eu-west-1.amazonaws.com/Crash_Course/CCAI_01_CLEAN_What-Is-AI.mp4`;
         BackofficePage.uploadCSV(content, dropzone);
@@ -323,7 +351,9 @@ Crash Course Artificial Intelligence,CCAI_01_CLEAN_What-Is-AI,What Is Artificial
   public updateOrderItemDuration(duration: string, index: number = 0) {
     BackofficePage.startOrderRowEdit(index);
 
-    cy.get(By.dataQa('duration-edit-input')).clear().type(duration);
+    cy.get(By.dataQa('duration-edit-input'))
+      .clear()
+      .type(duration);
 
     BackofficePage.saveOrderRowEdit();
 
@@ -335,7 +365,9 @@ Crash Course Artificial Intelligence,CCAI_01_CLEAN_What-Is-AI,What Is Artificial
   public updateOrderItemTerritory(territory: string, index: number = 0) {
     BackofficePage.startOrderRowEdit(index);
 
-    cy.get(By.dataQa('territory-edit-input')).clear().type(territory);
+    cy.get(By.dataQa('territory-edit-input'))
+      .clear()
+      .type(territory);
 
     BackofficePage.saveOrderRowEdit();
 
@@ -421,11 +453,11 @@ Crash Course Artificial Intelligence,CCAI_01_CLEAN_What-Is-AI,What Is Artificial
   public setContentPartnerDistributionMethods(...names: DistributionMethod[]) {
     this.switchTabs('INGEST');
 
-    cy.get('input[type="checkbox"]').then((checkboxes) => {
-      if (names.find((it) => it === 'STREAM')) {
+    cy.get('input[type="checkbox"]').then(checkboxes => {
+      if (names.find(it => it === 'STREAM')) {
         checkboxes[0].click();
       }
-      if (names.find((it) => it === 'DOWNLOAD')) {
+      if (names.find(it => it === 'DOWNLOAD')) {
         checkboxes[1].click();
       }
     });
@@ -441,7 +473,7 @@ Crash Course Artificial Intelligence,CCAI_01_CLEAN_What-Is-AI,What Is Artificial
   public setMarketingFiles() {
     this.switchTabs('MARKETING');
 
-    cy.get('.ant-upload-drag-container:visible').then((it) => {
+    cy.get('.ant-upload-drag-container:visible').then(it => {
       expect(it).to.have.length(3);
 
       const [logoUpload, showreelUpload, sampleVideosUpload] = it;
@@ -478,12 +510,14 @@ Crash Course Artificial Intelligence,CCAI_01_CLEAN_What-Is-AI,What Is Artificial
       'input#contentPartnerContractForm_details_remittanceCurrency',
     ).click();
 
-    cy.get('.ant-select-item-option-content').contains(currency).click();
+    cy.get('.ant-select-item-option-content')
+      .contains(currency)
+      .click();
 
     return this;
   }
 
-  public checkContractRemittance() {
+  public checkContractRemittance(currency: string) {
     cy.get('.ant-select-selection-item')
       .contains('USD')
       .should('have.length', 1);
@@ -492,10 +526,18 @@ Crash Course Artificial Intelligence,CCAI_01_CLEAN_What-Is-AI,What Is Artificial
   }
 
   public setContractDates() {
-    cy.get('.ant-picker-input').first().click();
+    cy.get('.ant-picker-input')
+      .first()
+      .click();
 
-    cy.get('.ant-picker-cell-inner').contains('12').first().click();
-    cy.get('.ant-picker-cell-inner').contains('16').last().click();
+    cy.get('.ant-picker-cell-inner')
+      .contains('12')
+      .first()
+      .click();
+    cy.get('.ant-picker-cell-inner')
+      .contains('16')
+      .last()
+      .click();
 
     return this;
   }
@@ -503,7 +545,7 @@ Crash Course Artificial Intelligence,CCAI_01_CLEAN_What-Is-AI,What Is Artificial
   public checkContractDates() {
     cy.get('.ant-picker-input')
       .find('input')
-      .should((inputs) => {
+      .should(inputs => {
         console.log(inputs);
         expect(inputs[0].value).to.contain('-12');
         expect(inputs[1].value).to.contain('-16');
@@ -513,7 +555,7 @@ Crash Course Artificial Intelligence,CCAI_01_CLEAN_What-Is-AI,What Is Artificial
   }
 
   public setContractDocument() {
-    cy.get('.ant-upload-drag-container:visible').then((it) => {
+    cy.get('.ant-upload-drag-container:visible').then(it => {
       expect(it).to.have.length(1);
 
       const [contractUpload] = it;
@@ -555,7 +597,7 @@ Crash Course Artificial Intelligence,CCAI_01_CLEAN_What-Is-AI,What Is Artificial
 
     cy.get(By.dataQa('channel-filter-input'))
       .get('.ant-select-selector')
-      .then((it) => {
+      .then(it => {
         it.trigger('mousedown');
       })
       .type(name);
@@ -567,16 +609,18 @@ Crash Course Artificial Intelligence,CCAI_01_CLEAN_What-Is-AI,What Is Artificial
 
   public editFirstAndOnlyContentPartner() {
     cy.get(By.dataQa('edit-channel'))
-      .should((it) => expect(it).to.have.length(1))
+      .should(it => expect(it).to.have.length(1))
       .click();
 
     return this;
   }
 
-  public editLatestContentPartnerContract() {
+  public editLatestContentPartnerContract(name: string) {
     cy.wait(500);
 
-    cy.get(By.dataQa('edit-content-partner')).last().click();
+    cy.get(By.dataQa('edit-content-partner'))
+      .last()
+      .click();
 
     cy.scrollTo('top'); // for visibility
 
