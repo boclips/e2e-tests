@@ -5,14 +5,14 @@ import { assertApiResourceCreation } from './utilities';
 
 interface HypermediaWrapper {
   _links: any;
-  _embedded: ContentPartners;
+  _embedded: Channels;
 }
 
-interface ContentPartners {
-  contentPartners: ContentPartner[];
+interface Channels {
+  channels: Channel[];
 }
 
-export interface ContentPartner {
+export interface Channel {
   name: string;
   id?: string;
   accreditedToYtChannelId?: string;
@@ -22,13 +22,10 @@ export interface ContentPartner {
   contractId?: string;
 }
 
-export async function insertContentPartner(
-  contentPartner: ContentPartner,
-  token: string,
-) {
-  const response = await fetch(Constants.API_URL + '/v1/content-partners', {
+export async function insertContentPartner(channel: Channel, token: string) {
+  const response = await fetch(Constants.API_URL + '/v1/channels', {
     method: 'POST',
-    body: JSON.stringify(contentPartner),
+    body: JSON.stringify(channel),
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
@@ -37,10 +34,10 @@ export async function insertContentPartner(
   await assertApiResourceCreation(response, 'Content partner creation');
 }
 
-export async function getContentPartners(
+export async function getChannels(
   token: string,
-): Promise<ContentPartner[] | undefined> {
-  const response = await fetch(`${API_URL}/v1/content-partners`, {
+): Promise<Channel[] | undefined> {
+  const response = await fetch(`${API_URL}/v1/channels`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -49,8 +46,8 @@ export async function getContentPartners(
   });
   const payload: HypermediaWrapper = await response.json();
 
-  if (payload && payload._embedded && payload._embedded.contentPartners) {
-    return payload._embedded.contentPartners;
+  if (payload && payload._embedded && payload._embedded.channels) {
+    return payload._embedded.channels;
   } else {
     return undefined;
   }

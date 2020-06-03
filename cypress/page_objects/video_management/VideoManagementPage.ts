@@ -36,9 +36,8 @@ export class VideoManagementPage {
           videos.push({
             id: el.querySelector(By.dataQa('video-id'))!.textContent!,
             title: el.querySelector(By.dataQa('video-title'))!.textContent!,
-            contentPartner: el.querySelector(
-              By.dataQa('video-content-partner'),
-            )!.textContent!,
+            contentPartner: el.querySelector(By.dataQa('video-channel'))!
+              .textContent!,
           });
         }),
       )

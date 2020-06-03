@@ -13,10 +13,7 @@ import {
 } from './api/ageRangeApi';
 import { ensureApiIntegrationAndReturnId } from './api/apiIntegrationApi';
 import { createContentPackage } from './api/contentPackageApi';
-import {
-  getContentPartners,
-  insertContentPartner,
-} from './api/contentPartnerApi';
+import { getChannels, insertContentPartner } from './api/contentPartnerApi';
 import { getDisciplines, insertDiscipline } from './api/disciplineApi';
 import { getSubjects, insertSubject } from './api/subjectApi';
 import { getTags, insertTag } from './api/tagApi';
@@ -225,7 +222,7 @@ async function setUp() {
     await insertDisciplines(token);
   }
 
-  await getContentPartners(token);
+  await getChannels(token);
 
   inserting('content partners');
   await insertContentPartners(token);

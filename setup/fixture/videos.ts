@@ -1,4 +1,4 @@
-import { getContentPartners } from '../api/contentPartnerApi';
+import { getChannels } from '../api/contentPartnerApi';
 import { getSubjects } from '../api/subjectApi';
 
 export interface VideoFixture {
@@ -39,7 +39,7 @@ function video(params: Partial<VideoFixture>): VideoFixture {
 export async function getParametrisedVideoFixtures(
   token: string,
 ): Promise<VideoFixture[]> {
-  const contentPartners = await getContentPartners(token);
+  const contentPartners = await getChannels(token);
   const subjects = await getSubjects();
 
   function convertContentPartnerNameToId(contentPartnerName: string) {

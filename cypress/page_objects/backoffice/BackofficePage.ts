@@ -69,7 +69,7 @@ export class BackofficePage {
   public goToContentPartnerPage() {
     cy.get(By.dataQa('content-management'))
       .trigger('mouseover')
-      .get(By.dataQa('content-partners-menu'))
+      .get(By.dataQa('channels-menu'))
       .click();
 
     return this;
@@ -249,7 +249,7 @@ export class BackofficePage {
   }
 
   public contentPartnerTableHasData() {
-    cy.get(By.dataQa('content-partner'))
+    cy.get(By.dataQa('channel'))
       .its('length')
       .should('be.gte', 1);
 
@@ -383,7 +383,7 @@ Crash Course Artificial Intelligence,CCAI_01_CLEAN_What-Is-AI,What Is Artificial
   }
 
   public createContentPartner() {
-    cy.get(By.dataQa('new-content-partner-button')).click();
+    cy.get(By.dataQa('new-channel-button')).click();
 
     return this;
   }
@@ -595,7 +595,7 @@ Crash Course Artificial Intelligence,CCAI_01_CLEAN_What-Is-AI,What Is Artificial
   public filterByContentPartner(name: string) {
     cy.wait(1000);
 
-    cy.get(By.dataQa('content-partner-filter-input'))
+    cy.get(By.dataQa('channel-filter-input'))
       .get('.ant-select-selector')
       .then(it => {
         it.trigger('mousedown');
@@ -608,7 +608,7 @@ Crash Course Artificial Intelligence,CCAI_01_CLEAN_What-Is-AI,What Is Artificial
   }
 
   public editFirstAndOnlyContentPartner() {
-    cy.get(By.dataQa('edit-content-partner'))
+    cy.get(By.dataQa('edit-channel'))
       .should(it => expect(it).to.have.length(1))
       .click();
 
