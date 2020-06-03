@@ -7,9 +7,11 @@ module.exports = {
       {
         test: /\.ts$/,
         exclude: [/node_modules/],
-        use: [{
-          loader: 'ts-loader',
-        }],
+        use: [
+          {
+            loader: 'ts-loader',
+          },
+        ],
       },
       {
         test: /.*\/node_modules\/axe-core\/axe.js$/,
@@ -17,4 +19,4 @@ module.exports = {
       },
     ],
   },
-}
+};

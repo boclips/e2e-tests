@@ -1,4 +1,4 @@
-require('cypress-plugin-retries')
+const Cypress = require('cypress-plugin-retries');
 // ***********************************************************
 // This example support/index.js is processed and
 // loaded automatically before your test files.
@@ -32,14 +32,14 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 
 let logs = '';
 
-Cypress.on('window:before:load', window => {
+Cypress.on('window:before:load', (window) => {
   const docIframe = window.parent.document.querySelector("[id^='Your App']");
 
   const appWindow = docIframe.contentWindow;
 
   // Frankly I'm surprised this works given the src of the target iframe is on a different domain.... #cypressmagic
-  ['log', 'info', 'error', 'warn', 'debug'].forEach(consoleProperty => {
-    appWindow.console[consoleProperty] = function(...args) {
+  ['log', 'info', 'error', 'warn', 'debug'].forEach((consoleProperty) => {
+    appWindow.console[consoleProperty] = function (...args) {
       args.unshift(consoleProperty);
       if (['error', 'warn'].includes(consoleProperty)) {
         const error = Error();
@@ -70,7 +70,7 @@ Cypress.mocha.getRunner().on('test', () => {
 
 // On a cypress fail. I add the console logs, from the start of test or after the last test fail to the
 // current fail, to the end of the error.stack property.
-Cypress.on('fail', error => {
+Cypress.on('fail', (error) => {
   error.stack += '\nConsole Logs:\n========================\n';
   error.stack += logs;
   // clear logs after fail so we dont see duplicate logs

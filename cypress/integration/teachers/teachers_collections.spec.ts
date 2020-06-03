@@ -85,9 +85,9 @@ context('Teachers App Collections Journey', () => {
       .menu()
       .goToCollections()
       .goToCollectionDetails(collectionTitle)
-      .then(page => {
+      .then((page) => {
         page
-          .inspectItems(videos => expect(videos).to.have.length(1))
+          .inspectItems((videos) => expect(videos).to.have.length(1))
           .removeVideo(0)
           .isEmpty();
       });
@@ -105,7 +105,7 @@ context('Teachers App Collections Journey', () => {
       .menu()
       .goToCollections()
       .goToCollectionDetails(collectionTitle)
-      .then(page => {
+      .then((page) => {
         page
           .setSubject(SUBJECT)
           .setName(newCollectionTitle)
@@ -115,7 +115,6 @@ context('Teachers App Collections Journey', () => {
 
   specify('Can delete a collection', () => {
     const collectionTitle = uuid();
-    let collectionCount: number;
     homepage
       .menu()
       .search(MINUTE_PHYSICS)
@@ -123,7 +122,7 @@ context('Teachers App Collections Journey', () => {
 
       .menu()
       .goToCollections()
-      .inspectCollections(collections => (collectionCount = collections.length))
+      .inspectCollections((collections) => collections.length)
       .deleteCollection(collectionTitle);
   });
 

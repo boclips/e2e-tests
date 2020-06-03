@@ -53,7 +53,7 @@ export async function getTagByLabel(tagLabel: string): Promise<Tag> {
     throw new Error('No tags found');
   }
 
-  const tag = tags.find(s => s.label === tagLabel);
+  const tag = tags.find((s) => s.label === tagLabel);
   if (tag === undefined) {
     throw new Error(`Tag not found for label ${tagLabel}`);
   }

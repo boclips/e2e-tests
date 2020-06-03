@@ -62,8 +62,8 @@ context('Backoffice', () => {
       .setContentPartnerContractRoyaltySplitDownload('4')
       .setContentPartnerContractRoyaltySplitStreaming('5')
       .submitContentPartnerContract()
-      .editLatestContentPartnerContract(contractName)
-      .checkContractRemittance('USD')
+      .editLatestContentPartnerContract()
+      .checkContractRemittance()
       .checkContractDates();
   });
 
@@ -135,11 +135,7 @@ context('Backoffice', () => {
     });
 
     it('should export a manifest', () => {
-      backoffice
-        .visit()
-        .logIn()
-        .goToOrdersPage()
-        .exportOrderCSV();
+      backoffice.visit().logIn().goToOrdersPage().exportOrderCSV();
     });
   });
 });
