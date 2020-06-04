@@ -35,23 +35,23 @@ export class TeacherPage {
       .get(By.dataQa('share-button'))
       .click()
       .get(By.dataQa('copy-link'))
-      .then(button => {
-        return button.attr('data-link')!!.toString();
+      .then((button) => {
+        return button.attr('data-link')!.toString();
       })
-      .then(copyLink => {
-        return cy.location().then(location => {
+      .then((copyLink) => {
+        return cy.location().then((location) => {
           const pathname = location.pathname;
           const parts = pathname.split('/');
           const id = parts[parts.length - 1];
           return { id, copyLink };
         });
       })
-      .then(pageProperties => {
-        return cy.get('.share-code__code').then(shareCode => {
+      .then((pageProperties) => {
+        return cy.get('.share-code__code').then((shareCode) => {
           return { ...pageProperties, shareCode: shareCode.text() };
         });
       })
-      .then(pageProperties => {
+      .then((pageProperties) => {
         return new TeachersVideoDetailsPage(
           pageProperties.id,
           pageProperties.copyLink,
@@ -79,20 +79,13 @@ export class TeacherPage {
   }
 
   protected clickDropDownOption(dropdown: string, option: string) {
-    cy.get(dropdown)
-      .click()
-      .should('be.visible');
+    cy.get(dropdown).click().should('be.visible');
 
-    cy.contains(option)
-      .scrollIntoView()
-      .should('be.visible')
-      .click();
+    cy.contains(option).scrollIntoView().should('be.visible').click();
   }
 
   protected clickSelectOption(select: string, optionDataState: string) {
-    cy.get(By.dataQa(select))
-      .click()
-      .should('be.visible');
+    cy.get(By.dataQa(select)).click().should('be.visible');
 
     cy.get(By.dataState(optionDataState))
       .scrollIntoView()

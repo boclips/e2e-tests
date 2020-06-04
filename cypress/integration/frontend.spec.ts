@@ -11,7 +11,7 @@ context('Frontend', () => {
       .assertHubspotChat()
       .assertSuccessfulLogIn()
       .search(validSearchQuery)
-      .showsVideo(videos => {
+      .showsVideo((videos) => {
         expect(videos.length).to.be.greaterThan(
           0,
           `There are no videos showing`,

@@ -54,7 +54,7 @@ export async function getSubjectByName(subjectName: string): Promise<Subject> {
     throw new Error('No subjects found');
   }
 
-  const subject = subjects.find(s => s.name === subjectName);
+  const subject = subjects.find((s) => s.name === subjectName);
   if (subject === undefined) {
     throw new Error(`Subject not found for name ${subjectName}`);
   }

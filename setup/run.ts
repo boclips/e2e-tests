@@ -54,7 +54,7 @@ if (!TOKEN_URL || !OPERATOR_USERNAME || !OPERATOR_PASSWORD) {
 async function insertVideos(token: string) {
   const allInterpolatedVideos = await getParametrisedVideoFixtures(token);
   return Promise.all(
-    allInterpolatedVideos.map(async video => {
+    allInterpolatedVideos.map(async (video) => {
       await insertVideo(video, token);
     }),
   );
@@ -62,14 +62,14 @@ async function insertVideos(token: string) {
 
 async function insertSubjects(token: string) {
   return Promise.all(
-    subjectFixtures.map(subject => insertSubject(subject, token)),
+    subjectFixtures.map((subject) => insertSubject(subject, token)),
   );
 }
 
 async function insertAgeRanges(token: string) {
   return Promise.all(
-    ageRangeFixtures.map(range =>
-      findOneAgeRange(range.id, token).then(id => {
+    ageRangeFixtures.map((range) =>
+      findOneAgeRange(range.id, token).then((id) => {
         if (id) {
           insertAgeRange(range, token);
         }
@@ -79,12 +79,12 @@ async function insertAgeRanges(token: string) {
 }
 
 async function insertTags(token: string) {
-  return Promise.all(tagFixtures.map(tag => insertTag(tag, token)));
+  return Promise.all(tagFixtures.map((tag) => insertTag(tag, token)));
 }
 
 async function insertDisciplines(token: string) {
   return Promise.all(
-    disciplineFixtures.map(discipline => insertDiscipline(discipline, token)),
+    disciplineFixtures.map((discipline) => insertDiscipline(discipline, token)),
   );
 }
 
@@ -94,7 +94,7 @@ async function insertCollections(
 ) {
   await Promise.all(
     collectionFixtures.map((collection: CollectionFixture) =>
-      findOneCollectionId(collection.title, token).then(id => {
+      findOneCollectionId(collection.title, token).then((id) => {
         if (!id) {
           insertCollection(collection, token);
         }
@@ -109,9 +109,11 @@ async function setupLtiFixtures(token: string) {
     token,
   );
 
-  await findVideos('Minute Physics', token).then(videos => {
+  await findVideos('Minute Physics', token).then((videos) => {
     return Promise.all(
-      videos.map(video => addVideoToCollection(collectionId, video.id, token)),
+      videos.map((video) =>
+        addVideoToCollection(collectionId, video.id, token),
+      ),
     );
   });
 
@@ -140,7 +142,7 @@ async function setupSelectedVideosE2ETest(token: string) {
   const videos = await findVideos('Minute Physics', token);
   const selectedVideos = [videos[0]];
   const accessRuleId = await ensureAccessRuleAndReturnId(
-    includedVideosAccessRuleFixture(selectedVideos.map(video => video.id)),
+    includedVideosAccessRuleFixture(selectedVideos.map((video) => video.id)),
     token,
   );
   const contentPackageId = await createContentPackage(
@@ -179,7 +181,7 @@ async function insertContentPartners(token: string) {
   }
 
   return Promise.all(
-    contentPartnerFixtures.map(async contentPartnerFixture => {
+    contentPartnerFixtures.map(async (contentPartnerFixture) => {
       return insertContentPartner(
         {
           name: contentPartnerFixture.name,
@@ -249,7 +251,7 @@ setUp()
     console.log('Setup finished');
     process.exit();
   })
-  .catch(e => {
+  .catch((e) => {
     console.log(`Setup failed, ${e}`);
     process.exit(1);
   });

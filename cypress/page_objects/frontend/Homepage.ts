@@ -15,9 +15,7 @@ export class Homepage {
 
   public logIn() {
     cy.wait(2000); // We found that adding this helps cypress to avoid a mysterious error: "Cannot read property 'getComputedStyle' of null"
-    cy.get(By.dataQa('login-button'))
-      .find('span')
-      .click();
+    cy.get(By.dataQa('login-button')).find('span').click();
     cy.get(By.dataQa('username')).type(Cypress.env('FRONTEND_USERNAME'));
     cy.get(By.dataQa('password')).type(Cypress.env('FRONTEND_PASSWORD'));
     cy.get(By.dataQa('form-login')).click();
@@ -48,7 +46,7 @@ export class Homepage {
   public showsVideo(callback: (videos: Video[]) => void) {
     const videos: Video[] = [];
     cy.get(By.dataQa('video-thumbnail'))
-      .then(videoCards =>
+      .then((videoCards) =>
         videoCards.each((idx, el: HTMLElement) => {
           videos.push({
             title: el.querySelector(By.dataQa('video-title'))!.textContent!,
@@ -60,9 +58,7 @@ export class Homepage {
   }
 
   public clickOnFirstVideo() {
-    cy.get(By.dataQa('video-thumbnail'))
-      .first()
-      .click();
+    cy.get(By.dataQa('video-thumbnail')).first().click();
     return this;
   }
 
@@ -91,9 +87,10 @@ export class Homepage {
     dataQaQuery: string,
     callback: (filterItem: JQuery<HTMLElement>, index: number) => void,
   ) {
-    this.getListOfFilterValuesForFilterContainer(dataQaQuery).each(
-      (filterItem: JQuery<HTMLElement>, index: number) =>
-        callback(filterItem, index),
+    this.getListOfFilterValuesForFilterContainer(
+      dataQaQuery,
+    ).each((filterItem: JQuery<HTMLElement>, index: number) =>
+      callback(filterItem, index),
     );
 
     return this;

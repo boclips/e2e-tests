@@ -21,17 +21,14 @@ export class VideoManagementPage {
   }
 
   public search(searchQuery: string) {
-    cy.get(By.dataQa('search-input'))
-      .clear()
-      .type(searchQuery)
-      .type('{enter}');
+    cy.get(By.dataQa('search-input')).clear().type(searchQuery).type('{enter}');
     return this;
   }
 
   public showsVideo(callback: (videos: Video[]) => void) {
     const videos: Video[] = [];
     cy.get(By.dataQa('video'))
-      .then(videoCards =>
+      .then((videoCards) =>
         videoCards.each((idx, el: HTMLElement) => {
           videos.push({
             id: el.querySelector(By.dataQa('video-id'))!.textContent!,

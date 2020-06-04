@@ -20,7 +20,7 @@ export class LtiDemoPage {
   public getResource() {
     cy.get('#select-resource-button').click();
     cy.wait(5000);
-    cy.get('iframe#lti-resource').then(it => {
+    cy.get('iframe#lti-resource').then((it) => {
       const tiles = (it.contents()[0] as Document).querySelectorAll(
         '.collectionTile',
       );

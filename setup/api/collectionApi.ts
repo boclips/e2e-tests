@@ -5,7 +5,8 @@ import { LinksHolder } from './hateoas';
 import { assertApiResourceCreation, extractIdFromLocation } from './utilities';
 import 'urijs/src/URITemplate';
 
-import URI = require('urijs');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const URI = require('urijs');
 
 interface HypermediaWrapper {
   _embedded: Collections;
@@ -111,7 +112,6 @@ export async function findOneCollectionId(
 ): Promise<string | undefined> {
   const searchCollectionsUri = await getCollectionsLink(token);
 
-  // @ts-ignore
   const url = URI.expand(searchCollectionsUri, {}).toString();
   const response = await fetch(url, {
     method: 'GET',

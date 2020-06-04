@@ -34,7 +34,7 @@ context('Teachers App - Student Journey', () => {
       .menu()
       .search(MINUTE_PHYSICS)
       .goToFirstVideo()
-      .then(page => {
+      .then((page) => {
         clearLoginCookies();
 
         page
