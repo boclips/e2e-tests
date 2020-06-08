@@ -42,10 +42,7 @@ import { subjectFixtures } from './fixture/subjects';
 import { tagFixtures } from './fixture/tags';
 import { getParametrisedVideoFixtures } from './fixture/videos';
 import { generateToken } from './generateToken';
-import {
-  getContentPartnerContracts,
-  insertContentPartnerContract,
-} from './api/contentPartnerContractApi';
+import { getContracts, insertContentPartnerContract } from './api/contractApi';
 
 if (!TOKEN_URL || !OPERATOR_USERNAME || !OPERATOR_PASSWORD) {
   throw new Error('Environment variables not set properly.');
@@ -174,7 +171,7 @@ async function setupClassroomAccessRule(token: string) {
 
 async function insertContentPartners(token: string) {
   await insertContentPartnerContract(token);
-  const contracts = await getContentPartnerContracts(token);
+  const contracts = await getContracts(token);
 
   if (!contracts || !(contracts.length > 0)) {
     throw new Error('Cannot find contracts needed to create channels');
