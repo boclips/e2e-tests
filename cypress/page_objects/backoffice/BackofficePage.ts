@@ -199,8 +199,8 @@ export class BackofficePage {
       BackofficePage.uploadCSV(content, dropzone);
     });
 
-    cy.get(By.dataQa('contracts-select')).click();
-    cy.get(By.dataState('contract-option')).first().click();
+    cy.get(By.dataQa('access-rules-select')).click();
+    cy.get(By.dataState('access-rules-option')).first().click();
     cy.get(By.dataQa('collection-title-input')).click();
 
     return this;
