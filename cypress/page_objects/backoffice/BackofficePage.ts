@@ -71,7 +71,7 @@ export class BackofficePage {
     return this;
   }
 
-  public goToContentPartnerContractPage() {
+  public goToContractPage() {
     cy.get(By.dataQa('content-management'))
       .trigger('mouseover')
       .get(By.dataQa('contracts-menu'))
@@ -356,43 +356,43 @@ Crash Course Artificial Intelligence,CCAI_01_CLEAN_What-Is-AI,What Is Artificial
     return this;
   }
 
-  public createContentPartnerContract() {
+  public createContract() {
     cy.get(By.dataQa('new-contract-button')).click();
 
     return this;
   }
 
-  public setContentPartnerContractName(name: string) {
+  public setContractName(name: string) {
     cy.get(By.dataQa('details-tab-content-partner-name')).type(name);
 
     return this;
   }
 
-  public setContentPartnerContractTerminationWarning(amount: string) {
+  public setContractTerminationWarning(amount: string) {
     cy.get(By.dataQa('details-tab-termination-warning')).type(amount);
 
     return this;
   }
 
-  public setContentPartnerContractMaximumLicense(amount: string) {
+  public setContractMaximumLicense(amount: string) {
     cy.get(By.dataQa('details-tab-maximum-license')).type(amount);
 
     return this;
   }
 
-  public setContentPartnerContractSellOffPeriod(amount: string) {
+  public setContractSellOffPeriod(amount: string) {
     cy.get(By.dataQa('details-tab-sell-off-period')).type(amount);
 
     return this;
   }
 
-  public setContentPartnerContractRoyaltySplitDownload(amount: string) {
+  public setContractRoyaltySplitDownload(amount: string) {
     cy.get(By.dataQa('details-tab-download-royalty-split')).type(amount);
 
     return this;
   }
 
-  public setContentPartnerContractRoyaltySplitStreaming(amount: string) {
+  public setContractRoyaltySplitStreaming(amount: string) {
     cy.get(By.dataQa('details-tab-streaming-royalty-split')).type(amount);
 
     return this;
@@ -544,7 +544,7 @@ Crash Course Artificial Intelligence,CCAI_01_CLEAN_What-Is-AI,What Is Artificial
     return this;
   }
 
-  public submitContentPartnerContract() {
+  public submitContract() {
     cy.get(By.dataQa('save-contract-button')).click();
 
     return this;
@@ -573,10 +573,10 @@ Crash Course Artificial Intelligence,CCAI_01_CLEAN_What-Is-AI,What Is Artificial
     return this;
   }
 
-  public editLatestContentPartnerContract() {
+  public editLatestContract() {
     cy.wait(500);
 
-    cy.get(By.dataQa('edit-content-partner')).last().click();
+    cy.get(By.dataQa('edit-contract')).last().click();
 
     cy.scrollTo('top'); // for visibility
 
