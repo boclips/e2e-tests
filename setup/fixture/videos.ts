@@ -9,7 +9,7 @@ export interface VideoFixture {
   releasedOn: string;
   legalRestrictions: string;
   keywords: string[];
-  videoType: string;
+  videoTypes: string[];
   playbackId: string;
   playbackProvider: string;
   subjects?: string[];
@@ -27,7 +27,7 @@ function video(params: Partial<VideoFixture>): VideoFixture {
     releasedOn: params.releasedOn || '2018-12-04T00:00:00',
     legalRestrictions: 'none',
     keywords: ['k1', 'k2'],
-    videoType: params.videoType || 'INSTRUCTIONAL_CLIPS',
+    videoTypes: params.videoTypes || ['INSTRUCTIONAL_CLIPS'],
     playbackId: params.playbackId || '0_pqr3lk4n',
     playbackProvider: params.playbackProvider || 'KALTURA',
     subjects: params.subjects || undefined,
@@ -221,7 +221,7 @@ export async function getParametrisedVideoFixtures(
       title: 'Gdansk Mayor Stabbed at a charity event',
       description: 'Terrible news from Poland',
       releasedOn: '2018-12-03T00:00:00',
-      videoType: 'NEWS',
+      videoTypes: ['NEWS'],
     }),
     video({
       providerId: convertContentPartnerNameToId('Reuters'),
@@ -230,7 +230,7 @@ export async function getParametrisedVideoFixtures(
       description:
         'Incredible news as the greatest video has exploded on the internet',
       releasedOn: '2018-12-04T00:00:00',
-      videoType: 'NEWS',
+      videoTypes: ['NEWS'],
     }),
     video({
       providerId: convertContentPartnerNameToId('Reuters'),
@@ -238,7 +238,7 @@ export async function getParametrisedVideoFixtures(
       title: 'Breaking news',
       description: 'Latest piece of news about Richard',
       releasedOn: '2018-12-05T00:00:00',
-      videoType: 'NEWS',
+      videoTypes: ['NEWS'],
     }),
   ];
 
@@ -246,7 +246,7 @@ export async function getParametrisedVideoFixtures(
     video({
       providerId: convertContentPartnerNameToId('Getty'),
       providerVideoId: 'getty-12',
-      videoType: 'STOCK',
+      videoTypes: ['STOCK'],
       title: 'Celebrities on the red carpet',
       description: 'Not valuable for education',
     }),
