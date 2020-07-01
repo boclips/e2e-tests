@@ -84,7 +84,10 @@ export class TeacherPage {
     cy.contains(option).scrollIntoView().should('be.visible').click();
   }
 
-  protected clickSelectOption(select: string, optionDataState: string) {
+  protected clickSelectOptionByDataState(
+    select: string,
+    optionDataState: string,
+  ) {
     cy.get(By.dataQa(select)).click().should('be.visible');
 
     cy.get(By.dataState(optionDataState))
