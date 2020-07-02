@@ -47,32 +47,20 @@ export class TeachersHomepage extends TeacherPage {
   public activateAccount() {
     cy.get(By.dataQa('first-name')).type('Firstname');
     cy.get(By.dataQa('last-name')).type('Lastname');
-    this.clickSelectOptionByDataState('select-role', 'TEACHER');
+    this.clickSelectOption('select-role', 'TEACHER');
 
     cy.get(By.dataQa('onboard-next-button')).click();
 
-    cy.get(By.dataQa('subjects')).click();
-    cy.get(By.dataState('Biology')).first().click();
-
+    this.clickDropDownOption(By.dataQa('subjects'), 'Biology');
     cy.get('footer').click();
     this.clickDropDownOption(By.dataQa('age-select'), '3-5');
     cy.get('footer').click();
 
     cy.get(By.dataQa('onboard-next-button')).click();
 
-    cy.get(By.dataQa('countries-filter-select')).click();
-
-    cy.get(By.dataQa('country-option')).first().click();
-
-    cy.get(By.dataQa('states-filter-select')).click();
-
-    cy.get(By.dataQa('state-option')).first().click();
-
-    cy.get(By.dataQa('school-filter-select'))
-      .click()
-      .type('unlisted school')
-      .type('{downarrow}{enter}');
+    this.clickDropDownOption(By.dataQa('countries-filter-select'), 'Albania');
     cy.get('footer').click();
+    cy.get('[data-qa="school"] input').type('School');
 
     cy.get(By.dataQa('onboard-next-button')).click();
 
