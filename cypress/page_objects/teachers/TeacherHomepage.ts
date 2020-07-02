@@ -56,7 +56,6 @@ export class TeachersHomepage extends TeacherPage {
 
     cy.get('footer').click();
     this.clickDropDownOption(By.dataQa('age-select'), '3-5');
-    cy.get('footer').click();
 
     cy.get(By.dataQa('onboard-next-button')).click();
 
