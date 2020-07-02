@@ -100,8 +100,11 @@ export class TeacherPage {
     selectDataQa: string,
     optionDataQa: string,
   ) {
-    cy.get(By.dataQa(selectDataQa)).click().should('be.visible');
+    cy.get(By.dataQa(selectDataQa)).click({ force: true });
 
-    cy.get(By.dataQa(optionDataQa)).first().should('be.visible').click();
+    cy.get(By.dataQa(optionDataQa))
+      .first()
+      .should('be.visible')
+      .click({ force: true });
   }
 }
