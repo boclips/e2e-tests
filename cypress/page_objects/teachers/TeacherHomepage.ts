@@ -51,19 +51,24 @@ export class TeachersHomepage extends TeacherPage {
 
     cy.get(By.dataQa('onboard-next-button')).click();
 
-    cy.get(By.dataQa('subjects')).should('be.visible').click();
-    cy.get(By.dataState('Biology')).first().should('be.visible').click();
+    cy.get(By.dataQa('subjects')).click();
+    cy.get(By.dataState('Biology')).first().click();
 
     cy.get('footer').click();
     this.clickDropDownOption(By.dataQa('age-select'), '3-5');
+    cy.get('footer').click();
 
     cy.get(By.dataQa('onboard-next-button')).click();
 
-    this.selectFirstSelectOption('countries-filter-select', 'country-option');
-    this.selectFirstSelectOption('states-filter-select', 'state-option');
+    cy.get(By.dataQa('countries-filter-select')).click();
+
+    cy.get(By.dataQa('country-option')).first().click();
+
+    cy.get(By.dataQa('states-filter-select')).click();
+
+    cy.get(By.dataQa('state-option')).first().click();
 
     cy.get(By.dataQa('school-filter-select'))
-      .should('be.visible')
       .click()
       .type('unlisted school')
       .type('{downarrow}{enter}');

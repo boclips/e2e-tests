@@ -95,16 +95,4 @@ export class TeacherPage {
       .should('be.visible')
       .click();
   }
-
-  protected selectFirstSelectOption(
-    selectDataQa: string,
-    optionDataQa: string,
-  ) {
-    cy.get(By.dataQa(selectDataQa)).click({ force: true });
-
-    cy.get(By.dataQa(optionDataQa))
-      .first()
-      .should('be.visible')
-      .click({ force: true });
-  }
 }
