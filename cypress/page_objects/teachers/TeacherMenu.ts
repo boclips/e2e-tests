@@ -39,6 +39,7 @@ export class MenuPage {
 
   private openAccountMenu() {
     cy.get(By.dataQa('account-menu-open') + `:visible`)
+      .first()
       .should('be.visible')
       .click();
 
