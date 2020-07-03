@@ -47,14 +47,14 @@ export class TeachersHomepage extends TeacherPage {
   public activateAccount() {
     cy.get(By.dataQa('first-name')).type('Firstname');
     cy.get(By.dataQa('last-name')).type('Lastname');
-    this.clickSelectOptionByDataState('select-role', 'TEACHER');
+    this.clickSelectOption('select-role', 'TEACHER');
 
     cy.get(By.dataQa('onboard-next-button')).click();
 
     cy.get(By.dataQa('subjects')).should('be.visible').click();
     cy.get(By.dataState('Biology')).first().should('be.visible').click();
 
-    cy.get('footer').click();
+    cy.get('header').click();
     this.clickDropDownOption(By.dataQa('age-select'), '3-5');
 
     cy.get(By.dataQa('onboard-next-button')).click();
@@ -67,7 +67,7 @@ export class TeachersHomepage extends TeacherPage {
       .click()
       .type('unlisted school')
       .type('{downarrow}{enter}');
-    cy.get('footer').click();
+    cy.get('header').click();
 
     cy.get(By.dataQa('onboard-next-button')).click();
 
