@@ -47,20 +47,27 @@ export class TeachersHomepage extends TeacherPage {
   public activateAccount() {
     cy.get(By.dataQa('first-name')).type('Firstname');
     cy.get(By.dataQa('last-name')).type('Lastname');
-    this.clickSelectOption('select-role', 'TEACHER');
+    this.clickSelectOptionByDataState('select-role', 'TEACHER');
 
     cy.get(By.dataQa('onboard-next-button')).click();
 
-    this.clickDropDownOption(By.dataQa('subjects'), 'Biology');
+    cy.get(By.dataQa('subjects')).should('be.visible').click();
+    cy.get(By.dataState('Biology')).first().should('be.visible').click();
+
     cy.get('footer').click();
     this.clickDropDownOption(By.dataQa('age-select'), '3-5');
-    cy.get('footer').click();
 
     cy.get(By.dataQa('onboard-next-button')).click();
 
-    this.clickDropDownOption(By.dataQa('countries-filter-select'), 'Albania');
+    this.selectFirstSelectOption('countries-filter-select', 'country-option');
+    this.selectFirstSelectOption('states-filter-select', 'state-option');
+
+    cy.get(By.dataQa('school-filter-select'))
+      .should('be.visible')
+      .click()
+      .type('unlisted school')
+      .type('{downarrow}{enter}');
     cy.get('footer').click();
-    cy.get('[data-qa="school"] input').type('School');
 
     cy.get(By.dataQa('onboard-next-button')).click();
 

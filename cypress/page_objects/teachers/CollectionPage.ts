@@ -20,11 +20,12 @@ export class CollectionPage extends TeacherPage {
 
     cy.get('[data-qa="subjects"]').click();
 
-    cy.get(`.ant-select-dropdown-menu-item`).should('be.visible');
+    cy.get(`.ant-select-item`).should('be.visible');
 
-    cy.get(`.ant-select-dropdown-menu-item`)
-      .contains(subject)
+    cy.get(By.dataState(subject))
       .scrollIntoView()
+      .should('be.visible')
+
       .click();
 
     cy.get('.ant-modal-title').click();
