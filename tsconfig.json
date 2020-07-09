@@ -8,7 +8,8 @@
       "node",
       "node-fetch",
       "cypress",
-      "cypress-axe"
+      "cypress-axe",
+      "@types/testing-library__cypress"
     ]
   },
   "include": [

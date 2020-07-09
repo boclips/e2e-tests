@@ -31,13 +31,13 @@ export class TeachersHomepage extends TeacherPage {
   }
 
   public createAccount(username: string, password: string) {
-    cy.get(By.dataQa('email')).type(username);
-    cy.get(By.dataQa('password')).type(password);
+    cy.findByLabelText('Work Email').type(username);
+    cy.findByLabelText('Password').type(password);
 
     cy.server();
     cy.route('POST', '**/users').as('createUser');
 
-    cy.get(By.dataQa('register-button')).click();
+    cy.findByRole('button', { name: /Create account/i }).click();
 
     cy.wait('@createUser');
     cy.server({ enable: false });
