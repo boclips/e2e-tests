@@ -36,7 +36,7 @@ run:
   args:
   - -ec
   - |-
-    npm ci
+    npm ci --ignore-scripts
     npm run setup
 
 caches:
