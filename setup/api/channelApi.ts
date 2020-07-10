@@ -22,7 +22,7 @@ export interface Channel {
   contractId?: string;
 }
 
-export async function insertContentPartner(channel: Channel, token: string) {
+export async function insertChannel(channel: Channel, token: string) {
   const response = await fetch(Constants.API_URL + '/v1/channels', {
     method: 'POST',
     body: JSON.stringify(channel),
@@ -31,7 +31,7 @@ export async function insertContentPartner(channel: Channel, token: string) {
       'Content-Type': 'application/json',
     },
   });
-  await assertApiResourceCreation(response, 'Content partner creation');
+  await assertApiResourceCreation(response, 'Channel creation');
 }
 
 export async function getChannels(

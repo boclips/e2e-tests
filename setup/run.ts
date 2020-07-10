@@ -13,7 +13,7 @@ import {
 } from './api/ageRangeApi';
 import { ensureApiIntegrationAndReturnId } from './api/apiIntegrationApi';
 import { createContentPackage } from './api/contentPackageApi';
-import { getChannels, insertContentPartner } from './api/contentPartnerApi';
+import { getChannels, insertChannel } from './api/channelApi';
 import { getDisciplines, insertDiscipline } from './api/disciplineApi';
 import { getSubjects, insertSubject } from './api/subjectApi';
 import { getTags, insertTag } from './api/tagApi';
@@ -179,7 +179,7 @@ async function insertContentPartners(token: string) {
 
   return Promise.all(
     contentPartnerFixtures.map(async (contentPartnerFixture) => {
-      return insertContentPartner(
+      return insertChannel(
         {
           name: contentPartnerFixture.name,
           distributionMethods: contentPartnerFixture.distributionMethods,

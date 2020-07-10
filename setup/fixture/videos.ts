@@ -1,4 +1,4 @@
-import { getChannels } from '../api/contentPartnerApi';
+import { getChannels } from '../api/channelApi';
 import { getSubjects } from '../api/subjectApi';
 
 export interface VideoFixture {
@@ -39,34 +39,32 @@ function video(params: Partial<VideoFixture>): VideoFixture {
 export async function getParametrisedVideoFixtures(
   token: string,
 ): Promise<VideoFixture[]> {
-  const contentPartners = await getChannels(token);
+  const channels = await getChannels(token);
   const subjects = await getSubjects();
 
-  function convertContentPartnerNameToId(contentPartnerName: string) {
-    if (contentPartners === undefined) {
-      throw new Error('There are no content partners');
+  function convertChannelNameToId(channelName: string) {
+    if (channels === undefined) {
+      throw new Error('There are no channels');
     }
 
-    if (contentPartnerName === undefined) {
-      throw new Error('Content partner name is undefined');
+    if (channelName === undefined) {
+      throw new Error('Channel name is undefined');
     }
 
-    const matchingContentPartners = contentPartners.filter(
-      (contentPartner) => contentPartner.name === contentPartnerName,
+    const matchingChannels = channels.filter(
+      (channel) => channel.name === channelName,
     );
 
-    if (matchingContentPartners.length === 0) {
-      throw Error(
-        `Matched no content partners for ${contentPartnerName}, check fixtures.`,
-      );
+    if (matchingChannels.length === 0) {
+      throw Error(`Matched no channels for ${channelName}, check fixtures.`);
     }
-    if (matchingContentPartners.length > 1) {
+    if (matchingChannels.length > 1) {
       throw Error(
-        `Matched more than one content partner for ${contentPartnerName}, check fixtures.`,
+        `Matched more than one channel for ${channelName}, check fixtures.`,
       );
     }
 
-    return matchingContentPartners[0].id;
+    return matchingChannels[0].id;
   }
 
   function convertSubjectNameToId(subjectName: string) {
@@ -89,7 +87,7 @@ export async function getParametrisedVideoFixtures(
 
   const instructionalVideos = [
     video({
-      providerId: convertContentPartnerNameToId('Minute Physics'),
+      providerId: convertChannelNameToId('Minute Physics'),
       providerVideoId: 'minute-physics-1',
       title: 'Richard St. John: 8 secrets of success',
       description:
@@ -102,7 +100,7 @@ export async function getParametrisedVideoFixtures(
       ageRangeMax: 5,
     }),
     video({
-      providerId: convertContentPartnerNameToId('Youtube CP'),
+      providerId: convertChannelNameToId('Youtube CP'),
       providerVideoId: 's3Gl6T0CC2I',
       playbackProvider: 'YOUTUBE',
       title:
@@ -118,7 +116,7 @@ export async function getParametrisedVideoFixtures(
       ageRangeMax: 8,
     }),
     video({
-      providerId: convertContentPartnerNameToId('Minute Physics'),
+      providerId: convertChannelNameToId('Minute Physics'),
       providerVideoId: 'minute-physics-2',
       title: 'Rives: If I controlled the Internet',
       description:
@@ -133,7 +131,7 @@ export async function getParametrisedVideoFixtures(
       ageRangeMax: 5,
     }),
     video({
-      providerId: convertContentPartnerNameToId('Minute Physics'),
+      providerId: convertChannelNameToId('Minute Physics'),
       providerVideoId: 'minute-physics-3',
       title: 'Steven Johnson: How the "ghost map" helped end a killer disease',
       description:
@@ -148,7 +146,7 @@ export async function getParametrisedVideoFixtures(
       ageRangeMax: 10,
     }),
     video({
-      providerId: convertContentPartnerNameToId('Minute Physics'),
+      providerId: convertChannelNameToId('Minute Physics'),
       providerVideoId: 'minute-physics-4',
       title: 'Jeff Han: The radical promise of the multi-touch interface',
       description:
@@ -163,49 +161,49 @@ export async function getParametrisedVideoFixtures(
       ageRangeMax: 10,
     }),
     video({
-      providerId: convertContentPartnerNameToId('Minute Physics'),
+      providerId: convertChannelNameToId('Minute Physics'),
       providerVideoId: 'minute-physics-5',
       title: 'Eva Vertes: Meet the future of cancer research',
       description:
         'Eva Vertes -- only 19 when she gave this talk -- discusses her journey toward studying medicine and her drive to understand the roots of cancer and Alzheimer’s.',
     }),
     video({
-      providerId: convertContentPartnerNameToId('Minute Physics'),
+      providerId: convertChannelNameToId('Minute Physics'),
       providerVideoId: 'minute-physics-6',
       title: 'Mena Trott: Meet the founder of the blog revolution',
       description:
         "The founding mother of the blog revolution, Movable Type's Mena Trott, talks about the early days of blogging, when she realized that giving regular people the power to share our lives online is the key to building a friendlier, more connecminute-physics world.",
     }),
     video({
-      providerId: convertContentPartnerNameToId('Minute Physics'),
+      providerId: convertChannelNameToId('Minute Physics'),
       providerVideoId: 'minute-physics-7',
       title: 'Michael Shermer: Why people believe weird things',
       description:
         'Why do people see the Virgin Mary on a cheese sandwich or hear demonic lyrics in "Stairway to Heaven"? Using video and music, skeptic Michael Shermer shows how we convince ourselves to believe -- and overlook the facts.',
     }),
     video({
-      providerId: convertContentPartnerNameToId('Minute Physics'),
+      providerId: convertChannelNameToId('Minute Physics'),
       providerVideoId: 'minute-physics-8',
       title: 'Peter Gabriel: Fight injustice with raw video',
       description:
         'Musician and activist Peter Gabriel shares his very personal motivation for standing up for human rights with the watchdog group WITNESS -- and tells stories of citizen journalists in action.',
     }),
     video({
-      providerId: convertContentPartnerNameToId('Minute Physics'),
+      providerId: convertChannelNameToId('Minute Physics'),
       providerVideoId: 'minute-physics-9',
       title: 'Seth Godin: How to get your ideas to spread',
       description:
         'In a world of too many options and too little time, our obvious choice is to just ignore the ordinary stuff. Marketing guru Seth Godin spells out why, when it comes to getting our attention, bad or bizarre ideas are more successful than boring ones.',
     }),
     video({
-      providerId: convertContentPartnerNameToId('Minute Physics'),
+      providerId: convertChannelNameToId('Minute Physics'),
       providerVideoId: 'minute-physics-10',
       title: 'Vik Muniz: Art with wire, sugar, chocolate and string',
       description:
         'Vik Muniz makes art from pretty much anything, be it shredded paper, wire, clouds or diamonds. Here he describes the thinking behind his work and takes us on a tour of his incredible images.',
     }),
     video({
-      providerId: convertContentPartnerNameToId('Minute Physics'),
+      providerId: convertChannelNameToId('Minute Physics'),
       providerVideoId: 'minute-physics-11',
       title: 'Robert Neuwirth: The hidden world of shadow cities',
       description:
@@ -216,7 +214,7 @@ export async function getParametrisedVideoFixtures(
 
   const newsVideos = [
     video({
-      providerId: convertContentPartnerNameToId('Reuters'),
+      providerId: convertChannelNameToId('Reuters'),
       providerVideoId: 'reuters-13',
       title: 'Gdansk Mayor Stabbed at a charity event',
       description: 'Terrible news from Poland',
@@ -224,7 +222,7 @@ export async function getParametrisedVideoFixtures(
       videoTypes: ['NEWS'],
     }),
     video({
-      providerId: convertContentPartnerNameToId('Reuters'),
+      providerId: convertChannelNameToId('Reuters'),
       providerVideoId: 'reuters-14',
       title: "'Richard St. John: 8 secrets of success' goes viral on boclips",
       description:
@@ -233,7 +231,7 @@ export async function getParametrisedVideoFixtures(
       videoTypes: ['NEWS'],
     }),
     video({
-      providerId: convertContentPartnerNameToId('Reuters'),
+      providerId: convertChannelNameToId('Reuters'),
       providerVideoId: 'reuters-15',
       title: 'Breaking news',
       description: 'Latest piece of news about Richard',
@@ -244,7 +242,7 @@ export async function getParametrisedVideoFixtures(
 
   const stockVideos = [
     video({
-      providerId: convertContentPartnerNameToId('Getty'),
+      providerId: convertChannelNameToId('Getty'),
       providerVideoId: 'getty-12',
       videoTypes: ['STOCK'],
       title: 'Celebrities on the red carpet',
@@ -254,7 +252,7 @@ export async function getParametrisedVideoFixtures(
 
   const disabled = [
     video({
-      providerId: convertContentPartnerNameToId('Disabled From Streaming CP'),
+      providerId: convertChannelNameToId('Disabled From Streaming CP'),
       providerVideoId: 'disabled-123',
       title: 'Disabled',
       description: 'Not legally allowed to show',
