@@ -22,14 +22,10 @@ import { findVideos, insertVideo } from './api/videoApi';
 import { OPERATOR_PASSWORD, OPERATOR_USERNAME, TOKEN_URL } from './Constants';
 import {
   excludedVideoTypesAccessRuleFixture,
-  includedVideosAccessRuleFixture,
   ltiIncludedCollectionsAccessRuleFixture,
-} from './fixture/accessRule';
+} from './fixture/accessRuleHelpers';
 import { ageRangeFixtures } from './fixture/ageRanges';
-import {
-  includedVideosApiIntegrationFixture,
-  ltiApiIntegrationFixture,
-} from './fixture/apiIntegration';
+import { ltiApiIntegrationFixture } from './fixture/apiIntegration';
 import {
   CollectionFixture,
   collectionWithoutSubjects,
@@ -135,28 +131,6 @@ async function setupLtiFixtures(token: string) {
   }
 }
 
-async function setupSelectedVideosE2ETest(token: string) {
-  const videos = await findVideos('Minute Physics', token);
-  const selectedVideos = [videos[0]];
-  const accessRuleId = await ensureAccessRuleAndReturnId(
-    includedVideosAccessRuleFixture(selectedVideos.map((video) => video.id)),
-    token,
-  );
-  const contentPackageId = await createContentPackage(
-    {
-      name: 'Selected Videos Content Package',
-      accessRuleIds: [accessRuleId],
-    },
-    token,
-  );
-  if (contentPackageId) {
-    await ensureApiIntegrationAndReturnId(
-      includedVideosApiIntegrationFixture(contentPackageId),
-      token,
-    );
-  }
-}
-
 async function setupClassroomAccessRule(token: string) {
   const accessRuleId = await ensureAccessRuleAndReturnId(
     excludedVideoTypesAccessRuleFixture(['STOCK'], 'NO STOCK'),
@@ -235,9 +209,6 @@ async function setUp() {
 
   inserting('LTI fixtures');
   await setupLtiFixtures(token);
-
-  inserting('Selected Videos AccessRuleFixture fixtures');
-  await setupSelectedVideosE2ETest(token);
 
   inserting('classroom accesrule fixtures');
   await setupClassroomAccessRule(token);

@@ -13,13 +13,3 @@ export function ltiApiIntegrationFixture(
     contentPackageId,
   };
 }
-
-export function includedVideosApiIntegrationFixture(
-  contentPackageId: string,
-): ApiIntegrationFixture {
-  return {
-    name: 'E2E Tests Selected Videos API Integration',
-    role: 'ROLE_SELECTED_VIDEOS_API_INTEGRATION',
-    contentPackageId,
-  };
-}

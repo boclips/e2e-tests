@@ -51,6 +51,21 @@ export async function findApiIntegrationIdByName(
   });
 }
 
+export async function updateApiIntegration(
+  apiIntegrationId: string,
+  domain: string,
+  token: string,
+) {
+  return fetch(`${API_URL}/v1/organisations/${apiIntegrationId}`, {
+    method: 'POST',
+    body: JSON.stringify({ domain }),
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+}
+
 export async function createApiIntegration(
   apiIntegration: ApiIntegrationFixture,
   token: string,

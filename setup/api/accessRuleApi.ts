@@ -30,8 +30,8 @@ interface AccessRulesResource {
   accessRules: AccessRule[];
 }
 
-export async function ensureAccessRuleAndReturnId(
-  accessRule: AccessRuleFixture,
+export async function ensureAccessRuleAndReturnId<T extends AccessRuleFixture>(
+  accessRule: T,
   token: string,
 ): Promise<string> {
   let accessRuleId = await findAccessRuleIdByName(accessRule.name, token);
@@ -79,8 +79,8 @@ export async function findAccessRuleIdByName(
   }
 }
 
-export async function createAccessRule(
-  accessRuleFixture: AccessRuleFixture,
+export async function createAccessRule<T extends AccessRuleFixture>(
+  accessRuleFixture: T,
   token: string,
 ): Promise<string> {
   const response = await fetch(`${API_URL}/v1/access-rules`, {

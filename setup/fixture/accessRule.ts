@@ -1,57 +1,31 @@
 export type AccessRuleType =
   | 'IncludedCollections'
   | 'IncludedVideos'
-  | 'ExcludedVideoTypes';
+  | 'ExcludedVideoTypes'
+  | 'IncludedChannels';
 
 export interface AccessRuleFixture {
   type: AccessRuleType;
   name: string;
 }
 
-export interface IncludedCollectionsAccessRuleFixture
-  extends AccessRuleFixture {
+export interface IncludedCollectionsAccessRule extends AccessRuleFixture {
   collectionIds: string[];
+  type: 'IncludedCollections';
 }
 
-export interface IncludedVideosAccessRuleFixture extends AccessRuleFixture {
+export interface IncludedVideosAccessRule extends AccessRuleFixture {
   videoIds: string[];
+  type: 'IncludedVideos';
 }
 
 export type VideoTypes = 'NEWS' | 'STOCK' | 'INSTRUCTIONAL';
-export interface ExcludedVideoTypesAccessRuleFixture extends AccessRuleFixture {
+export interface ExcludedVideoTypesAccessRule extends AccessRuleFixture {
   videoTypes: VideoTypes[];
+  type: 'ExcludedVideoTypes';
 }
 
-export function ltiIncludedCollectionsAccessRuleFixture(
-  collectionIds: string[],
-): IncludedCollectionsAccessRuleFixture {
-  return {
-    type: 'IncludedCollections',
-    name: 'LTI Selected Collections',
-    collectionIds,
-  };
-}
-
-export const INCLUDED_VIDEOS_ACCESS_RULE_NAME =
-  'Selected Videos AccessRuleFixture';
-
-export function includedVideosAccessRuleFixture(
-  videoIds: string[],
-): IncludedVideosAccessRuleFixture {
-  return {
-    name: INCLUDED_VIDEOS_ACCESS_RULE_NAME,
-    type: 'IncludedVideos',
-    videoIds,
-  };
-}
-
-export function excludedVideoTypesAccessRuleFixture(
-  videoTypes: VideoTypes[],
-  name: string,
-): ExcludedVideoTypesAccessRuleFixture {
-  return {
-    name,
-    videoTypes,
-    type: 'ExcludedVideoTypes',
-  };
+export interface IncludedChannelsAccessRule extends AccessRuleFixture {
+  channelIds: string[];
+  type: 'IncludedChannels';
 }

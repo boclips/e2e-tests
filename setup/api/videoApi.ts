@@ -14,6 +14,8 @@ interface Videos {
 export interface Video {
   id: string;
   title: string;
+  createdBy: string;
+  channelId: string;
 }
 
 export async function insertVideo(video: VideoFixture, token: string) {
