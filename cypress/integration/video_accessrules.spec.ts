@@ -1,4 +1,4 @@
-import { ensureAccessRuleAndReturnId } from '../../setup/api/accessRuleApi';
+import { createAccessRule } from '../../setup/api/accessRuleApi';
 import { findVideos, Video } from '../../setup/api/videoApi';
 import { generateToken } from '../../setup/generateToken';
 import uuid = require('uuid');
@@ -21,7 +21,7 @@ context('Video Access Rules', () => {
     const allVideos = await findVideos('', token);
 
     const videoIds = [allVideos[0].id];
-    const includedVideosAccessRule = await ensureAccessRuleAndReturnId(
+    const includedVideosAccessRule = await createAccessRule(
       includedVideosAccessRuleFixture(
         videoIds,
         `${uuid.v4()} good videos only`,
@@ -50,7 +50,7 @@ context('Video Access Rules', () => {
       channelName: allVideos[0].createdBy,
     };
 
-    const channelsOnlyAccessRuleId = await ensureAccessRuleAndReturnId(
+    const channelsOnlyAccessRuleId = await createAccessRule(
       includedChannelsAccessRuleFixture(
         [chosenChannel.channelId],
         `${uuid.v4()} channel access rule`,
@@ -84,7 +84,7 @@ context('Video Access Rules', () => {
       (it) => it.channelId != chosenChannel.channelId,
     )[0];
 
-    const videoOnlyAccessRuleId = await ensureAccessRuleAndReturnId(
+    const videoOnlyAccessRuleId = await createAccessRule(
       includedVideosAccessRuleFixture(
         [chosenVideo.id],
         `${uuid.v4()} good videos only`,
@@ -92,7 +92,7 @@ context('Video Access Rules', () => {
       token,
     );
 
-    const channelsOnlyAccessRuleId = await ensureAccessRuleAndReturnId(
+    const channelsOnlyAccessRuleId = await createAccessRule(
       includedChannelsAccessRuleFixture(
         [chosenChannel.channelId],
         `${uuid.v4()} channel access rule`,
