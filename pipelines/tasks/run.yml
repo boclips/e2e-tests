@@ -4,8 +4,8 @@ platform: linux
 image_resource:
   type: registry-image
   source:
-    repository: cypress/base
-    tag: "12.16.1"
+    repository: cypress/browsers
+    tag: "node12.14.1-chrome83-ff77"
 
 inputs:
 - name: source

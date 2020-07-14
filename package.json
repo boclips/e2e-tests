@@ -6,8 +6,8 @@
   "scripts": {
     "test": "test",
     "setup": "ts-node setup/run.ts",
-    "cypress:open": "./node_modules/.bin/cypress open --port 3000",
-    "cypress:run": "./node_modules/.bin/cypress run --port 3000",
+    "cypress:open": "./node_modules/.bin/cypress open",
+    "cypress:run": "./node_modules/.bin/cypress run",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "npm run lint -- --fix",
     "compile": "tsc -p . --noEmit",
