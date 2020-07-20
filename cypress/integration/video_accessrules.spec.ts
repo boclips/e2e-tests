@@ -23,7 +23,7 @@ context('Video Access Rules', () => {
     const videoIds = [allVideos[0].id];
     const includedVideosContentPackage = await createContentPackage(
       {
-        name: 'permitted videos',
+        name: `${uuid.v4()} permitted videos`,
         accessRules: [
           includedVideosAccessRuleFixture(
             videoIds,
@@ -57,7 +57,7 @@ context('Video Access Rules', () => {
 
     const channelsOnlyContentPackageId = await createContentPackage(
       {
-        name: 'included channels',
+        name: `${uuid.v4()} included channels`,
         accessRules: [
           includedChannelsAccessRuleFixture(
             [chosenChannel.channelId],
@@ -96,7 +96,7 @@ context('Video Access Rules', () => {
 
     const contentPackage = await createContentPackage(
       {
-        name: 'permitted videos and channels',
+        name: `${uuid.v4()} permitted videos and channels`,
         accessRules: [
           includedVideosAccessRuleFixture(
             [chosenVideo.id],
