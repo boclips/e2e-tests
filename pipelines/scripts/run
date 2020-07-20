@@ -4,7 +4,8 @@ produce_output () {
     mkdir -p source/cypress/{screenshots,videos}
     touch source/cypress/{screenshots,videos}/tar-avoid-empty-dir
     cd "source/cypress" || exit
-    tar -cf ../../test-results/results.tar \
+    timestamp="$(date --rfc-3339=seconds)"
+    tar -cf "../../test-results/results-$timestamp.tar" \
         screenshots/* \
         videos/*
 }
