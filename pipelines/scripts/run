@@ -4,7 +4,7 @@ produce_output () {
     mkdir -p source/cypress/{screenshots,videos}
     touch source/cypress/{screenshots,videos}/tar-avoid-empty-dir
     cd "source/cypress" || exit
-    tar -cf "../../test-results/results-$BUILD_ID.tar" \
+    tar -cf ../../test-results/results.tar \
         screenshots/* \
         videos/*
 }
