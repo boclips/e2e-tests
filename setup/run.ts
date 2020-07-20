@@ -4,8 +4,6 @@ import {
   findOneCollectionId,
   insertCollection,
 } from './api/collectionApi';
-
-import { ensureAccessRuleAndReturnId } from './api/accessRuleApi';
 import {
   findOneAgeRange,
   getAgeRanges,
@@ -110,15 +108,10 @@ async function setupLtiFixtures(token: string) {
     );
   });
 
-  const accessRuleId = await ensureAccessRuleAndReturnId(
-    ltiIncludedCollectionsAccessRuleFixture([collectionId]),
-    token,
-  );
-
   const contentPackageId = await createContentPackage(
     {
       name: 'LTI Content Package',
-      accessRuleIds: [accessRuleId],
+      accessRules: [ltiIncludedCollectionsAccessRuleFixture([collectionId])],
     },
     token,
   );
@@ -131,14 +124,12 @@ async function setupLtiFixtures(token: string) {
   }
 }
 
-async function setupClassroomAccessRule(token: string) {
-  const accessRuleId = await ensureAccessRuleAndReturnId(
-    excludedVideoTypesAccessRuleFixture(['STOCK'], 'NO STOCK'),
-    token,
-  );
-
+async function setupClassroomContentPackage(token: string) {
   await createContentPackage(
-    { name: 'Classroom', accessRuleIds: [accessRuleId] },
+    {
+      name: 'Classroom',
+      accessRules: [excludedVideoTypesAccessRuleFixture(['STOCK'], 'NO STOCK')],
+    },
     token,
   );
 }
@@ -211,7 +202,7 @@ async function setUp() {
   await setupLtiFixtures(token);
 
   inserting('classroom accesrule fixtures');
-  await setupClassroomAccessRule(token);
+  await setupClassroomContentPackage(token);
 }
 
 setUp()

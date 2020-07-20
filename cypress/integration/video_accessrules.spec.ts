@@ -1,12 +1,12 @@
-import { createAccessRule } from '../../setup/api/accessRuleApi';
 import { findVideos, Video } from '../../setup/api/videoApi';
 import { generateToken } from '../../setup/generateToken';
 import uuid = require('uuid');
-import { createUserWithAccessRules } from '../../setup/api/userApi';
+import { createUserWithContentPackage } from '../../setup/api/userApi';
 import {
   includedVideosAccessRuleFixture,
   includedChannelsAccessRuleFixture,
 } from '../../setup/fixture/accessRuleHelpers';
+import { createContentPackage } from '../../setup/api/contentPackageApi';
 
 context('Video Access Rules', () => {
   let token: string;
@@ -21,19 +21,24 @@ context('Video Access Rules', () => {
     const allVideos = await findVideos('', token);
 
     const videoIds = [allVideos[0].id];
-    const includedVideosAccessRule = await createAccessRule(
-      includedVideosAccessRuleFixture(
-        videoIds,
-        `${uuid.v4()} good videos only`,
-      ),
+    const includedVideosContentPackage = await createContentPackage(
+      {
+        name: 'permitted videos',
+        accessRules: [
+          includedVideosAccessRuleFixture(
+            videoIds,
+            `${uuid.v4()} good videos only`,
+          ),
+        ],
+      },
       token,
     );
 
     const { email, password } = generateEmailAndPassword();
 
-    await createUserWithAccessRules(
+    await createUserWithContentPackage(
       { email, password },
-      [includedVideosAccessRule],
+      includedVideosContentPackage!,
       token,
     );
 
@@ -50,19 +55,24 @@ context('Video Access Rules', () => {
       channelName: allVideos[0].createdBy,
     };
 
-    const channelsOnlyAccessRuleId = await createAccessRule(
-      includedChannelsAccessRuleFixture(
-        [chosenChannel.channelId],
-        `${uuid.v4()} channel access rule`,
-      ),
+    const channelsOnlyContentPackageId = await createContentPackage(
+      {
+        name: 'included channels',
+        accessRules: [
+          includedChannelsAccessRuleFixture(
+            [chosenChannel.channelId],
+            `${uuid.v4()} channel access rule`,
+          ),
+        ],
+      },
       token,
     );
 
     const { email, password } = generateEmailAndPassword();
 
-    await createUserWithAccessRules(
+    await createUserWithContentPackage(
       { email, password },
-      [channelsOnlyAccessRuleId],
+      channelsOnlyContentPackageId!,
       token,
     );
     const queriedVideos = await findVideosAsUser(email, password);
@@ -84,27 +94,28 @@ context('Video Access Rules', () => {
       (it) => it.channelId != chosenChannel.channelId,
     )[0];
 
-    const videoOnlyAccessRuleId = await createAccessRule(
-      includedVideosAccessRuleFixture(
-        [chosenVideo.id],
-        `${uuid.v4()} good videos only`,
-      ),
-      token,
-    );
-
-    const channelsOnlyAccessRuleId = await createAccessRule(
-      includedChannelsAccessRuleFixture(
-        [chosenChannel.channelId],
-        `${uuid.v4()} channel access rule`,
-      ),
+    const contentPackage = await createContentPackage(
+      {
+        name: 'permitted videos and channels',
+        accessRules: [
+          includedVideosAccessRuleFixture(
+            [chosenVideo.id],
+            `${uuid.v4()} good videos only`,
+          ),
+          includedChannelsAccessRuleFixture(
+            [chosenChannel.channelId],
+            `${uuid.v4()} channel access rule`,
+          ),
+        ],
+      },
       token,
     );
 
     const { email, password } = generateEmailAndPassword();
 
-    await createUserWithAccessRules(
+    await createUserWithContentPackage(
       { email, password },
-      [channelsOnlyAccessRuleId, videoOnlyAccessRuleId],
+      contentPackage!,
       token,
     );
     const queriedVideos = await findVideosAsUser(email, password);

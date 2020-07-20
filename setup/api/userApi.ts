@@ -1,4 +1,3 @@
-import { createContentPackage } from './contentPackageApi';
 import { createApiIntegration } from './apiIntegrationApi';
 import uuid = require('uuid');
 import { API_URL } from '../Constants';
@@ -8,23 +7,16 @@ interface UserOptions {
   password: string;
 }
 
-export const createUserWithAccessRules = async (
+export const createUserWithContentPackage = async (
   options: UserOptions,
-  accessRuleIds: string[],
+  contentPackageId: string,
   token: string,
 ): Promise<Response | undefined> => {
-  const packageId = await createContentPackage(
-    { name: uuid.v4() + '-CONTENT_PACKAGE', accessRuleIds },
-    token,
-  );
-
-  console.log(packageId);
-
   const organisationId = await createApiIntegration(
     {
       name: uuid.v4() + '-ORGANISATION',
       role: uuid.v4(),
-      contentPackageId: packageId as string,
+      contentPackageId: contentPackageId,
     },
     token,
   );

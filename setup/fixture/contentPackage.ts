@@ -1,4 +1,6 @@
+import { AccessRuleFixture } from './accessRule';
+
 export interface ContentPackageFixture {
   name: string;
-  accessRuleIds: string[];
+  accessRules: AccessRuleFixture[];
 }
