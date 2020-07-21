@@ -68,5 +68,8 @@ fi
 (
 cd source || exit 1
 npm ci || exit 1
-npm run cypress:run -- --browser=chrome --spec="$SPEC"
+npm run cypress:run -- \
+    --browser=chrome \
+    --spec="$SPEC" \
+    --config videoCompression=false
 )
