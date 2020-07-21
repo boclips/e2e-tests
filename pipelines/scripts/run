@@ -2,12 +2,13 @@
 
 produce_output () {
     mkdir -p source/cypress/{screenshots,videos}
-    touch source/cypress/{screenshots,videos}/tar-avoid-empty-dir
     cd "source/cypress" || exit
     timestamp="$(date --rfc-3339=seconds)"
-    tar -cf "../../test-results/results-$timestamp.tar" \
-        screenshots/* \
-        videos/*
+    results_dir="test-results-$timestamp.tar"
+    mkdir "$results_dir"
+    cp -a screenshots videos "$results_dir/"
+    tar -cf "../../test-results/results.tar" \
+        "$results_dir"
 }
 trap produce_output EXIT
 
@@ -66,8 +67,6 @@ fi
 
 (
 cd source || exit 1
-
 npm ci || exit 1
-
 npm run cypress:run -- --browser=chrome --spec="$SPEC"
 )
