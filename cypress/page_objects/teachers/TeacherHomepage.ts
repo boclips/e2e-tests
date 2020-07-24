@@ -45,11 +45,12 @@ export class TeachersHomepage extends TeacherPage {
   }
 
   public activateAccount() {
-    cy.get(By.dataQa('first-name')).type('Firstname');
-    cy.get(By.dataQa('last-name')).type('Lastname');
-    this.clickSelectOption('select-role', 'TEACHER');
+    cy.findByLabelText('First name').type('Firstname');
+    cy.findByLabelText('Last name').type('Lastname');
+    cy.findByLabelText("I'm a").click();
+    cy.findByText('Teacher').click();
 
-    cy.get(By.dataQa('onboard-next-button')).click();
+    cy.findByText('Next').click();
 
     cy.get(By.dataQa('subjects')).should('be.visible').click();
     cy.get(By.dataState('Biology')).first().should('be.visible').click();
@@ -57,7 +58,7 @@ export class TeachersHomepage extends TeacherPage {
     cy.get('header').click();
     this.clickDropDownOption(By.dataQa('age-select'), '3-5');
 
-    cy.get(By.dataQa('onboard-next-button')).click();
+    cy.findByText('Next').click();
 
     this.selectFirstSelectOption('countries-filter-select', 'country-option');
     this.selectFirstSelectOption('states-filter-select', 'state-option');
@@ -69,7 +70,7 @@ export class TeachersHomepage extends TeacherPage {
       .type('{downarrow}{enter}');
     cy.get('header').click();
 
-    cy.get(By.dataQa('onboard-next-button')).click();
+    cy.findByText('Next').click();
 
     cy.get(By.dataQa('privacy-policy')).click();
 
