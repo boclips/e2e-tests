@@ -71,5 +71,5 @@ npm ci || exit 1
 npm run cypress:run -- \
     --browser=chrome \
     --spec="$SPEC" \
-    --config videoCompression=false
+    --config video=false
 )
