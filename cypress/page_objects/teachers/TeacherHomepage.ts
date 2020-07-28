@@ -57,6 +57,7 @@ export class TeachersHomepage extends TeacherPage {
 
     cy.get('header').click();
     this.clickDropDownOption(By.dataQa('age-select'), '3-5');
+    cy.get('header').click();
 
     cy.findByText('Next').click();
 
@@ -74,7 +75,7 @@ export class TeachersHomepage extends TeacherPage {
 
     cy.get(By.dataQa('privacy-policy')).click();
 
-    cy.get(By.dataQa('onboard-submit-button')).click();
+    cy.findByText('Finish').click();
     return this;
   }
 
