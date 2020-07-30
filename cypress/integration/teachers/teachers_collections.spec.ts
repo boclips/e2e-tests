@@ -30,7 +30,7 @@ context('Teachers App Collections Journey', () => {
       .accountActivated()
 
       .log('Curated collections are discoverable by subject')
-      .goToDiscoverBySubject(subject)
+      .goToSubjectSearchPage(subject)
       .containsCollections()
 
       .log('Bookmarking')

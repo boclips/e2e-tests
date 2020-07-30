@@ -345,10 +345,10 @@ export class TeachersHomepage extends TeacherPage {
     return this;
   }
 
-  public goToDiscoverBySubject(subject: string) {
+  public goToSubjectSearchPage(subject: string) {
     cy.get(By.dataQa('discipline-subject')).contains(subject).click();
 
-    cy.get(By.dataQa('discover-collections-list-page')).should('be.visible');
+    cy.get(By.dataQa('subject-search-page')).should('be.visible');
 
     return new DiscoverPage();
   }
