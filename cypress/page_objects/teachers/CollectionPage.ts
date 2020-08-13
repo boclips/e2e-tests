@@ -9,9 +9,7 @@ export class CollectionPage extends TeacherPage {
   }
 
   public setName(name: string): CollectionPage {
-    cy.get(By.dataQa('collection-edit-button')).click();
     cy.get(By.dataQa('title-edit')).clear().type(name);
-    cy.contains('Save').click();
     return this;
   }
 
@@ -20,21 +18,25 @@ export class CollectionPage extends TeacherPage {
 
     cy.get('[data-qa="subjects"]').click();
 
-    cy.get(`.ant-select-item`).should('be.visible');
-
     cy.get(By.dataState(subject))
       .scrollIntoView()
       .should('be.visible')
-
       .click();
 
-    cy.get('.ant-modal-title').click();
-    cy.contains('Save').click();
-    cy.get('.ant-modal-title').should('not.be.visible');
+    return this;
+  }
 
+  public saveEdit() {
+    cy.contains('Save').click();
+
+    return this;
+  }
+
+
+  public itHasSubject(name: string) {
     cy.get(By.dataQa('subject-tag'))
       .get(By.dataQa('filter-tag'))
-      .should('contain', subject);
+      .should('contain', name);
     return this;
   }
 

@@ -23,19 +23,13 @@ export class MenuPage {
     return new CollectionsPage();
   }
 
-  public goToBookmarkedCollections() {
+  public checkSavedCollectionInMyResources(title: string, isSaved: boolean) {
     this.openAccountMenu();
 
     cy.get("[data-qa='user-videos']:visible").click();
-
-    return this;
-  }
-
-  public navbarNotShown() {
-    cy.get(By.dataQa('search-input')).should('not.exist');
-    cy.get(By.dataQa('account-menu-open')).should('not.exist');
-    cy.get(By.dataQa('subjects-menu-open')).should('not.exist');
-    cy.get(By.dataQa('tutorials-page-icon')).should('not.exist');
+    if (isSaved) {
+      cy.findByText(title);
+    }
 
     return this;
   }
@@ -47,11 +41,5 @@ export class MenuPage {
       .click();
 
     return this;
-  }
-
-  public logOut() {
-    this.openAccountMenu();
-    cy.get(By.dataQa('logout-button')).click();
-    acceptDialog();
   }
 }

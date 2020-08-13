@@ -20,11 +20,6 @@ export class TeachersHomepage extends TeacherPage {
     return this;
   }
 
-  public reload() {
-    cy.reload();
-    return this;
-  }
-
   public visitRegistrationPage() {
     cy.visit(this.url + '/create-account');
     return this;
@@ -45,8 +40,8 @@ export class TeachersHomepage extends TeacherPage {
   }
 
   public activateAccount() {
-    cy.findByLabelText('First name').type('Firstname');
-    cy.findByLabelText('Last name').type('Lastname');
+    cy.findByLabelText('First name').type('Bob');
+    cy.findByLabelText('Last name').type('Clip');
     cy.findByLabelText("I'm a").click();
     cy.findByText('Teacher').click();
 
@@ -67,7 +62,7 @@ export class TeachersHomepage extends TeacherPage {
     cy.get(By.dataQa('school-filter-select'))
       .should('be.visible')
       .click()
-      .type('unlisted school')
+      .type('unlist')
       .type('{downarrow}{enter}');
     cy.get('header').click();
 
@@ -93,23 +88,6 @@ export class TeachersHomepage extends TeacherPage {
     cy.get(By.dataQa('email')).type(username);
     cy.get(By.dataQa('password')).type(password);
     cy.get(By.dataQa('login-button')).click();
-    return this;
-  }
-
-  public applyAgeRangeFilter(filterName: string, filterDisplayValue: string) {
-    cy.get('label')
-      .contains(filterName)
-      .click()
-      .get('input[type=checkbox]')
-      .should('be.checked')
-      .log(`Checked checkbox ${filterName}`)
-      .get('body')
-      .get(By.dataQa(`age-range-filter-tag`))
-      .contains(filterDisplayValue)
-      .get(By.dataQa('close-tag'))
-      .should('be.visible')
-      .log(`Filter tag ${filterName} was visible`);
-
     return this;
   }
 
@@ -165,57 +143,11 @@ export class TeachersHomepage extends TeacherPage {
     return this;
   }
 
-  public isOnPage(pageNumber: number) {
-    cy.get("[data-qa='pagination'] .ant-pagination-item-active a").should(
-      'contain',
-      pageNumber,
-    );
-    return this;
-  }
 
   public goToPage(pageNumber: number) {
     cy.get(
       `[data-qa='pagination'] .ant-pagination-item-${pageNumber} a`,
     ).click();
-    return this;
-  }
-
-  public assertRatingOnFirstVideo(rating: number) {
-    cy.get(By.dataQa('video-card'))
-      .first()
-      .find(By.dataQa('rating-score'))
-      .invoke('attr', 'data-state')
-      .should('contain', rating);
-    return this;
-  }
-
-  public assertPedagogicalTagOnFirstVideo(tag: string) {
-    cy.get(By.dataQa('video-card'))
-      .first()
-      .find(By.dataQa('best-for-tag'))
-      .find(By.dataQa('filter-tag'))
-      .should('have.contain.text', tag);
-    return this;
-  }
-
-  public rateAndTagVideo(rating: number, tag?: string) {
-    cy.get(By.dataQa('rating-video-button')).first().click();
-
-    cy.get(By.dataQa('rate-video'))
-      .find('.ant-rate-star')
-      .eq(rating - 1)
-      .click();
-
-    if (tag) {
-      cy.get(By.dataState('Hook', 'tag-radio')).click();
-    }
-
-    cy.get(By.dataQa('rate-button')).click();
-    return this;
-  }
-
-  public noVideosShown() {
-    cy.get(By.dataQa('search-zero-results'));
     return this;
   }
 
@@ -237,7 +169,7 @@ export class TeachersHomepage extends TeacherPage {
     return videos;
   }
 
-  public bookmarkCollection(title: string) {
+  public saveCollection(title: string) {
     this.getFirstCollectionCardBy(title)
       .find(By.dataQa('open-button-menu'))
       .click();
@@ -258,7 +190,7 @@ export class TeachersHomepage extends TeacherPage {
     return this;
   }
 
-  public unbookmarkCollection(title: string) {
+  public removeCollectionFromSaved(title: string) {
     this.getFirstCollectionCardBy(title)
       .find(By.dataQa('open-button-menu'))
       .click();
@@ -273,25 +205,6 @@ export class TeachersHomepage extends TeacherPage {
       .should('be.visible')
       .get(By.dataQa('unbookmark-collection'))
       .should('not.be.visible');
-
-    cy.get('footer').click();
-
-    return this;
-  }
-
-  public checkCollectionBookmarkStatus(
-    collectionName: string,
-    expectedState: boolean,
-  ) {
-    this.getFirstCollectionCardBy(collectionName)
-      .find(By.dataQa('open-button-menu'))
-      .click();
-
-    cy.get(
-      By.dataQa(
-        `${expectedState ? 'unbookmark-collection' : 'bookmark-collection'}`,
-      ),
-    ).should('be.visible');
 
     cy.get('footer').click();
 
@@ -331,26 +244,6 @@ export class TeachersHomepage extends TeacherPage {
       .should(expectation ? 'be.visible' : 'not.exist');
 
     return this;
-  }
-
-  public removeVideoFromCollection(index: number, collectionTitle: string) {
-    this.interactWithResult(index, () => {
-      cy.get("[data-qa='video-collection-menu']:visible").click();
-    })
-      .get(
-        `[data-state="${collectionTitle}"][data-qa="remove-from-collection"]`,
-      )
-      .should('be.visible')
-      .click();
-    return this;
-  }
-
-  public goToSubjectSearchPage(subject: string) {
-    cy.get(By.dataQa('discipline-subject')).contains(subject).click();
-
-    cy.get(By.dataQa('subject-search-page')).should('be.visible');
-
-    return new DiscoverPage();
   }
 
   private interactWithResult(index: number, callback: () => void) {
