@@ -94,5 +94,5 @@ context('Teachers App Collections Journey', () => {
       });
   });
 
-  const getUniqueText = () => uuid().substr(0,6);
+  const getUniqueText = () => uuid().substr(0, 6);
 });

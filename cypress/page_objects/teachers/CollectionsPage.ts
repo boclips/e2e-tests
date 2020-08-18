@@ -2,7 +2,6 @@ import VideoCollection from '../domain/VideoCollection';
 import { CollectionPage, TeacherPage } from './index';
 
 export class CollectionsPage extends TeacherPage {
-
   public goToCollectionDetails(collectionTitle: string) {
     return cy
       .get(

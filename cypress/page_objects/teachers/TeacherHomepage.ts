@@ -1,6 +1,6 @@
 import { By } from '../../support/By';
 import Video from '../domain/Video';
-import { DiscoverPage, TeacherPage } from './index';
+import { TeacherPage } from './index';
 
 export class TeachersHomepage extends TeacherPage {
   private readonly url: string;
@@ -142,7 +142,6 @@ export class TeachersHomepage extends TeacherPage {
       .then(callback);
     return this;
   }
-
 
   public goToPage(pageNumber: number) {
     cy.get(

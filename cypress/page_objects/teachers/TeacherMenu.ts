@@ -1,5 +1,4 @@
 import { By } from '../../support/By';
-import { acceptDialog } from './AntUtils';
 import { CollectionsPage, TeachersHomepage } from './index';
 
 export class MenuPage {

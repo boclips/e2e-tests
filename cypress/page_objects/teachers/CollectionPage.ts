@@ -18,10 +18,7 @@ export class CollectionPage extends TeacherPage {
 
     cy.get('[data-qa="subjects"]').click();
 
-    cy.get(By.dataState(subject))
-      .scrollIntoView()
-      .should('be.visible')
-      .click();
+    cy.get(By.dataState(subject)).scrollIntoView().should('be.visible').click();
 
     return this;
   }
@@ -31,7 +28,6 @@ export class CollectionPage extends TeacherPage {
 
     return this;
   }
-
 
   public itHasSubject(name: string) {
     cy.get(By.dataQa('subject-tag'))
