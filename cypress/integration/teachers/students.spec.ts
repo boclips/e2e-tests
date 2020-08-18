@@ -10,7 +10,7 @@ context('Teachers App - Student Journey', () => {
 
   const MINUTE_PHYSICS = 'Minute Physics';
 
-  before(() => {
+  specify('video details are protected by a sharing code', () => {
     clearLoginCookies();
     homepage
       .configureHubspotCookie()
@@ -18,19 +18,9 @@ context('Teachers App - Student Journey', () => {
       .visitRegistrationPage()
       .createAccount(username, password)
       .accountCreated()
-
-      .log('logging in')
-      .visit()
-      .logIn(username, password)
-
       .log('activating account')
       .activateAccount()
-      .accountActivated();
-  });
-
-  specify('video details are protected by a sharing code', () => {
-    homepage
-      .visit()
+      .accountActivated()
       .menu()
       .search(MINUTE_PHYSICS)
       .goToFirstVideo()

@@ -24,11 +24,7 @@ context('Teachers App Collections Journey', () => {
       .createAccount(username, password)
       .accountCreated()
 
-      .log('logging in')
-      .visit()
-      .logIn(username, password)
-
-      .log('onboarding')
+      .log('onboarding user after autologin')
       .activateAccount()
       .accountActivated()
 
