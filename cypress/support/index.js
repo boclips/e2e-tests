@@ -33,17 +33,7 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 let logs = '';
 
 Cypress.on('window:before:load', window => {
-  let docIframe
-  try {
-    docIframe = window.parent.document.querySelector("[id^='Your App']");
-  } catch (e) {
-    console.log('window:before:load - window.parent does not exist');
-    console.log(e);
-  }
-
-  if(!docIframe) {
-    return;
-  }
+  const docIframe = window.parent.document.querySelector("[id^='Your App']");
 
   const appWindow = docIframe.contentWindow;
 
