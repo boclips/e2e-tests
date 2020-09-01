@@ -94,7 +94,7 @@ export class TeachersHomepage extends TeacherPage {
   public applySubjectFilter(filterName: string) {
     cy.get('label')
       .contains(filterName)
-      .click()
+      .click({ force: true })
       .get('input[type=checkbox]')
       .should('be.checked')
       .log(`Checked checkbox ${filterName}`)

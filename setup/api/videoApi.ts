@@ -49,6 +49,11 @@ export async function findOneVideoId(
   const payload: HypermediaWrapper = await response.json();
 
   console.log('Single videos lookup result', payload);
+
+  if (!payload._embedded.videos?.length) {
+    throw Error(`Matched no videos for query '${query}', check fixtures.`);
+  }
+
   const video = payload._embedded.videos[0];
   return video.id;
 }
