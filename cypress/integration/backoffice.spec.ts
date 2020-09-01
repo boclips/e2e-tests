@@ -85,7 +85,7 @@ context('Backoffice', () => {
         const allInstructionalVideos = await getParametrisedVideoFixtures(
           freshToken,
         );
-        return findOneVideoId(allInstructionalVideos[1].title, token);
+        return findOneVideoId(allInstructionalVideos[2].title, token);
       })
       .then((returnedVideoId: string) => {
         videoId = returnedVideoId;
