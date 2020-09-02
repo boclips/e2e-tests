@@ -33,7 +33,19 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 let logs = '';
 
 Cypress.on('window:before:load', window => {
+  if (!window.parent) {
+    throw Error('index.js: window.parent does not exist!');
+  }
+
+  if (!window.parent.document) {
+    throw Error('index.js: window.parent.document does not exist!');
+  }
+
   const docIframe = window.parent.document.querySelector("[id^='Your App']");
+
+  if (!docIframe) {
+    throw Error('index.js: docIframe does not exist!');
+  }
 
   const appWindow = docIframe.contentWindow;
 

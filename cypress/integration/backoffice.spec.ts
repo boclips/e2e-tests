@@ -8,7 +8,6 @@ context('Backoffice', () => {
   const backoffice = new BackofficePage();
 
   let token: string;
-  let videoId: string;
 
   it('should log in and view content partner page', () => {
     backoffice
@@ -78,18 +77,16 @@ context('Backoffice', () => {
       .findCreatedCollection();
   });
 
-  it('should edit video', () => {
-    generateToken()
-      .then(async (freshToken: string) => {
+  it('should edit video', async () => {
+    const videoId: string = await generateToken().then(
+      async (freshToken: string) => {
         token = freshToken;
         const allInstructionalVideos = await getParametrisedVideoFixtures(
           freshToken,
         );
         return findOneVideoId(allInstructionalVideos[2].title, token);
-      })
-      .then((returnedVideoId: string) => {
-        videoId = returnedVideoId;
-      });
+      },
+    );
 
     backoffice
       .visit()

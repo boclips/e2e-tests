@@ -39,6 +39,10 @@ Cypress.Commands.add('checkA11y', (threshold = 0, context = undefined, options =
         win.eval(axeSource)
       }
 
+      if(!win.document) {
+        throw Error('commands.js: win.document does not exist!');
+      }
+
       return win.axe.run(context || win.document, options)
     })
     .then((results) => {
