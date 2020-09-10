@@ -3,7 +3,7 @@ export const withinIframe = (
   handleElement: (element: Cypress.Chainable) => void,
 ) => {
   cy.get('iframe')
-    .then({ timeout: 60000 }, (iframe) => {
+    .then({ timeout: 120000 }, (iframe) => {
       return new Promise((resolve) => {
         const intervalHandle = setInterval(() => {
           const isElementRendered = iframe.contents().find(selector).length > 0;
