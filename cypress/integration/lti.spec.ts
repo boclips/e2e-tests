@@ -18,7 +18,7 @@ beforeEach(() => {
       const allInstructionalVideos = await getParametrisedVideoFixtures(
         freshToken,
       );
-      return findOneVideoId(allInstructionalVideos[0].title, token);
+      return findOneVideoId(' ', token);
     })
     .then((returnedVideoId: string) => {
       videoId = returnedVideoId;

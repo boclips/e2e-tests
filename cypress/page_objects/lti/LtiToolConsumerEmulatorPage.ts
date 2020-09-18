@@ -92,6 +92,7 @@ export class LtiToolConsumerEmulatorPage {
     withinIframe(By.dataQa('videoTile'), (videoTiles: Cypress.Chainable) =>
       videoTiles.first().click(),
     );
+    cy.wait(500); // Have to wait, because we are reloading the content in the iframe and the next check would use the old body if we are too fast
 
     return this;
   }
@@ -100,6 +101,7 @@ export class LtiToolConsumerEmulatorPage {
     withinIframe(By.dataQa('collectionTile'), (videoTiles: Cypress.Chainable) =>
       videoTiles.first().click(),
     );
+    cy.wait(500); // See above comment
 
     return this;
   }
