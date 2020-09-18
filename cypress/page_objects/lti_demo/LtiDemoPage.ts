@@ -39,6 +39,7 @@ export class LtiDemoPage {
   }
 
   public searchVideo() {
+    cy.wait(1000); // Wait until the iframe has the content loaded..
     withinIframe(By.dataQa('search-input'), (search) => {
       search.type('Minute');
     });
@@ -46,6 +47,7 @@ export class LtiDemoPage {
     withinIframe(By.dataQa('search-button'), (searchButton) => {
       searchButton.click();
     });
+    cy.wait(500);
 
     withinIframe('button:contains("+ Add to lesson")', (videos) => {
       videos.first().click();
