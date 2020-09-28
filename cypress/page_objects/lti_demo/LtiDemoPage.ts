@@ -53,8 +53,6 @@ export class LtiDemoPage {
       videos.first().click();
     });
 
-    cy.get(By.dataQa('deep-links-header')).should('be.visible');
-
     withinIframe(
       By.dataBoclipsPlayerInitialised(),
       (initialisedPlayer: Cypress.Chainable) =>

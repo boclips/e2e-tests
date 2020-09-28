@@ -15,9 +15,7 @@ beforeEach(() => {
   return generateToken()
     .then(async (freshToken: string) => {
       token = freshToken;
-      const allInstructionalVideos = await getParametrisedVideoFixtures(
-        freshToken,
-      );
+      await getParametrisedVideoFixtures(freshToken);
       return findOneVideoId(' ', token);
     })
     .then((returnedVideoId: string) => {
