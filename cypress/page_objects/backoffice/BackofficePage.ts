@@ -23,12 +23,20 @@ export class BackofficePage {
     });
   }
 
-  private static startOrderRowEdit(index: number = 0) {
-    cy.get(By.dataQa('edit-row-button')).eq(index).click({ force: true });
+  private static expandRow(index: number = 0) {
+    cy.get(By.dataQa('orders-dropdown-icon-open'))
+      .eq(index)
+      .click({ force: true });
+  }
+
+  private static closeRow(index: number = 0) {
+    cy.get(By.dataQa('orders-dropdown-icon-close'))
+      .eq(index)
+      .click({ force: true });
   }
 
   private static saveOrderRowEdit() {
-    cy.get(By.dataQa('edit-form-save')).first().click({ force: true });
+    cy.get('body').first().click({ force: true });
   }
 
   private static uploadToDropzone(
@@ -120,27 +128,44 @@ export class BackofficePage {
   }
 
   public editRowInOrdersTable() {
-    cy.get(By.dataQa('edit-row-button')).first().click();
+    cy.get(By.dataQa('orders-dropdown-icon-open')).first().click();
 
     return this;
   }
 
   public editOrder() {
-    cy.get(By.dataQa('duration-edit-input')).clear().type('3 Years');
+    cy.get(By.dataQa('dropdown-item-edit-license-duration')).click();
+    cy.get(By.dataQa('dropdown-item-input-license-duration'))
+      .clear()
+      .type('3 Years');
 
-    cy.get(By.dataQa('territory-edit-input')).clear().type('Asia');
+    this.clsoeEditInput();
 
-    cy.get(By.dataQa('price-edit-input')).clear().type('100');
+    cy.get(By.dataQa('dropdown-item-edit-territory')).click();
+    cy.get(By.dataQa('dropdown-item-input-territory')).clear().type('Asia');
 
-    cy.get(By.dataQa('edit-form-save')).click();
+    this.clsoeEditInput();
+
+    cy.get(By.dataQa('dropdown-item-edit-price')).click();
+    cy.get(By.dataQa('dropdown-item-input-price')).clear().type('100');
+
+    BackofficePage.closeRow();
 
     return this;
   }
 
+  private clsoeEditInput() {
+    cy.get('body').click();
+  }
+
   public validateOrder() {
-    cy.get(By.dataQa('price')).contains('USD 100');
-    cy.get(By.dataQa('license-territory')).contains('Asia');
-    cy.get(By.dataQa('license-duration')).contains('3 Years');
+    BackofficePage.expandRow(0);
+
+    cy.get(By.dataQa('dropdown-item-value-price')).contains('USD 100');
+    cy.get(By.dataQa('dropdown-item-value-territory')).contains('Asia');
+    cy.get(By.dataQa('dropdown-item-value-license-duration')).contains(
+      '3 Years',
+    );
 
     return this;
   }
@@ -324,25 +349,35 @@ Crash Course Artificial Intelligence,CCAI_01_CLEAN_What-Is-AI,What Is Artificial
   }
 
   public updateOrderItemDuration(duration: string, index: number = 0) {
-    BackofficePage.startOrderRowEdit(index);
+    BackofficePage.expandRow(index);
 
-    cy.get(By.dataQa('duration-edit-input')).clear().type(duration);
+    cy.get(By.dataQa('dropdown-item-edit-license-duration')).click();
+    cy.get(By.dataQa('dropdown-item-input-license-duration'))
+      .clear()
+      .type(duration);
 
     BackofficePage.saveOrderRowEdit();
 
-    cy.get(By.dataQa('license-duration')).contains(duration);
+    cy.get(By.dataQa('dropdown-item-value-license-duration')).contains(
+      duration,
+    );
+
+    BackofficePage.closeRow(index);
 
     return this;
   }
 
   public updateOrderItemTerritory(territory: string, index: number = 0) {
-    BackofficePage.startOrderRowEdit(index);
+    BackofficePage.expandRow(index);
 
-    cy.get(By.dataQa('territory-edit-input')).clear().type(territory);
+    cy.get(By.dataQa('dropdown-item-edit-territory')).click();
+    cy.get(By.dataQa('dropdown-item-input-territory')).clear().type(territory);
 
     BackofficePage.saveOrderRowEdit();
 
-    cy.get(By.dataQa('license-territory')).contains(territory);
+    cy.get(By.dataQa('dropdown-item-value-territory')).contains(territory);
+
+    BackofficePage.closeRow(index);
 
     return this;
   }
