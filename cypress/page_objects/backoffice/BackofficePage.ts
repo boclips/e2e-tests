@@ -134,36 +134,36 @@ export class BackofficePage {
   }
 
   public editOrder() {
-    cy.get(By.dataQa('dropdown-item-edit-license-duration')).click();
-    cy.get(By.dataQa('dropdown-item-input-license-duration'))
+    cy.get(By.dataQa('editable-cell-edit-license-duration')).click();
+    cy.get(By.dataQa('editable-cell-input-license-duration'))
       .clear()
       .type('3 Years');
 
-    this.clsoeEditInput();
+    this.closeEditInput();
 
-    cy.get(By.dataQa('dropdown-item-edit-territory')).click();
-    cy.get(By.dataQa('dropdown-item-input-territory')).clear().type('Asia');
+    cy.get(By.dataQa('editable-cell-edit-territory')).click();
+    cy.get(By.dataQa('editable-cell-input-territory')).clear().type('Asia');
 
-    this.clsoeEditInput();
+    this.closeEditInput();
 
-    cy.get(By.dataQa('dropdown-item-edit-price')).click();
-    cy.get(By.dataQa('dropdown-item-input-price')).clear().type('100');
+    cy.get(By.dataQa('editable-cell-edit-price')).click();
+    cy.get(By.dataQa('editable-cell-input-price')).clear().type('100');
 
     BackofficePage.closeRow();
 
     return this;
   }
 
-  private clsoeEditInput() {
+  private closeEditInput() {
     cy.get('body').click();
   }
 
   public validateOrder() {
     BackofficePage.expandRow(0);
 
-    cy.get(By.dataQa('dropdown-item-value-price')).contains('USD 100');
-    cy.get(By.dataQa('dropdown-item-value-territory')).contains('Asia');
-    cy.get(By.dataQa('dropdown-item-value-license-duration')).contains(
+    cy.get(By.dataQa('editable-cell-value-price')).contains('USD 100');
+    cy.get(By.dataQa('editable-cell-value-territory')).contains('Asia');
+    cy.get(By.dataQa('editable-cell-value-license-duration')).contains(
       '3 Years',
     );
 
@@ -351,14 +351,14 @@ Crash Course Artificial Intelligence,CCAI_01_CLEAN_What-Is-AI,What Is Artificial
   public updateOrderItemDuration(duration: string, index: number = 0) {
     BackofficePage.expandRow(index);
 
-    cy.get(By.dataQa('dropdown-item-edit-license-duration')).click();
-    cy.get(By.dataQa('dropdown-item-input-license-duration'))
+    cy.get(By.dataQa('editable-cell-edit-license-duration')).click();
+    cy.get(By.dataQa('editable-cell-input-license-duration'))
       .clear()
       .type(duration);
 
     BackofficePage.saveOrderRowEdit();
 
-    cy.get(By.dataQa('dropdown-item-value-license-duration')).contains(
+    cy.get(By.dataQa('editable-cell-value-license-duration')).contains(
       duration,
     );
 
@@ -370,12 +370,12 @@ Crash Course Artificial Intelligence,CCAI_01_CLEAN_What-Is-AI,What Is Artificial
   public updateOrderItemTerritory(territory: string, index: number = 0) {
     BackofficePage.expandRow(index);
 
-    cy.get(By.dataQa('dropdown-item-edit-territory')).click();
-    cy.get(By.dataQa('dropdown-item-input-territory')).clear().type(territory);
+    cy.get(By.dataQa('editable-cell-edit-territory')).click();
+    cy.get(By.dataQa('editable-cell-input-territory')).clear().type(territory);
 
     BackofficePage.saveOrderRowEdit();
 
-    cy.get(By.dataQa('dropdown-item-value-territory')).contains(territory);
+    cy.get(By.dataQa('editable-cell-value-territory')).contains(territory);
 
     BackofficePage.closeRow(index);
 
