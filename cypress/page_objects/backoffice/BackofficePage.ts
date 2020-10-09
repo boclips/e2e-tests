@@ -348,6 +348,20 @@ Crash Course Artificial Intelligence,CCAI_01_CLEAN_What-Is-AI,What Is Artificial
     return this;
   }
 
+  public updateOrderOrganisation() {
+    cy.get(By.dataQa('organisation-edit'))
+      .get(By.dataQa('editable-cell-dropdown-icon'))
+      .click();
+
+    cy.get(By.dataQa('organisation-edit')).get(By.dataQa('dropdown')).click();
+
+    cy.get(By.dataQa('dropdown-option')).first().click();
+
+    cy.contains('Organisation changed successfully!').should('be.visible');
+
+    return this;
+  }
+
   public updateOrderItemDuration(duration: string, index: number = 0) {
     BackofficePage.expandRow(index);
 

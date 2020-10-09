@@ -117,6 +117,7 @@ context('Backoffice', () => {
         .logIn()
         .gotToOrdersPage()
         .selectOrderFromOrdersTable()
+        .updateOrderOrganisation()
         .editRowInOrdersTable()
         .editOrder()
         .validateOrder();
