@@ -106,7 +106,7 @@ export class MarketingCollectionListPage {
   private readonly url: string;
 
   constructor() {
-    this.url = Cypress.env('BACKOFFICE_BASE_URL') + '/marketing-collections';
+    this.url = Cypress.env('HQ_BASE_URL') + '/marketing-collections';
   }
 
   public goToCreateCollection() {
@@ -130,8 +130,8 @@ export class MarketingCollectionListPage {
   }
 
   public logIn() {
-    cy.get('#username').type(Cypress.env('BACKOFFICE_USERNAME'));
-    cy.get('#password').type(Cypress.env('BACKOFFICE_PASSWORD'));
+    cy.get('#username').type(Cypress.env('HQ_USERNAME'));
+    cy.get('#password').type(Cypress.env('HQ_PASSWORD'));
     cy.get('#kc-form-login').submit();
     return this;
   }

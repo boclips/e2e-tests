@@ -12,8 +12,8 @@ produce_output () {
 }
 trap produce_output EXIT
 
-if  [[ -z $CYPRESS_BACKOFFICE_USERNAME \
-    || -z $CYPRESS_BACKOFFICE_PASSWORD \
+if  [[ -z $CYPRESS_HQ_USERNAME \
+    || -z $CYPRESS_HQ_PASSWORD \
     || -z $CYPRESS_FRONTEND_USERNAME \
     || -z $CYPRESS_FRONTEND_PASSWORD \
     || -z $CYPRESS_OPERATOR_USERNAME \
@@ -22,14 +22,14 @@ if  [[ -z $CYPRESS_BACKOFFICE_USERNAME \
     || -z $CYPRESS_SELECTED_VIDEOS_TEST_PASSWORD \
     ]]
 then
-    if  [[ -z $CYPRESS_BACKOFFICE_USERNAME ]]
+    if  [[ -z $CYPRESS_HQ_USERNAME ]]
     then
-        echo "Missing CYPRESS_BACKOFFICE_USERNAME"
+        echo "Missing CYPRESS_HQ_USERNAME"
     fi
 
-    if  [[ -z $CYPRESS_BACKOFFICE_PASSWORD ]]
+    if  [[ -z $CYPRESS_HQ_PASSWORD ]]
     then
-        echo "Missing CYPRESS_BACKOFFICE_PASSWORD"
+        echo "Missing CYPRESS_HQ_PASSWORD"
     fi
 
     if  [[ -z $CYPRESS_FRONTEND_USERNAME ]]

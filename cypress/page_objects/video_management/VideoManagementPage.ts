@@ -5,7 +5,7 @@ export class VideoManagementPage {
   private readonly url: string;
 
   constructor() {
-    this.url = Cypress.env('BACKOFFICE_BASE_URL') + '/video-management';
+    this.url = Cypress.env('HQ_BASE_URL') + '/video-management';
   }
 
   public visit() {
@@ -14,8 +14,8 @@ export class VideoManagementPage {
   }
 
   public logIn() {
-    cy.get('#username').type(Cypress.env('BACKOFFICE_USERNAME'));
-    cy.get('#password').type(Cypress.env('BACKOFFICE_PASSWORD'));
+    cy.get('#username').type(Cypress.env('HQ_USERNAME'));
+    cy.get('#password').type(Cypress.env('HQ_PASSWORD'));
     cy.get('#kc-form-login').submit();
     return this;
   }

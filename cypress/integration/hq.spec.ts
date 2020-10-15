@@ -1,16 +1,16 @@
 import uuid = require('uuid');
-import { BackofficePage } from '../page_objects/backoffice/BackofficePage';
+import { HqPage } from '../page_objects/hq/HqPage';
 import { generateToken } from '../../setup/generateToken';
 import { getParametrisedVideoFixtures } from '../../setup/fixture/videos';
 import { findOneVideoId } from '../../setup/api/videoApi';
 
-context('Backoffice', () => {
-  const backoffice = new BackofficePage();
+context('HQ', () => {
+  const hqPage = new HqPage();
 
   let token: string;
 
   it('should log in and view content partner page', () => {
-    backoffice
+    hqPage
       .visit()
       .logIn()
       .goToContentPartnerPage()
@@ -18,7 +18,7 @@ context('Backoffice', () => {
   });
 
   it('should import a job CSV and make sure the video ingestor picks it up', () => {
-    backoffice
+    hqPage
       .visit()
       .logIn()
       .goToIngestsPage()
@@ -30,7 +30,7 @@ context('Backoffice', () => {
 
   it('should create a content partner', () => {
     const contentPartnerName = uuid.v4();
-    backoffice
+    hqPage
       .visit()
       .logIn()
       .goToContentPartnerPage()
@@ -46,7 +46,7 @@ context('Backoffice', () => {
 
   it('should create a content partner contract', () => {
     const contractName = uuid.v4();
-    backoffice
+    hqPage
       .visit()
       .logIn()
       .goToContractPage()
@@ -67,7 +67,7 @@ context('Backoffice', () => {
   });
 
   it('should create a collection', () => {
-    backoffice
+    hqPage
       .visit()
       .logIn()
       .goToCollectionsPage()
@@ -88,7 +88,7 @@ context('Backoffice', () => {
       },
     );
 
-    backoffice
+    hqPage
       .visit()
       .logIn()
       .goToVideoPage()
@@ -100,7 +100,7 @@ context('Backoffice', () => {
 
   context('orders', () => {
     it('should import an order CSV and set its currency', () => {
-      backoffice
+      hqPage
         .visit()
         .logIn()
         .goToOrdersPage()
@@ -112,7 +112,7 @@ context('Backoffice', () => {
     });
 
     it('should edit order', () => {
-      backoffice
+      hqPage
         .visit()
         .logIn()
         .gotToOrdersPage()
@@ -124,7 +124,7 @@ context('Backoffice', () => {
     });
 
     it('downloads order video assets', () => {
-      backoffice
+      hqPage
         .visit()
         .logIn()
         .gotToOrdersPage()
@@ -133,7 +133,7 @@ context('Backoffice', () => {
     });
 
     it('should export a manifest', () => {
-      backoffice.visit().logIn().goToOrdersPage().exportOrderCSV();
+      hqPage.visit().logIn().goToOrdersPage().exportOrderCSV();
     });
   });
 });

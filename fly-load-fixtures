@@ -4,8 +4,8 @@ set -e
 
 cwd="$(cd "$(dirname "$0")" && pwd)"
 
-CYPRESS_BACKOFFICE_USERNAME="$(bo show credential concourse-main boclips.e2e backoffice-username)"
-CYPRESS_BACKOFFICE_PASSWORD="$(bo show credential concourse-main boclips.e2e backoffice-password)"
+CYPRESS_HQ_USERNAME="$(bo show credential concourse-main boclips.e2e hq-username)"
+CYPRESS_HQ_PASSWORD="$(bo show credential concourse-main boclips.e2e hq-password)"
 CYPRESS_FRONTEND_USERNAME="$(bo show credential concourse-main boclips.e2e frontend-username)"
 CYPRESS_FRONTEND_PASSWORD="$(bo show credential concourse-main boclips.e2e frontend-password)"
 CYPRESS_OPERATOR_USERNAME="$(bo show credential concourse-main boclips.operator testing-username)"
@@ -15,8 +15,8 @@ CYPRESS_SELECTED_VIDEOS_TEST_PASSWORD="$(bo show credential concourse-main bocli
 CYPRESS_LTI_CONSUMER_KEY="$(bo show credential concourse-main boclips.testing-lti consumer-key)"
 CYPRESS_LTI_CONSUMER_SECRET="$(bo show credential concourse-main boclips.testing-lti consumer-secret)"
 
-export CYPRESS_BACKOFFICE_USERNAME
-export CYPRESS_BACKOFFICE_PASSWORD
+export CYPRESS_HQ_USERNAME
+export CYPRESS_HQ_PASSWORD
 export CYPRESS_FRONTEND_USERNAME
 export CYPRESS_FRONTEND_PASSWORD
 export CYPRESS_OPERATOR_USERNAME

@@ -13,14 +13,14 @@ inputs:
 params:
   CYPRESS_TOKEN_URL: https://login.testing-boclips.com/auth/realms/boclips/protocol/openid-connect/token
   CYPRESS_API_BASE_URL: https://api.testing-boclips.com
-  CYPRESS_BACKOFFICE_BASE_URL: https://backoffice.testing-boclips.com
+  CYPRESS_HQ_BASE_URL: https://hq.testing-boclips.com
   CYPRESS_FRONTEND_BASE_URL: https://publishers.testing-boclips.com
   CYPRESS_TEACHERS_BASE_URL: https://teachers.testing-boclips.com
   CYPRESS_LTI_TOOL_CONSUMER_EMULATOR_URL: https://ltiapps.net/test/tc.php
   CYPRESS_LTI_LAUNCH_URL: https://lti.testing-boclips.com/v1p1
   CYPRESS_LTI_DEMO_BASE_URL: https://lti-demo.testing-boclips.com
-  CYPRESS_BACKOFFICE_USERNAME:
-  CYPRESS_BACKOFFICE_PASSWORD:
+  CYPRESS_HQ_USERNAME:
+  CYPRESS_HQ_PASSWORD:
   CYPRESS_FRONTEND_USERNAME:
   CYPRESS_FRONTEND_PASSWORD:
   CYPRESS_OPERATOR_USERNAME:

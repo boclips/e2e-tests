@@ -1,11 +1,11 @@
 import { By } from '../../support/By';
 import { findOneValidVideoId } from '../../support/cypressBoclipsApiWrappers/findOneValidVideoId';
 
-export class BackofficePage {
+export class HqPage {
   private readonly url: string;
 
   constructor() {
-    this.url = Cypress.env('BACKOFFICE_BASE_URL');
+    this.url = Cypress.env('HQ_BASE_URL');
   }
 
   private static uploadCSV(content: string, dropzone: JQuery) {
@@ -64,8 +64,8 @@ export class BackofficePage {
   }
 
   public logIn() {
-    cy.get('#username').type(Cypress.env('BACKOFFICE_USERNAME'));
-    cy.get('#password').type(Cypress.env('BACKOFFICE_PASSWORD'));
+    cy.get('#username').type(Cypress.env('HQ_USERNAME'));
+    cy.get('#password').type(Cypress.env('HQ_PASSWORD'));
     cy.get('#kc-form-login').submit();
     return this;
   }
@@ -149,7 +149,7 @@ export class BackofficePage {
     cy.get(By.dataQa('editable-cell-edit-price')).click();
     cy.get(By.dataQa('editable-cell-input-price')).clear().type('100');
 
-    BackofficePage.closeRow();
+    HqPage.closeRow();
 
     return this;
   }
@@ -159,7 +159,7 @@ export class BackofficePage {
   }
 
   public validateOrder() {
-    BackofficePage.expandRow(0);
+    HqPage.expandRow(0);
 
     cy.get(By.dataQa('editable-cell-value-price')).contains('USD 100');
     cy.get(By.dataQa('editable-cell-value-territory')).contains('Asia');
@@ -221,7 +221,7 @@ export class BackofficePage {
     );
     cy.get(By.dataQa('upload-dropzone')).then((dropzone) => {
       const content = '123,456,789';
-      BackofficePage.uploadCSV(content, dropzone);
+      HqPage.uploadCSV(content, dropzone);
     });
 
     //This functionality is broken whilst we work on content package management,
@@ -300,7 +300,7 @@ export class BackofficePage {
       cy.get(By.dataQa('upload-dropzone')).then((dropzone) => {
         const content = `Order No,Order Through Platform,Month Date ,Order request Date,Order Fulfillment Date,Quarter,Member (request),Member (authorise) ID,Clip ID,Title,Source,Source Code,License Duration,Territory,Type,Price,Publisher,ISBN / PRODUCT DESCRIP,Language,Captioning,Trim,Notes,Remittance Notes,
 129,yes,Nov-15,05/11/15,,2015 Q4,Susan Andrews,871,${videoId},Learning from proximity to power,XKA Digital,123,5,Europe,Instructional Clips,£200 ,ICS,,,,,Complete,`;
-        BackofficePage.uploadCSV(content, dropzone);
+        HqPage.uploadCSV(content, dropzone);
       });
     });
 
@@ -312,7 +312,7 @@ export class BackofficePage {
       cy.get(By.dataQa('upload-dropzone')).then((dropzone) => {
         const content = `Provider,Unique ID,Title,Description,Creation Date,Keywords,Subject,Type ID,Legal Restrictions,URL
 Crash Course Artificial Intelligence,CCAI_01_CLEAN_What-Is-AI,What Is Artificial Intelligence? #1,"Artificial intelligence is everywhere",09/08/2019,"Crash course|Artificial intelligence",Computer Science,3,,https://kmvideowatchfolder.s3-eu-west-1.amazonaws.com/Crash_Course/CCAI_01_CLEAN_What-Is-AI.mp4`;
-        BackofficePage.uploadCSV(content, dropzone);
+        HqPage.uploadCSV(content, dropzone);
       });
     });
 
@@ -363,35 +363,35 @@ Crash Course Artificial Intelligence,CCAI_01_CLEAN_What-Is-AI,What Is Artificial
   }
 
   public updateOrderItemDuration(duration: string, index: number = 0) {
-    BackofficePage.expandRow(index);
+    HqPage.expandRow(index);
 
     cy.get(By.dataQa('editable-cell-edit-license-duration')).click();
     cy.get(By.dataQa('editable-cell-input-license-duration'))
       .clear()
       .type(duration);
 
-    BackofficePage.saveOrderRowEdit();
+    HqPage.saveOrderRowEdit();
 
     cy.get(By.dataQa('editable-cell-value-license-duration')).contains(
       duration,
     );
 
-    BackofficePage.closeRow(index);
+    HqPage.closeRow(index);
 
     return this;
   }
 
   public updateOrderItemTerritory(territory: string, index: number = 0) {
-    BackofficePage.expandRow(index);
+    HqPage.expandRow(index);
 
     cy.get(By.dataQa('editable-cell-edit-territory')).click();
     cy.get(By.dataQa('editable-cell-input-territory')).clear().type(territory);
 
-    BackofficePage.saveOrderRowEdit();
+    HqPage.saveOrderRowEdit();
 
     cy.get(By.dataQa('editable-cell-value-territory')).contains(territory);
 
-    BackofficePage.closeRow(index);
+    HqPage.closeRow(index);
 
     return this;
   }
@@ -498,18 +498,18 @@ Crash Course Artificial Intelligence,CCAI_01_CLEAN_What-Is-AI,What Is Artificial
 
       const [logoUpload, showreelUpload, sampleVideosUpload] = it;
 
-      BackofficePage.uploadToDropzone(logoUpload, 'logo.png', 'image/png');
-      BackofficePage.uploadToDropzone(
+      HqPage.uploadToDropzone(logoUpload, 'logo.png', 'image/png');
+      HqPage.uploadToDropzone(
         showreelUpload,
         'showreel.avi',
         'video/avi',
       );
-      BackofficePage.uploadToDropzone(
+      HqPage.uploadToDropzone(
         sampleVideosUpload,
         'sample1.mp4',
         'video/mp4',
       );
-      BackofficePage.uploadToDropzone(
+      HqPage.uploadToDropzone(
         sampleVideosUpload,
         'sample2.mp4',
         'video/mp4',
@@ -570,7 +570,7 @@ Crash Course Artificial Intelligence,CCAI_01_CLEAN_What-Is-AI,What Is Artificial
 
       const [contractUpload] = it;
 
-      BackofficePage.uploadToDropzone(
+      HqPage.uploadToDropzone(
         contractUpload,
         'contract.pdf',
         'application/pdf',

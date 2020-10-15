@@ -14,8 +14,8 @@ export class LtiDemoPage {
   }
 
   public logIn() {
-    cy.get('#username').type(Cypress.env('BACKOFFICE_USERNAME'));
-    cy.get('#password').type(Cypress.env('BACKOFFICE_PASSWORD'));
+    cy.get('#username').type(Cypress.env('HQ_USERNAME'));
+    cy.get('#password').type(Cypress.env('HQ_PASSWORD'));
     cy.get('#kc-form-login').submit();
     return this;
   }
