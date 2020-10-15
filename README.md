@@ -16,7 +16,7 @@ To watch the videos:
 
 1. Find the archive URL from the `test-results` step of the E2E CI job
    - The URL will look like
-     `gs://boclips-test-results/backoffice/results.tar#xyz`
+     `gs://boclips-test-results/hq/results.tar#xyz`
 1. Use `bo show test-results <% archive URL %>` to fetch the archive
    - On provisioned machines [`bo`] should be on the PATH
 1. Locate the MP4 for the failed test
