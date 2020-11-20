@@ -1,4 +1,4 @@
-import { withinIframe } from './../../support/cypressBoclipsApiWrappers/withinIFrame';
+import 'cypress-iframe'
 import { By } from '../../support/By';
 
 export class LtiDemoPage {
@@ -39,31 +39,13 @@ export class LtiDemoPage {
   }
 
   public searchVideo() {
-    cy.wait(1000); // Wait until the iframe has the content loaded..
-    withinIframe(By.dataQa('search-input'), (search) => {
-      search.type('Minute');
-    });
-
-    withinIframe(By.dataQa('search-button'), (searchButton) => {
-      searchButton.click();
-    });
-    cy.wait(500);
-
-    withinIframe('button:contains("+ Add to lesson")', (videos) => {
-      videos.first().click();
-    });
-
-    withinIframe(
-      By.dataBoclipsPlayerInitialised(),
-      (initialisedPlayer: Cypress.Chainable) =>
-        initialisedPlayer.should('be.visible'),
-    );
-
-    withinIframe(
-      By.boclipsPlayerPlayButton(),
-      (errorOverlay: Cypress.Chainable) => errorOverlay.should('be.visible'),
-    );
-
+    cy.wait(1000);
+    cy.iframe('#lti-resource').find(By.dataQa('search-input')).type('Minute');
+    cy.iframe('#lti-resource').find(By.dataQa('search-button')).click();
+    cy.wait(1000);
+    cy.iframe('#lti-resource').find('button:contains("+ Add to lesson")').first().click();
+    cy.iframe('#lti-resource').find(By.dataBoclipsPlayerInitialised()).should('be.visible');
+    cy.iframe('#lti-resource').find(By.boclipsPlayerPlayButton()).should('be.visible');
     return this;
   }
 }

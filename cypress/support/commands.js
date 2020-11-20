@@ -23,6 +23,8 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+/// <reference types="cypress-iframe" />
 import 'cypress-axe'
 import '@testing-library/cypress/add-commands';
 
