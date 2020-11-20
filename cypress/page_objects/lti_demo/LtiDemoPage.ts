@@ -41,7 +41,7 @@ export class LtiDemoPage {
   public searchVideo() {
     cy.wait(1000);
     cy.iframe('#lti-resource').find(By.dataQa('search-input')).type('Minute');
-    cy.iframe('#lti-resource').find(By.dataQa('search-button')).click();
+    cy.iframe('#lti-resource').findByText('Search').click();
     cy.wait(1000);
     cy.iframe('#lti-resource').find('button:contains("+ Add to lesson")').first().click();
     cy.iframe('#lti-resource').find(By.dataBoclipsPlayerInitialised()).should('be.visible');
