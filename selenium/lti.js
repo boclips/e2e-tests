@@ -1,56 +1,56 @@
-const webdriver = require('selenium-webdriver'),
-  By = webdriver.By;
+const webdriver = require('selenium-webdriver');
+const { By } = require('selenium-webdriver');
+const assert = require('assert');
 
-const driver = new webdriver.Builder().forBrowser('chrome').build();
+const EMULATOR_URL = process.env.CYPRESS_LTI_TOOL_CONSUMER_EMULATOR_URL;
+const LTI_LAUNCH_URL = process.env.CYPRESS_LTI_LAUNCH_URL;
+const CONSUMER_KEY = process.env.CYPRESS_LTI_CONSUMER_KEY;
+const CONSUMER_SECRET = process.env.CYPRESS_LTI_CONSUMER_SECRET;
 
-try {
-  driver.get(process.env.CYPRESS_LTI_TOOL_CONSUMER_EMULATOR_URL);
+describe('LTI', () => {
+  let driver;
+  beforeEach(() => {
+    driver = new webdriver.Builder().forBrowser('chrome').build();
+  });
 
-  driver.findElement(By.name('key')).clear();
-  driver
-    .findElement(By.name('key'))
-    .sendKeys(process.env.CYPRESS_LTI_CONSUMER_KEY);
+  after(async () => {
+    await driver.quit();
+  });
 
-  driver.findElement(By.name('secret')).clear();
-  driver
-    .findElement(By.name('secret'))
-    .sendKeys(process.env.CYPRESS_LTI_CONSUMER_SECRET);
+  it('Launching collections', async (done) => {
+    await driver.get(EMULATOR_URL);
 
-  driver.findElement(By.name('endpoint')).clear();
-
-  const checkCollections = async () => {
-    driver
-      .findElement(By.name('endpoint'))
-      .sendKeys(`${process.env.CYPRESS_LTI_LAUNCH_URL}/collections`);
+    replaceText(driver, By.name('key'), CONSUMER_KEY);
+    replaceText(driver, By.name('secret'), CONSUMER_SECRET);
+    replaceText(driver, By.name('endpoint'), `${LTI_LAUNCH_URL}/collections`);
 
     await driver.findElement(By.id('save_top')).click();
     await driver.findElement(By.id('launch_top')).click();
     await driver.switchTo().frame(0);
+
     const collectionTileVisible = await driver
       .findElement(By.css('.collectionTile'))
       .isDisplayed();
-    if (collectionTileVisible) {
-      await driver
-        .findElement(By.css('.collectionTile'))
-        .click()
-        .then(async () => {
-          await driver.sleep(2000);
-          driver
-            .findElement(By.css('.videoTile'))
-            .isDisplayed()
-            .then((visible) => {
-              visible ? console.log('Test passed') : console.log('Test failed');
-              driver.quit();
-            });
-        });
-    } else {
-      console.log('Test failed');
-      driver.quit();
-    }
-  };
+    assert.isTrue(collectionTileVisible);
 
-  checkCollections();
-} catch (e) {
-  console.error(e);
-  driver.quit();
-}
+    await driver
+      .findElement(By.css('.collectionTile'))
+      .click()
+      .then(async () => {
+        await driver.sleep(2000);
+        const videoTileVisible = await driver
+          .findElement(By.css('.videoTile'))
+          .isDisplayed();
+        assert.isTrue(videoTileVisible);
+      })
+      .catch((e) => {
+        console.error(e.message);
+        assert.fail();
+      });
+  });
+
+  const replaceText = (driver, selector, text) => {
+    driver.findElement(selector).clear();
+    driver.findElement(selector).sendKeys(text);
+  };
+});
