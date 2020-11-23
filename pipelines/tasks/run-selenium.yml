@@ -1,0 +1,30 @@
+---
+platform: linux
+
+image_resource:
+  type: registry-image
+  source:
+    repository: cypress/browsers
+    tag: "node12.19.0-chrome86-ff82"
+
+inputs:
+- name: source
+
+params:
+  CYPRESS_LTI_TOOL_CONSUMER_EMULATOR_URL: https://ltiapps.net/test/tc.php
+  CYPRESS_LTI_LAUNCH_URL: https://lti.testing-boclips.com/v1p1
+  CYPRESS_LTI_CONSUMER_KEY:
+  CYPRESS_LTI_CONSUMER_SECRET:
+
+run:
+  dir: source
+  path: sh
+  args:
+  - -ec
+  - |-
+    npm ci --ignore-scripts
+    npm run selenium:lti
+
+caches:
+- path: ../../../../root/.cache
+- path: ../../../../root/.npm
