@@ -1,5 +1,6 @@
 import 'cypress-iframe'
 import { By } from '../../support/By';
+import { ltiCollectionFixture } from "../../../setup/fixture/collections";
 
 export class LtiDemoPage {
   private readonly url: string;
@@ -38,6 +39,13 @@ export class LtiDemoPage {
     return this;
   }
 
+  public getCollectionsResource() {
+    cy.get('#resource-select').select('/collections');
+    cy.get('#select-resource-button').click();
+
+    return this;
+  }
+
   public searchVideo() {
     cy.wait(1000);
     cy.iframe('#lti-resource').find(By.dataQa('search-input')).type('Minute');
@@ -46,6 +54,21 @@ export class LtiDemoPage {
     cy.iframe('#lti-resource').find('button:contains("+ Add to lesson")').first().click();
     cy.iframe('#lti-resource').find(By.dataBoclipsPlayerInitialised()).should('be.visible');
     cy.iframe('#lti-resource').find(By.boclipsPlayerPlayButton()).should('be.visible');
+    return this;
+  }
+
+  public checkCollections() {
+    cy.wait(1000);
+    cy.iframe('#lti-resource')
+      .find(By.dataQa('collectionTile'))
+      .should('be.visible')
+      .and('have.length', 1)
+      .first()
+      .click();
+    cy.wait(1000);
+    cy.iframe('#lti-resource').find(By.dataQa('collectionTitle')).should('be.visible')
+      .and('contain', ltiCollectionFixture.title);
+    cy.iframe('#lti-resource').find(By.dataQa('videoTile')).should('be.visible');
     return this;
   }
 }
