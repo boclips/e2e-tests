@@ -8,7 +8,7 @@ context('Frontend', () => {
     homepage
       .visit()
       .logIn()
-      // .assertHubspotChat()
+      .assertHubspotChat()
       .assertSuccessfulLogIn()
       .search(validSearchQuery)
       .showsVideo((videos) => {
