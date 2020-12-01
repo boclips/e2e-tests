@@ -499,21 +499,9 @@ Crash Course Artificial Intelligence,CCAI_01_CLEAN_What-Is-AI,What Is Artificial
       const [logoUpload, showreelUpload, sampleVideosUpload] = it;
 
       HqPage.uploadToDropzone(logoUpload, 'logo.png', 'image/png');
-      HqPage.uploadToDropzone(
-        showreelUpload,
-        'showreel.avi',
-        'video/avi',
-      );
-      HqPage.uploadToDropzone(
-        sampleVideosUpload,
-        'sample1.mp4',
-        'video/mp4',
-      );
-      HqPage.uploadToDropzone(
-        sampleVideosUpload,
-        'sample2.mp4',
-        'video/mp4',
-      );
+      HqPage.uploadToDropzone(showreelUpload, 'showreel.avi', 'video/avi');
+      HqPage.uploadToDropzone(sampleVideosUpload, 'sample1.mp4', 'video/mp4');
+      HqPage.uploadToDropzone(sampleVideosUpload, 'sample2.mp4', 'video/mp4');
     });
 
     cy.wait(2000);
