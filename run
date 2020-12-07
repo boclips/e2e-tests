@@ -4,7 +4,6 @@ set -e
 
 : "${CYPRESS_TOKEN_URL:="https://login.testing-boclips.com/auth/realms/boclips/protocol/openid-connect/token"}"
 : "${CYPRESS_API_BASE_URL:="https://api.testing-boclips.com"}"
-: "${CYPRESS_LTI_DEMO_BASE_URL:="https://lti-demo.testing-boclips.com"}"
 : "${CYPRESS_HQ_BASE_URL:="https://hq.testing-boclips.com"}"
 : "${CYPRESS_FRONTEND_BASE_URL:="https://publishers.testing-boclips.com"}"
 : "${CYPRESS_TEACHERS_BASE_URL:="https://teachers.testing-boclips.com"}"
@@ -34,7 +33,6 @@ export CYPRESS_OPERATOR_USERNAME
 export CYPRESS_OPERATOR_PASSWORD
 export CYPRESS_SELECTED_VIDEOS_TEST_USERNAME
 export CYPRESS_SELECTED_VIDEOS_TEST_PASSWORD
-export CYPRESS_LTI_DEMO_BASE_URL
 export CYPRESS_LTI_CONSUMER_KEY
 export CYPRESS_LTI_CONSUMER_SECRET
 export CYPRESS_LTI_TOOL_CONSUMER_EMULATOR_URL
