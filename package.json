@@ -28,7 +28,7 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "@testing-library/cypress": "^6.0.0",
+    "@testing-library/cypress": "^6.0.1",
     "@types/cypress-axe": "^0.4.0",
     "@types/node": "^12.6.6",
     "@types/node-fetch": "^2.3.7",

@@ -19,6 +19,7 @@ params:
   CYPRESS_HQ_BASE_URL: https://hq.testing-boclips.com
   CYPRESS_FRONTEND_BASE_URL: https://publishers.testing-boclips.com
   CYPRESS_TEACHERS_BASE_URL: https://teachers.testing-boclips.com
+  CYPRESS_PUBLISHERS_BASE_URL: https://tazingo.testing-boclips.com
   CYPRESS_LTI_TOOL_CONSUMER_EMULATOR_URL: https://ltiapps.net/test/tc.php
   CYPRESS_LTI_LAUNCH_URL: https://lti.testing-boclips.com/v1p1
   CYPRESS_HQ_USERNAME:
