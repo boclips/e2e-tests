@@ -357,7 +357,7 @@ Crash Course Artificial Intelligence,CCAI_01_CLEAN_What-Is-AI,What Is Artificial
 
     cy.get(By.dataQa('dropdown-option')).first().click();
 
-    cy.contains('Organisation changed successfully!').should('be.visible');
+    cy.contains('Organisation information changed!').should('be.visible');
 
     return this;
   }
