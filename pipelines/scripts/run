@@ -68,7 +68,7 @@ fi
 (
 cd source || exit 1
 npm ci || exit 1
-percy exec -- cypress:run -- \
+npx percy exec -- cypress:run -- \
     --browser=chrome \
     --spec="$SPEC" \
     --config video=false
