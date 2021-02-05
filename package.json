@@ -7,7 +7,7 @@
     "test": "test",
     "setup": "ts-node setup/run.ts",
     "cypress:open": "./node_modules/.bin/cypress open",
-    "cypress:run": "percy exec ./node_modules/.bin/cypress run",
+    "cypress:run": "./node_modules/.bin/cypress run",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "npm run lint -- --fix",
     "compile": "tsc -p . --noEmit",
@@ -17,7 +17,6 @@
   "license": "ISC",
   "dependencies": {
     "@cypress/webpack-preprocessor": "^2.0.1",
-    "@percy/cli": "^1.0.0-beta.31",
     "@types/urijs": "^1.19.2",
     "@types/uuid": "^3.4.4",
     "eslint": "^7.1.0",
@@ -29,7 +28,6 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "@percy/cypress": "^2.3.4",
     "@testing-library/cypress": "^6.0.1",
     "@types/cypress-axe": "^0.4.0",
     "@types/node": "^12.6.6",
@@ -40,7 +38,7 @@
     "@typescript-eslint/parser": "^2.29.0",
     "audit-ci": "^2.2.0",
     "axe-core": "^3.2.2",
-    "cypress": "6.3.0",
+    "cypress": "^4.12.1",
     "cypress-axe": "^0.5.3",
     "cypress-iframe": "^1.0.1",
     "cypress-plugin-retries": "^1.5.2",

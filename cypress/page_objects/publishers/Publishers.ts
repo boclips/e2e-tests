@@ -19,13 +19,6 @@ export class PublishersPage {
     return this;
   }
 
-  public openAccountPanel() {
-    cy.findByText('Account').click();
-    cy.findByText('Your orders');
-
-    return this;
-  }
-
   public login() {
     cy.get('#username').type(Cypress.env('HQ_USERNAME'));
     cy.get('#password').type(Cypress.env('HQ_PASSWORD'));
