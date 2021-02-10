@@ -1,0 +1,19 @@
+version: 2
+snapshot:
+  widths:
+    - 1280
+    - 1440
+    - 1680
+  minHeight: 1024
+  percyCSS: ''
+discovery:
+  allowedHostnames: []
+  networkIdleTimeout: 100
+  disableCache: false
+static:
+  baseUrl: /
+  files: '**/*.{html,htm}'
+  ignore: ''
+upload:
+  files: '**/*.{png,jpg,jpeg}'
+  ignore: ''

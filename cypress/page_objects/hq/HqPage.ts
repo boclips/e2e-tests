@@ -118,15 +118,6 @@ export class HqPage {
     return this;
   }
 
-  public hasDownloadableAssets() {
-    cy.get(By.dataQa('video-files'))
-      .first()
-      .its('text')
-      .should('be', 'Download');
-
-    return this;
-  }
-
   public editRowInOrdersTable() {
     cy.get(By.dataQa('orders-dropdown-icon-open')).first().click();
 
@@ -274,11 +265,7 @@ export class HqPage {
   }
 
   public jobsTableHasData() {
-    cy.wait(2000)
-      .reload()
-      .get(By.dataQa('job'))
-      .its('length')
-      .should('be.gte', 1);
+    cy.wait(2000).reload().get(By.dataQa('job')).should('be.visible');
 
     return this;
   }
@@ -289,9 +276,7 @@ export class HqPage {
   }
 
   public videosTableHasVideo() {
-    cy.get(By.dataQa('video-id'))
-      .its('text')
-      .should('be', 'CCAI_01_CLEAN_What-Is-AI');
+    cy.get(By.dataQa('video-id')).should('contain', 'CCAI_01_CLEAN_What-Is-AI');
     return this;
   }
 

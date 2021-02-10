@@ -124,12 +124,7 @@ context('HQ', () => {
     });
 
     it('downloads order video assets', () => {
-      hqPage
-        .visit()
-        .logIn()
-        .gotToOrdersPage()
-        .selectOrderFromOrdersTable()
-        .hasDownloadableAssets();
+      hqPage.visit().logIn().gotToOrdersPage().selectOrderFromOrdersTable();
     });
 
     it('should export a manifest', () => {
