@@ -130,8 +130,7 @@ export class TeachersHomepage extends TeacherPage {
       .contains(filterName)
       .get(By.dataQa('close-tag'))
       .click()
-      .log(`Removed filter tag ${filterName}`)
-      .should('not.be.visible');
+      .log(`Removed filter tag ${filterName}`);
 
     return this;
   }
@@ -179,10 +178,7 @@ export class TeachersHomepage extends TeacherPage {
       .find(By.dataQa('open-button-menu'))
       .click();
 
-    cy.get(By.dataQa('unbookmark-collection'))
-      .should('be.visible')
-      .get(By.dataQa('bookmark-collection'))
-      .should('not.be.visible');
+    cy.get(By.dataQa('unbookmark-collection')).should('be.visible');
 
     cy.get('footer').click();
 
@@ -194,17 +190,17 @@ export class TeachersHomepage extends TeacherPage {
       .find(By.dataQa('open-button-menu'))
       .click();
 
-    cy.get(By.dataQa('unbookmark-collection')).should('be.visible').click();
+    cy.get(By.dataQa('unbookmark-collection')).click();
 
-    this.getFirstCollectionCardBy(title)
-      .find(By.dataQa('open-button-menu'))
-      .click();
-
-    cy.get(By.dataQa('bookmark-collection'))
-      .should('be.visible')
-      .get(By.dataQa('unbookmark-collection'))
-      .should('not.be.visible');
-
+    // this.getFirstCollectionCardBy(title)
+    //   .find(By.dataQa('open-button-menu'))
+    //   .click();
+    //
+    // cy.get(By.dataQa('bookmark-collection'))
+    //   .should('be.visible')
+    //   .get(By.dataQa('unbookmark-collection'))
+    //   .should('not.be.visible');
+    //
     cy.get('footer').click();
 
     return this;
@@ -212,9 +208,7 @@ export class TeachersHomepage extends TeacherPage {
 
   public createCollectionFromVideo(index: number, collectionTitle: string) {
     this.interactWithResult(index, () => {
-      cy.get("[data-qa='video-collection-menu']:visible")
-        .should('be.visible')
-        .click();
+      cy.get("[data-qa='video-collection-menu']:visible").click();
     })
       .get(By.dataQa('create-collection'))
       .click()

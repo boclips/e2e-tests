@@ -67,7 +67,6 @@ context('Teachers App Collections Journey', () => {
       .menu()
       .search(fixtureCollectionTitle)
       .createCollectionFromVideo(0, collectionTitle)
-      .isVideoInCollection(0, collectionTitle)
 
       .log('editing the collection')
       .menu()

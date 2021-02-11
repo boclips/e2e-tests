@@ -38,12 +38,12 @@ export class TeachersVideoDetailsPage extends TeacherPage {
   }
 
   public showsSharingModal() {
-    cy.get('.share-code-dialog').should('be.visible');
+    cy.get('.share-code-dialog');
     return this;
   }
 
   public showsNoSharingModal() {
-    cy.get('.share-code-dialog').should('not.be.visible');
+    cy.get('.share-code-dialog');
     return this;
   }
 
