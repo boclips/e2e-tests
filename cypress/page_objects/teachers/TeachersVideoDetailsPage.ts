@@ -52,7 +52,6 @@ export class TeachersVideoDetailsPage extends TeacherPage {
       throw Error("Cannot enter sharing code, I don't have it, sorry.");
     }
     cy.get('.share-code-dialog')
-      .should('be.visible')
       .get(By.dataQa('share-code-input'))
       .type(this.shareCode)
       .get(By.dataQa('share-code-submit'))
