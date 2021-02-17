@@ -20,6 +20,7 @@ if  [[ -z $CYPRESS_HQ_USERNAME \
     || -z $CYPRESS_OPERATOR_PASSWORD \
     || -z $CYPRESS_SELECTED_VIDEOS_TEST_USERNAME \
     || -z $CYPRESS_SELECTED_VIDEOS_TEST_PASSWORD \
+    || -z $PERCY_TOKEN \
     ]]
 then
     if  [[ -z $CYPRESS_HQ_USERNAME ]]
@@ -60,6 +61,11 @@ then
     if  [[ -z $CYPRESS_SELECTED_VIDEOS_TEST_PASSWORD ]]
     then
         echo "Missing CYPRESS_SELECTED_VIDEOS_TEST_PASSWORD"
+    fi
+
+       if  [[ -z $PERCY_TOKEN ]]
+    then
+        echo "Missing PERCY_TOKEN"
     fi
 
     exit 1
