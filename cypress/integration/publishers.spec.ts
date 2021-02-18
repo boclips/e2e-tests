@@ -10,7 +10,7 @@ context('Publishers', () => {
 
     cy.get('.grid').should('be.visible');
 
-    cy.percySnapshot('Home page');
+    cy.percySnapshot('Home Page');
   });
 
   it('opens account panel', () => {
@@ -23,8 +23,6 @@ context('Publishers', () => {
 
   it('search', () => {
     publishersPage.visit().login().search(searchTerm);
-
-    cy.get('.grid').should('be.visible');
 
     cy.percySnapshot('Search Page');
   });

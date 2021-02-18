@@ -5,7 +5,7 @@ snapshot:
     - 1440
     - 1680
   minHeight: 1024
-  percyCSS: ''
+  percyCSS: '.plyr__video-wrapper { display: none!important; }'
 discovery:
   allowedHostnames: []
   networkIdleTimeout: 100
