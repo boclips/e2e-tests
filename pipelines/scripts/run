@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+npm_script=$1
+
 produce_output () {
     mkdir -p source/cypress/{screenshots,videos}
     cd "source/cypress" || exit
@@ -12,69 +14,10 @@ produce_output () {
 }
 trap produce_output EXIT
 
-if  [[ -z $CYPRESS_HQ_USERNAME \
-    || -z $CYPRESS_HQ_PASSWORD \
-    || -z $CYPRESS_FRONTEND_USERNAME \
-    || -z $CYPRESS_FRONTEND_PASSWORD \
-    || -z $CYPRESS_OPERATOR_USERNAME \
-    || -z $CYPRESS_OPERATOR_PASSWORD \
-    || -z $CYPRESS_SELECTED_VIDEOS_TEST_USERNAME \
-    || -z $CYPRESS_SELECTED_VIDEOS_TEST_PASSWORD \
-    || -z $PERCY_TOKEN \
-    ]]
-then
-    if  [[ -z $CYPRESS_HQ_USERNAME ]]
-    then
-        echo "Missing CYPRESS_HQ_USERNAME"
-    fi
-
-    if  [[ -z $CYPRESS_HQ_PASSWORD ]]
-    then
-        echo "Missing CYPRESS_HQ_PASSWORD"
-    fi
-
-    if  [[ -z $CYPRESS_FRONTEND_USERNAME ]]
-    then
-        echo "Missing CYPRESS_FRONTEND_USERNAME"
-    fi
-
-    if  [[ -z $CYPRESS_FRONTEND_PASSWORD ]]
-    then
-        echo "Missing CYPRESS_FRONTEND_PASSWORD"
-    fi
-
-    if  [[ -z $CYPRESS_OPERATOR_USERNAME ]]
-    then
-        echo "Missing CYPRESS_OPERATOR_USERNAME"
-    fi
-
-    if  [[ -z $CYPRESS_OPERATOR_PASSWORD ]]
-    then
-        echo "Missing CYPRESS_OPERATOR_PASSWORD"
-    fi
-
-    if  [[ -z $CYPRESS_SELECTED_VIDEOS_TEST_USERNAME ]]
-    then
-        echo "Missing CYPRESS_SELECTED_VIDEOS_TEST_USERNAME"
-    fi
-
-    if  [[ -z $CYPRESS_SELECTED_VIDEOS_TEST_PASSWORD ]]
-    then
-        echo "Missing CYPRESS_SELECTED_VIDEOS_TEST_PASSWORD"
-    fi
-
-       if  [[ -z $PERCY_TOKEN ]]
-    then
-        echo "Missing PERCY_TOKEN"
-    fi
-
-    exit 1
-fi
-
 (
 cd source || exit 1
 npm ci || exit 1
-npm run cypress:run -- \
+npm run "$npm_script" -- \
     --browser=chrome \
     --spec="$SPEC" \
     --config video=false
