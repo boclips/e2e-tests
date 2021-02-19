@@ -24,7 +24,10 @@ context('Publishers', () => {
   it('search', () => {
     publishersPage.visit().login().search(searchTerm);
 
-    cy.percySnapshot('Search Page');
+    cy.percySnapshot('Search Page', {
+      widths: [1280, 1440, 1680],
+      percyCSS: '.plyr__video-wrapper { display: none!important; }',
+    });
   });
 
   it('should apply filters', () => {
@@ -39,6 +42,9 @@ context('Publishers', () => {
 
     cy.get('.grid').should('be.visible');
 
-    cy.percySnapshot('Search with filters');
+    cy.percySnapshot('Search with filters', {
+      widths: [1280, 1440, 1680],
+      percyCSS: '.plyr__video-wrapper { display: none!important; }',
+    });
   });
 });
