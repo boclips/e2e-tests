@@ -10,7 +10,9 @@ context('Publishers', () => {
 
     cy.get('.grid').should('be.visible');
 
-    cy.percySnapshot('Home Page');
+    cy.percySnapshot('Home Page', {
+      widths: [1280, 1440, 1680],
+    });
   });
 
   it('opens account panel', () => {
@@ -18,7 +20,9 @@ context('Publishers', () => {
     cy.get('.grid').should('be.visible');
     publishersPage.openAccountPanel();
 
-    cy.percySnapshot('Account panel');
+    cy.percySnapshot('Account panel', {
+      widths: [1280, 1440, 1680],
+    });
   });
 
   it('search', () => {
