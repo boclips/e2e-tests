@@ -10,6 +10,8 @@ context('Publishers', () => {
 
     cy.get('.grid').should('be.visible');
 
+    cy.wait(1000);
+
     cy.percySnapshot('Home Page', {
       widths: [1280, 1440, 1680],
     });
@@ -20,6 +22,7 @@ context('Publishers', () => {
     cy.get('.grid').should('be.visible');
     publishersPage.openAccountPanel();
 
+    cy.wait(1000);
     cy.percySnapshot('Account panel', {
       widths: [1280, 1440, 1680],
     });
@@ -46,6 +49,7 @@ context('Publishers', () => {
 
     cy.get('.grid').should('be.visible');
 
+    cy.wait(1000);
     cy.percySnapshot('Search with filters', {
       widths: [1280, 1440, 1680],
       percyCSS: '.plyr__video-wrapper { display: none!important; }',
