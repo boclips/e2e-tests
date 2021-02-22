@@ -39,10 +39,8 @@ context('Publishers', () => {
       .visit()
       .login()
       .search(searchTerm)
-      .applyFilters('Educational')
       .applyFilters('Minute Physics')
-      .applyFilters('Physics')
-      .applyFilters('Up to 1 min');
+      .applyFilters('Educational');
 
     cy.get('.grid').should('be.visible');
 
