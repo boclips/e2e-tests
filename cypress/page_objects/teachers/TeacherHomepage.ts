@@ -31,14 +31,14 @@ export class TeachersHomepage extends TeacherPage {
 
     cy.server();
     cy.route('POST', '**/users').as('createUser');
-    cy.route('GET', '**/admin').as('getAdminLinks');
+    // cy.route('GET', '**/admin').as('getAdminLinks');
 
     cy.findByRole('button', { name: /Create account/i })
       .scrollIntoView()
       .click();
 
     cy.wait('@createUser');
-    cy.wait('@getAdminLinks');
+    // cy.wait('@getAdminLinks');
     cy.server({ enable: false });
     return this;
   }
