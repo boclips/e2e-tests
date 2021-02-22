@@ -39,10 +39,12 @@ context('Publishers', () => {
       .visit()
       .login()
       .search(searchTerm)
-      .applyFilters('Minute Physics')
-      .applyFilters('Educational');
+      .applyFilters('Educational')
+      .applyFilters('Mathematics');
 
-    cy.get('.grid').should('be.visible');
+    cy.wait(1000);
+
+    cy.get('.video-card-wrapper').should('be.visible');
 
     cy.percySnapshot('Search with filters', {
       widths: [1280, 1440, 1680],
