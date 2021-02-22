@@ -28,6 +28,8 @@ context('Publishers', () => {
   it('search', () => {
     publishersPage.visit().login().search(searchTerm);
 
+    cy.get('.video-card-wrapper').should('be.visible');
+
     cy.percySnapshot('Search Page', {
       widths: [1280, 1440, 1680],
       percyCSS: '.plyr__video-wrapper { display: none!important; }',
@@ -41,8 +43,6 @@ context('Publishers', () => {
       .search(searchTerm)
       .applyFilters('Educational')
       .applyFilters('Mathematics');
-
-    cy.wait(1000);
 
     cy.get('.video-card-wrapper').should('be.visible');
 
