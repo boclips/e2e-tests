@@ -44,4 +44,4 @@ export PERCY_TOKEN
 
 npm run setup
 
-npm run cypress:percy:open
+npm run cypress:open
