@@ -28,12 +28,12 @@ context('Publishers', () => {
   it('search', () => {
     publishersPage.visit().login().search(searchTerm);
 
-    cy.get('.video-card-wrapper').should('be.visible');
-
-    cy.percySnapshot('Search Page', {
-      widths: [1280, 1440, 1680],
-      percyCSS: '.plyr__video-wrapper { display: none!important; }',
-    });
+    // cy.get('.video-card-wrapper').should('be.visible');
+    //
+    // cy.percySnapshot('Search Page', {
+    //   widths: [1280, 1440, 1680],
+    //   percyCSS: '.plyr__video-wrapper { display: none!important; }',
+    // });
   });
 
   it('should apply filters', () => {
@@ -44,11 +44,11 @@ context('Publishers', () => {
       .applyFilters('Educational')
       .applyFilters('Mathematics');
 
-    cy.get('.video-card-wrapper').should('be.visible');
-
-    cy.percySnapshot('Search with filters', {
-      widths: [1280, 1440, 1680],
-      percyCSS: '.plyr__video-wrapper { display: none!important; }',
-    });
+    // cy.get('.video-card-wrapper').should('be.visible');
+    //
+    // cy.percySnapshot('Search with filters', {
+    //   widths: [1280, 1440, 1680],
+    //   percyCSS: '.plyr__video-wrapper { display: none!important; }',
+    // });
   });
 });
