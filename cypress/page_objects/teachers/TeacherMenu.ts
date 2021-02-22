@@ -11,13 +11,13 @@ export class MenuPage {
   }
 
   public goToHomepage() {
-    cy.get(By.dataQa('boclips-logo')).click();
+    cy.get(By.dataQa('boclips-logo')).scrollIntoView().click();
     return new TeachersHomepage();
   }
 
   public goToCollections() {
     this.openAccountMenu();
-    cy.get("[data-qa='user-videos']:visible").click();
+    cy.get("[data-qa='user-videos']:visible").scrollIntoView().click();
 
     return new CollectionsPage();
   }
@@ -25,7 +25,7 @@ export class MenuPage {
   public checkSavedCollectionInMyResources(title: string, isSaved: boolean) {
     this.openAccountMenu();
 
-    cy.get("[data-qa='user-videos']:visible").click();
+    cy.get("[data-qa='user-videos']:visible").scrollIntoView().click();
     if (isSaved) {
       cy.findByText(title);
     }
@@ -37,7 +37,7 @@ export class MenuPage {
     cy.get(By.dataQa('account-menu-open') + `:visible`)
       .first()
       .should('be.visible')
-      .click();
+      .scrollIntoView().click();
 
     return this;
   }

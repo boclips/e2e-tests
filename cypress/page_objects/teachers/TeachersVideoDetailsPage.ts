@@ -55,6 +55,7 @@ export class TeachersVideoDetailsPage extends TeacherPage {
       .get(By.dataQa('share-code-input'))
       .type(this.shareCode)
       .get(By.dataQa('share-code-submit'))
+      .scrollIntoView()
       .click();
     return this;
   }
