@@ -31,10 +31,12 @@ export class TeachersHomepage extends TeacherPage {
 
     cy.server();
     cy.route('POST', '**/users').as('createUser');
+    cy.route('GET', '**/admin').as('getAdminLinks');
 
     cy.findByRole('button', { name: /Create account/i }).click();
 
     cy.wait('@createUser');
+    cy.wait('@getAdminLinks');
     cy.server({ enable: false });
     return this;
   }
@@ -74,10 +76,6 @@ export class TeachersHomepage extends TeacherPage {
     return this;
   }
 
-  public accountCreated() {
-    cy.get(By.dataQa('create-account-page')).should('be.visible');
-    return this;
-  }
 
   public accountActivated() {
     cy.get('.home-page').should('be.visible');
