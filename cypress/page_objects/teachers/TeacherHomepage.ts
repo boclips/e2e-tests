@@ -29,13 +29,7 @@ export class TeachersHomepage extends TeacherPage {
     cy.findByLabelText('Work Email').type(username);
     cy.findByLabelText('Password').type(password);
 
-    cy.intercept('POST', '**/users').as('createUser');
-    // cy.route('GET', '**/admin').as('getAdminLinks');
-
     cy.get('[data-qa="register-button"]').click({ force: true });
-
-    cy.wait('@createUser');
-    // cy.wait('@getAdminLinks');
 
     return this;
   }

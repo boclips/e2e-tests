@@ -36,8 +36,6 @@ export class MenuPage {
   private openAccountMenu() {
     cy.get('[data-qa="account-menu-open"]').first().click();
 
-    // cy.get('[data-qa="user-videos"]').should('be.visible').click();
-
     return this;
   }
 }
