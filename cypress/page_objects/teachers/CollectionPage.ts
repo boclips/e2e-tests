@@ -18,13 +18,13 @@ export class CollectionPage extends TeacherPage {
 
     cy.get('[data-qa="subjects"]').click();
 
-    cy.get(By.dataState(subject)).scrollIntoView().click();
+    cy.get(By.dataState(subject)).scrollIntoView().click({ force: true });
 
     return this;
   }
 
   public saveEdit() {
-    cy.contains('Save').click();
+    cy.contains('Save').click({ force: true });
 
     return this;
   }
