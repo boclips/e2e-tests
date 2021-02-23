@@ -17,7 +17,7 @@ context('Publishers', () => {
 
   it('opens account panel', () => {
     publishersPage.visit().login();
-    cy.get('.grid').should('be.visible');
+
     publishersPage.openAccountPanel();
 
     cy.percySnapshot('Account panel', {
@@ -26,29 +26,43 @@ context('Publishers', () => {
   });
 
   it('search', () => {
+    cy.intercept({
+      pathname: '/v1/videos',
+      query: {
+        query: 'Minute Physics',
+      },
+    }).as('search');
+
     publishersPage.visit().login().search(searchTerm);
 
-    // cy.get('.video-card-wrapper').should('be.visible');
-    //
-    // cy.percySnapshot('Search Page', {
-    //   widths: [1280, 1440, 1680],
-    //   percyCSS: '.plyr__video-wrapper { display: none!important; }',
-    // });
+    cy.wait('@search');
+
+    cy.percySnapshot('Search Page', {
+      widths: [1280, 1440, 1680],
+      percyCSS: '.plyr__video-wrapper { display: none!important; }',
+    });
   });
 
   it('should apply filters', () => {
+    cy.intercept({
+      pathname: '/v1/videos',
+      query: {
+        query: 'Minute Physics',
+        duration: 'PT0S-PT1M',
+      },
+    }).as('searchForTerms');
+
     publishersPage
       .visit()
       .login()
       .search(searchTerm)
-      .applyFilters('Educational')
-      .applyFilters('Mathematics');
+      .applyFilters('Up to 1 min');
 
-    // cy.get('.video-card-wrapper').should('be.visible');
-    //
-    // cy.percySnapshot('Search with filters', {
-    //   widths: [1280, 1440, 1680],
-    //   percyCSS: '.plyr__video-wrapper { display: none!important; }',
-    // });
+    cy.wait('@searchForTerms');
+
+    cy.percySnapshot('Search with filters', {
+      widths: [1280, 1440, 1680],
+      percyCSS: '.plyr__video-wrapper { display: none!important; }',
+    });
   });
 });
