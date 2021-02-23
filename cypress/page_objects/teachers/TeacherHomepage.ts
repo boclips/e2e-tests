@@ -41,18 +41,18 @@ export class TeachersHomepage extends TeacherPage {
   }
 
   public activateAccount() {
-    cy.findByLabelText('First name').type('Bob');
-    cy.findByLabelText('Last name').type('Clip');
-    cy.findByLabelText("I'm a").click();
-    cy.findByText('Teacher').click();
+    cy.get('#firstName').type('Bob');
+    cy.get('#lastName').type('Clip');
+    cy.get('[data-qa="select-role"]').click();
+    cy.get('[data-state="TEACHER"]').click();
 
     cy.findByText('Next').click();
 
-    cy.get(By.dataQa('subjects')).should('be.visible').click();
-    cy.get(By.dataState('Biology')).first().should('be.visible').click();
+    cy.get('[data-qa="subjects"]').click();
+    cy.get('[data-state="Biology"]').first().click();
 
     cy.get('header').click();
-    this.clickDropDownOption(By.dataQa('age-select'), '3-5');
+    this.clickDropDownOption('[data-qa="age-select"]', '3-5');
     cy.get('header').click();
 
     cy.findByText('Next').click();
@@ -60,16 +60,16 @@ export class TeachersHomepage extends TeacherPage {
     this.selectFirstSelectOption('countries-filter-select', 'country-option');
     this.selectFirstSelectOption('states-filter-select', 'state-option');
 
-    cy.get(By.dataQa('school-filter-select'))
-      .should('be.visible')
+    cy.get('[data-qa="school-filter-select"]')
       .click()
       .type('unlist')
       .type('{downarrow}{enter}');
+
     cy.get('header').click();
 
     cy.findByText('Next').click();
 
-    cy.get(By.dataQa('privacy-policy')).click();
+    cy.get('[data-qa="privacy-policy"]').click();
 
     cy.findByText('Finish').click();
     return this;

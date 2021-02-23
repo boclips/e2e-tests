@@ -79,7 +79,7 @@ export class TeacherPage {
   }
 
   protected clickDropDownOption(dropdown: string, option: string) {
-    cy.get(dropdown).click().should('be.visible');
+    cy.get(dropdown).click();
 
     cy.contains(option).scrollIntoView().should('be.visible').click();
   }
@@ -88,8 +88,8 @@ export class TeacherPage {
     selectDataQa: string,
     optionDataQa: string,
   ) {
-    cy.get(By.dataQa(selectDataQa)).click();
+    cy.get(`[data-qa="${selectDataQa}"`).click();
 
-    cy.get(By.dataQa(optionDataQa)).first().should('be.visible').click();
+    cy.get(`[data-qa="${optionDataQa}"`).first().click();
   }
 }

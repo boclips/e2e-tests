@@ -15,8 +15,6 @@ context('Teachers App', () => {
 
       .visitRegistrationPage()
       .createAccount(username, password)
-
-      .log('onboarding user after autologin')
       .activateAccount()
       .accountActivated();
   });
