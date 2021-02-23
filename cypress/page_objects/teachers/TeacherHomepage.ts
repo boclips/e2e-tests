@@ -33,9 +33,7 @@ export class TeachersHomepage extends TeacherPage {
     cy.route('POST', '**/users').as('createUser');
     // cy.route('GET', '**/admin').as('getAdminLinks');
 
-    cy.findByRole('button', { name: /Create account/i })
-      .scrollIntoView()
-      .click();
+    cy.findByRole('button', { name: /Create account/i }).click();
 
     cy.wait('@createUser');
     // cy.wait('@getAdminLinks');
@@ -46,42 +44,38 @@ export class TeachersHomepage extends TeacherPage {
   public activateAccount() {
     cy.findByLabelText('First name').type('Bob');
     cy.findByLabelText('Last name').type('Clip');
-    cy.findByLabelText("I'm a").scrollIntoView().click();
-    cy.findByText('Teacher').scrollIntoView().click();
+    cy.findByLabelText("I'm a").click();
+    cy.findByText('Teacher').click();
 
-    cy.findByText('Next').scrollIntoView().click();
+    cy.findByText('Next').click();
 
-    cy.get(By.dataQa('subjects')).should('be.visible').scrollIntoView().click();
-    cy.get(By.dataState('Biology'))
-      .first()
-      .should('be.visible')
-      .scrollIntoView()
-      .click();
+    cy.get(By.dataQa('subjects')).should('be.visible').click();
+    cy.get(By.dataState('Biology')).first().should('be.visible').click();
 
-    cy.get('header').scrollIntoView().click();
+    cy.get('header').click();
     this.clickDropDownOption(By.dataQa('age-select'), '3-5');
-    cy.get('header').scrollIntoView().click();
+    cy.get('header').click();
 
-    cy.findByText('Next').scrollIntoView().click();
+    cy.findByText('Next').click();
 
     this.selectFirstSelectOption('countries-filter-select', 'country-option');
     this.selectFirstSelectOption('states-filter-select', 'state-option');
 
     cy.get(By.dataQa('school-filter-select'))
       .should('be.visible')
-      .scrollIntoView()
       .click()
       .type('unlist')
       .type('{downarrow}{enter}');
-    cy.get('header').scrollIntoView().click();
+    cy.get('header').click();
 
-    cy.findByText('Next').scrollIntoView().click();
+    cy.findByText('Next').click();
 
-    cy.get(By.dataQa('privacy-policy')).scrollIntoView().click();
+    cy.get(By.dataQa('privacy-policy')).click();
 
-    cy.findByText('Finish').scrollIntoView().click();
+    cy.findByText('Finish').click();
     return this;
   }
+
 
   public accountActivated() {
     cy.get('.home-page').should('be.visible');
@@ -91,7 +85,7 @@ export class TeachersHomepage extends TeacherPage {
   public logIn(username: string, password: string) {
     cy.get(By.dataQa('email')).type(username);
     cy.get(By.dataQa('password')).type(password);
-    cy.get(By.dataQa('login-button')).scrollIntoView().click();
+    cy.get(By.dataQa('login-button')).click();
     return this;
   }
 
@@ -115,7 +109,7 @@ export class TeachersHomepage extends TeacherPage {
   public applyDurationFilter(filterName: string) {
     cy.get('label')
       .contains(filterName)
-      .scrollIntoView().click()
+      .click()
       .get('input[type=checkbox]')
       .should('be.checked')
       .log(`Checked checkbox ${filterName}`)
@@ -133,7 +127,7 @@ export class TeachersHomepage extends TeacherPage {
     cy.get(By.dataQa(`filter-tag`))
       .contains(filterName)
       .get(By.dataQa('close-tag'))
-      .scrollIntoView().click()
+      .click()
       .log(`Removed filter tag ${filterName}`);
 
     return this;
@@ -149,7 +143,7 @@ export class TeachersHomepage extends TeacherPage {
   public goToPage(pageNumber: number) {
     cy.get(
       `[data-qa='pagination'] .ant-pagination-item-${pageNumber} a`,
-    ).scrollIntoView().click();
+    ).click();
     return this;
   }
 
@@ -174,17 +168,17 @@ export class TeachersHomepage extends TeacherPage {
   public saveCollection(title: string) {
     this.getFirstCollectionCardBy(title)
       .find(By.dataQa('open-button-menu'))
-      .scrollIntoView().click();
+      .click();
 
-    cy.get(By.dataQa('bookmark-collection')).should('be.visible').scrollIntoView().click();
+    cy.get(By.dataQa('bookmark-collection')).should('be.visible').click();
 
     this.getFirstCollectionCardBy(title)
       .find(By.dataQa('open-button-menu'))
-      .scrollIntoView().click();
+      .click();
 
     cy.get(By.dataQa('unbookmark-collection')).should('be.visible');
 
-    cy.get('footer').scrollIntoView().click();
+    cy.get('footer').click();
 
     return this;
   }
@@ -192,9 +186,9 @@ export class TeachersHomepage extends TeacherPage {
   public removeCollectionFromSaved(title: string) {
     this.getFirstCollectionCardBy(title)
       .find(By.dataQa('open-button-menu'))
-      .scrollIntoView().click();
+      .click();
 
-    cy.get(By.dataQa('unbookmark-collection')).scrollIntoView().click();
+    cy.get(By.dataQa('unbookmark-collection')).click();
 
     // this.getFirstCollectionCardBy(title)
     //   .find(By.dataQa('open-button-menu'))
@@ -205,21 +199,21 @@ export class TeachersHomepage extends TeacherPage {
     //   .get(By.dataQa('unbookmark-collection'))
     //   .should('not.be.visible');
     //
-    cy.get('footer').scrollIntoView().click();
+    cy.get('footer').click();
 
     return this;
   }
 
   public createCollectionFromVideo(index: number, collectionTitle: string) {
     this.interactWithResult(index, () => {
-      cy.get("[data-qa='video-collection-menu']:visible").scrollIntoView().click();
+      cy.get("[data-qa='video-collection-menu']:visible").click();
     })
       .get(By.dataQa('create-collection'))
-      .scrollIntoView().click()
+      .click()
       .get(By.dataQa('new-collection-title'))
       .type(collectionTitle)
       .get(By.dataQa('create-collection-button'))
-      .scrollIntoView().click()
+      .click()
       .wait(2000);
 
     return this;
@@ -233,7 +227,7 @@ export class TeachersHomepage extends TeacherPage {
     this.searchResultsHtmlElements()
       .eq(index)
       .within(() => {
-        cy.get(`[data-qa='video-collection-menu']:visible`).scrollIntoView().click();
+        cy.get(`[data-qa='video-collection-menu']:visible`).click();
       })
       .get(
         `[data-state="${collectionTitle}"][data-qa="remove-from-collection"]`,

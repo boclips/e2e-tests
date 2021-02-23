@@ -7,7 +7,7 @@ export class CollectionsPage extends TeacherPage {
       .get(
         `[data-state='${collectionTitle}'][data-qa='collection-card']:visible`,
       )
-      .scrollIntoView().click()
+      .click()
       .then(() => {
         return new CollectionPage();
       });

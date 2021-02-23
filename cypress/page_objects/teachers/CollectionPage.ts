@@ -14,9 +14,9 @@ export class CollectionPage extends TeacherPage {
   }
 
   public setSubject(subject: string): CollectionPage {
-    cy.get(By.dataQa('collection-edit-button')).scrollIntoView().click();
+    cy.get(By.dataQa('collection-edit-button')).click();
 
-    cy.get('[data-qa="subjects"]').scrollIntoView().click();
+    cy.get('[data-qa="subjects"]').click();
 
     cy.get(By.dataState(subject)).scrollIntoView().click();
 
@@ -24,7 +24,7 @@ export class CollectionPage extends TeacherPage {
   }
 
   public saveEdit() {
-    cy.contains('Save').scrollIntoView().click();
+    cy.contains('Save').click();
 
     return this;
   }
@@ -82,7 +82,7 @@ export class CollectionPage extends TeacherPage {
       cy
         .get('[data-qa="remove-from-collection"]:visible')
         .should('be.visible')
-        .scrollIntoView().click()
+        .click(),
     );
   }
 
