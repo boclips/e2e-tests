@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid';
-import { TeachersHomepage } from '../../page_objects/teachers';
+import { CollectionPage, TeachersHomepage } from '../../page_objects/teachers';
 import { clearLoginCookies } from '../../page_objects/teachers/CookiesUtils';
 
 context('Teachers App', () => {
@@ -16,7 +16,7 @@ context('Teachers App', () => {
       .visitRegistrationPage()
       .createAccount(username, password);
 
-    homepage.checkIfOnboarding();
+    homepage.activateAccount().accountActivated();
   });
 
   it('Using search with a query', () => {
@@ -25,7 +25,7 @@ context('Teachers App', () => {
 
     clearLoginCookies();
 
-    homepage.visit().logIn().checkIfOnboarding();
+    homepage.visit().logIn();
 
     homepage.menu().search(searchQuery);
     cy.contains('Richard St. John: 8 secrets of success');
@@ -38,7 +38,7 @@ context('Teachers App', () => {
 
     clearLoginCookies();
 
-    homepage.visit().logIn().checkIfOnboarding();
+    homepage.visit().logIn();
 
     homepage.menu().search(searchQuery);
 
@@ -65,7 +65,7 @@ context('Teachers App', () => {
 
     clearLoginCookies();
 
-    homepage.visit().logIn().checkIfOnboarding();
+    homepage.visit().logIn();
 
     homepage
       .menu()
@@ -82,6 +82,7 @@ context('Teachers App', () => {
 
   it('saving videos to a collection and editing it', () => {
     const homepage = new TeachersHomepage();
+    const collectionPage = new CollectionPage();
     const fixtureCollectionTitle = 'Minute Physics';
     const collectionTitle = getUniqueText();
     const subject = 'Biology';
@@ -89,7 +90,7 @@ context('Teachers App', () => {
 
     clearLoginCookies();
 
-    homepage.visit().logIn().checkIfOnboarding();
+    homepage.visit().logIn();
 
     homepage
       .menu()
@@ -97,23 +98,19 @@ context('Teachers App', () => {
       .createCollectionFromVideo(0, collectionTitle)
       .menu()
       .goToCollections()
-      .goToCollectionDetails(collectionTitle)
+      .goToCollectionDetails(collectionTitle);
 
-      .then((page) => {
-        page
-          .log('update collection subject')
-          .setSubject(subject)
-          .log('update collection title')
-          .setName(newCollectionTitle)
-          .saveEdit()
-          .itHasName(newCollectionTitle)
-          .itHasSubject(subject)
+    collectionPage
+      .setSubject(subject)
+      .setName(newCollectionTitle)
+      .saveEdit()
+      .itHasName(newCollectionTitle)
+      .itHasSubject(subject)
 
-          .log('remove video from collection')
-          .inspectItems((videos) => expect(videos).to.have.length(1))
-          .removeVideo(0)
-          .isEmpty();
-      });
+      .log('remove video from collection')
+      .inspectItems((videos) => expect(videos).to.have.length(1))
+      .removeVideo(0)
+      .isEmpty();
   });
 
   const getUniqueText = () => uuid().substr(0, 6);

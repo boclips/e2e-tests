@@ -26,6 +26,8 @@ export const createUserWithContentPackage = async (
   return await fetch(`${API_URL}/v1/e2e-users`, {
     method: 'POST',
     body: JSON.stringify({
+      firstName: 'Randy',
+      lastName: 'Lahey',
       email: options.email,
       password: options.password,
       organisationId: organisationId,

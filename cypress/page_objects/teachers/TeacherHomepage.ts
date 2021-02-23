@@ -29,7 +29,6 @@ export class TeachersHomepage extends TeacherPage {
     cy.findByLabelText('Work Email').type(username);
     cy.findByLabelText('Password').type(password);
 
-    cy.wait(2000);
     cy.get('[data-qa="register-button"]').click({ force: true });
 
     return this;
@@ -70,16 +69,6 @@ export class TeachersHomepage extends TeacherPage {
     return this;
   }
 
-  public checkIfOnboarding() {
-    cy.wait(3000);
-
-    return cy.window().then((win) => {
-      if (win.location.pathname === '/onboarding') {
-        this.activateAccount().accountActivated();
-      }
-    });
-  }
-
   public accountActivated() {
     cy.get('.home-page').should('be.visible');
     return this;
@@ -103,7 +92,6 @@ export class TeachersHomepage extends TeacherPage {
       .get(By.dataQa(`subject-filter-tag`))
       .contains(filterName)
       .get(By.dataQa('close-tag'))
-      .should('be.visible')
       .log(`Filter tag ${filterName} was visible`);
 
     return this;
@@ -182,9 +170,9 @@ export class TeachersHomepage extends TeacherPage {
 
   public removeCollectionFromSaved(title: string) {
     this.getFirstCollectionCardBy(title)
-      .get('[data-qa="open-button-menu"]')
-      .first()
-      .click()
+      .within(() => {
+        cy.get('[data-qa="open-button-menu"]').click();
+      })
       .get('[data-qa="unbookmark-collection"]')
       .click();
 
@@ -232,9 +220,6 @@ export class TeachersHomepage extends TeacherPage {
   }
 
   private getFirstCollectionCardBy(title: string): Cypress.Chainable {
-    return cy
-      .get('[data-qa="collection-card"]')
-      .first()
-      .should('contain', title);
+    return cy.get(`[data-state="${title}"]`).should('be.visible');
   }
 }
