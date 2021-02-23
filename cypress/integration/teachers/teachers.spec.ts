@@ -2,57 +2,73 @@ import { v4 as uuid } from 'uuid';
 import { TeachersHomepage } from '../../page_objects/teachers';
 import { clearLoginCookies } from '../../page_objects/teachers/CookiesUtils';
 
-context('Teachers App Collections Journey', () => {
-  specify('collection interactions are successful', () => {
+context('Teachers App', () => {
+  it('registering an account and onboards a user after login', () => {
     const homepage = new TeachersHomepage();
     const username = `${getUniqueText()}@boclips.com`;
     const password = `${getUniqueText()}Aa1$`;
-    const subject = 'Biology';
-    const fixtureCollectionTitle = 'Minute Physics';
-    const collectionTitle = getUniqueText();
-    const newCollectionTitle = getUniqueText();
-    const searchQuery = 'Minute Physics';
-    const subjectFilter = 'Biology';
 
     clearLoginCookies();
 
     homepage
       .configureHubspotCookie()
 
-      .log('registering an account')
       .visitRegistrationPage()
       .createAccount(username, password)
 
       .log('onboarding user after autologin')
       .activateAccount()
-      .accountActivated()
+      .accountActivated();
+  });
 
-      .log('searching videos')
+  it('Using search with a query', () => {
+    const homepage = new TeachersHomepage();
+    const searchQuery = 'Minute Physics';
+
+    clearLoginCookies();
+
+    homepage.visit().logIn().menu().search(searchQuery);
+
+    cy.contains('Richard St. John: 8 secrets of success');
+  });
+
+  it('Using search with a query, applies filters and removes filter', () => {
+    const homepage = new TeachersHomepage();
+    const searchQuery = 'Minute Physics';
+    const subjectFilter = 'Biology';
+
+    clearLoginCookies();
+
+    homepage.visit().logIn().menu().search(searchQuery);
+
+    homepage
+      .applySubjectFilter(subjectFilter)
+      .searchResultsHtmlElements()
+      .should('have.length', 3);
+
+    homepage
+      .removeFilterTag(subjectFilter)
+      .searchResultsHtmlElements()
+      .should('have.length', 10);
+
+    homepage
+      .applyDurationFilter('0m - 2m')
+      .searchResultsHtmlElements()
+      .should('have.length', 8);
+  });
+
+  it('saves a collection and removes the collection from saved', () => {
+    const homepage = new TeachersHomepage();
+    const searchQuery = 'Minute Physics';
+    const fixtureCollectionTitle = 'Minute Physics';
+
+    clearLoginCookies();
+
+    homepage
+      .visit()
+      .logIn()
       .menu()
       .search(searchQuery)
-
-      .log('applying subject filter')
-      .applySubjectFilter(subjectFilter)
-      .inspectResults((subjectVideos) => {
-        expect(subjectVideos.length).to.be.eq(
-          3,
-          `There are three videos showing`,
-        );
-      })
-      .removeFilterTag(subjectFilter)
-
-      .log('applying duration filter')
-      .applyDurationFilter('0m - 2m')
-      .inspectResults((durationVideos) => {
-        expect(durationVideos.length).to.be.eq(
-          8,
-          `There are eight videos showing`,
-        );
-      })
-
-      .log('saving a collection made by someone else')
-      .menu()
-      .goToHomepage()
       .saveCollection(fixtureCollectionTitle)
       .menu()
       .checkSavedCollectionInMyResources(fixtureCollectionTitle, true)
@@ -60,17 +76,28 @@ context('Teachers App Collections Journey', () => {
       .removeCollectionFromSaved(fixtureCollectionTitle)
       .menu()
       .checkSavedCollectionInMyResources(fixtureCollectionTitle, false)
-      .goToHomepage()
+      .goToHomepage();
+  });
 
-      .log('saving a video to a new collection')
+  it('saving videos to a collection and editing it', () => {
+    const homepage = new TeachersHomepage();
+    const fixtureCollectionTitle = 'Minute Physics';
+    const collectionTitle = getUniqueText();
+    const subject = 'Biology';
+    const newCollectionTitle = getUniqueText();
+
+    clearLoginCookies();
+
+    homepage
+      .visit()
+      .logIn()
       .menu()
       .search(fixtureCollectionTitle)
       .createCollectionFromVideo(0, collectionTitle)
-
-      .log('editing the collection')
       .menu()
       .goToCollections()
       .goToCollectionDetails(collectionTitle)
+
       .then((page) => {
         page
           .log('update collection subject')
