@@ -29,6 +29,7 @@ export class TeachersHomepage extends TeacherPage {
     cy.findByLabelText('Work Email').type(username);
     cy.findByLabelText('Password').type(password);
 
+    cy.wait(2000);
     cy.get('[data-qa="register-button"]').click({ force: true });
 
     return this;
@@ -67,6 +68,16 @@ export class TeachersHomepage extends TeacherPage {
 
     cy.findByText('Finish').click();
     return this;
+  }
+
+  public checkIfOnboarding() {
+    cy.wait(3000);
+
+    return cy.window().then((win) => {
+      if (win.location.pathname === '/onboarding') {
+        this.activateAccount().accountActivated();
+      }
+    });
   }
 
   public accountActivated() {

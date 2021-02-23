@@ -12,10 +12,11 @@ context('Teachers App', () => {
 
     homepage
       .configureHubspotCookie()
+
       .visitRegistrationPage()
       .createAccount(username, password);
 
-    homepage.activateAccount().accountActivated();
+    homepage.checkIfOnboarding();
   });
 
   it('Using search with a query', () => {
@@ -24,14 +25,9 @@ context('Teachers App', () => {
 
     clearLoginCookies();
 
-    homepage.visit().logIn();
-
-    if (cy.get('[data-qa="onboarding-section-0"]')) {
-      homepage.activateAccount().accountActivated();
-    }
+    homepage.visit().logIn().checkIfOnboarding();
 
     homepage.menu().search(searchQuery);
-
     cy.contains('Richard St. John: 8 secrets of success');
   });
 
@@ -42,11 +38,7 @@ context('Teachers App', () => {
 
     clearLoginCookies();
 
-    homepage.visit().logIn();
-
-    if (cy.get('[data-qa="onboarding-section-0"]')) {
-      homepage.activateAccount().accountActivated();
-    }
+    homepage.visit().logIn().checkIfOnboarding();
 
     homepage.menu().search(searchQuery);
 
@@ -73,11 +65,7 @@ context('Teachers App', () => {
 
     clearLoginCookies();
 
-    homepage.visit().logIn();
-
-    if (cy.get('[data-qa="onboarding-section-0"]')) {
-      homepage.activateAccount().accountActivated();
-    }
+    homepage.visit().logIn().checkIfOnboarding();
 
     homepage
       .menu()
@@ -101,11 +89,7 @@ context('Teachers App', () => {
 
     clearLoginCookies();
 
-    homepage.visit().logIn();
-
-    if (cy.get('[data-qa="onboarding-section-0"]')) {
-      homepage.activateAccount().accountActivated();
-    }
+    homepage.visit().logIn().checkIfOnboarding();
 
     homepage
       .menu()
