@@ -9,7 +9,7 @@
     "cypress:open": "./node_modules/.bin/cypress open",
     "cypress:run": "./node_modules/.bin/cypress run",
     "cypress:percy": "percy exec ./node_modules/.bin/cypress run",
-    "cypress:percy:open": "percy exec ./node_modules/.bin/cypress open",
+    "cypress:percy:open": "percy exec -- cypress open",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "npm run lint -- --fix",
     "compile": "tsc -p . --noEmit",

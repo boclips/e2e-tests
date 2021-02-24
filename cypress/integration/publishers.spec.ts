@@ -3,7 +3,7 @@ import { PublishersPage } from '../page_objects/publishers/Publishers';
 context('Publishers', () => {
   const publishersPage = new PublishersPage();
 
-  const searchTerm: string = 'Minute Physics';
+  const searchTerm: string = 'to be';
 
   it('lands on a homepage', () => {
     publishersPage.visit().login();
@@ -20,6 +20,8 @@ context('Publishers', () => {
 
     publishersPage.openAccountPanel();
 
+    cy.get('#hs-eu-confirmation-button').click();
+
     cy.percySnapshot('Account panel', {
       widths: [1280, 1440, 1680],
     });
@@ -29,7 +31,7 @@ context('Publishers', () => {
     cy.intercept({
       pathname: '/v1/videos',
       query: {
-        query: 'Minute Physics',
+        query: searchTerm,
       },
     }).as('search');
 
@@ -37,7 +39,11 @@ context('Publishers', () => {
 
     cy.wait('@search');
 
-    cy.get('[data-qa="video-card-wrapper"]').should('have.length', 10);
+    cy.get('[data-qa="video-card-wrapper"]').should((videoCard) => {
+      expect(videoCard.length).to.be.at.least(1);
+    });
+
+    cy.get('#hs-eu-confirmation-button').click();
 
     cy.percySnapshot('Search Page', {
       widths: [1280, 1440, 1680],
@@ -49,7 +55,7 @@ context('Publishers', () => {
     cy.intercept({
       pathname: '/v1/videos',
       query: {
-        query: 'Minute Physics',
+        query: searchTerm,
         duration: 'PT0S-PT1M',
       },
     }).as('searchForTerms');
@@ -62,7 +68,11 @@ context('Publishers', () => {
 
     cy.wait('@searchForTerms');
 
-    cy.get('[data-qa="video-card-wrapper"]').should('have.length', 8);
+    cy.get('[data-qa="video-card-wrapper"]').should((videoCard) => {
+      expect(videoCard.length).to.be.at.least(1);
+    });
+
+    cy.get('#hs-eu-confirmation-button').click();
 
     cy.percySnapshot('Search with filters', {
       widths: [1280, 1440, 1680],
