@@ -37,6 +37,8 @@ context('Publishers', () => {
 
     cy.wait('@search');
 
+    cy.get('[data-qa="video-card-wrapper"]').should('have.length', 10);
+
     cy.percySnapshot('Search Page', {
       widths: [1280, 1440, 1680],
       percyCSS: '.plyr__video-wrapper { display: none!important; }',
@@ -59,6 +61,8 @@ context('Publishers', () => {
       .applyFilters('Up to 1 min');
 
     cy.wait('@searchForTerms');
+
+    cy.get('[data-qa="video-card-wrapper"]').should('have.length', 8);
 
     cy.percySnapshot('Search with filters', {
       widths: [1280, 1440, 1680],
