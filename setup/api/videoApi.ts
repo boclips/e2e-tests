@@ -19,7 +19,6 @@ export interface Video {
 }
 
 export async function insertVideo(video: VideoFixture, token: string) {
-  await sleepForMillis(1000);
   const response = await fetch(Constants.API_URL + '/v1/videos', {
     method: 'POST',
     body: JSON.stringify(video),
