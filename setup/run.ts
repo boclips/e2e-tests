@@ -44,10 +44,8 @@ if (!TOKEN_URL || !OPERATOR_USERNAME || !OPERATOR_PASSWORD) {
 
 async function insertVideos(token: string) {
   const allInterpolatedVideos = await getParametrisedVideoFixtures(token);
-  allInterpolatedVideos.forEach((video, idx) => {
-    setTimeout(() => {
-      insertVideo(video, token);
-    }, idx * 1000);
+  allInterpolatedVideos.forEach((video) => {
+    insertVideo(video, token);
   });
 
   return Promise.resolve(
