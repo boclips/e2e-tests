@@ -44,12 +44,10 @@ if (!TOKEN_URL || !OPERATOR_USERNAME || !OPERATOR_PASSWORD) {
 
 async function insertVideos(token: string) {
   const allInterpolatedVideos = await getParametrisedVideoFixtures(token);
-  allInterpolatedVideos.forEach((video) => {
-    insertVideo(video, token);
-  });
-
-  return Promise.resolve(
-    'done sequentially, to create a stable ingest order for visual regression tests',
+  return Promise.all(
+    allInterpolatedVideos.map(async (video) => {
+      await insertVideo(video, token);
+    }),
   );
 }
 
