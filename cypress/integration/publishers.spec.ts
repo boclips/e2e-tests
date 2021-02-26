@@ -3,7 +3,7 @@ import { PublishersPage } from '../page_objects/publishers/Publishers';
 context('Publishers', () => {
   const publishersPage = new PublishersPage();
 
-  const searchTerm: string = 'to be';
+  const searchTerm: string = 'stabbed';
 
   it('lands on a homepage', () => {
     publishersPage.visit().login();
