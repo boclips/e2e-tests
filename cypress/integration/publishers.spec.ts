@@ -18,6 +18,7 @@ context('Publishers', () => {
   it('opens account panel', () => {
     publishersPage.visit().login();
 
+    cy.wait(1000) // we need to wait for links to be fetched before opening account panel
     publishersPage.openAccountPanel();
 
     cy.get('#hs-eu-confirmation-button').click();
