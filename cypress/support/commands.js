@@ -25,7 +25,6 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
 /// <reference types="cypress-iframe" />
-import '@percy/cypress';
 import 'cypress-axe'
 import '@testing-library/cypress/add-commands';
 

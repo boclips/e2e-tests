@@ -18,8 +18,6 @@ trap produce_output EXIT
 cd source || exit 1
 npm ci || exit 1
 
-npx percy config:validate ./
-
 npm run "$npm_script" -- \
     --browser=chrome \
     --spec="$SPEC" \
