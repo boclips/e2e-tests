@@ -14,6 +14,7 @@ CYPRESS_SELECTED_VIDEOS_TEST_USERNAME="$(bo show credential concourse-main bocli
 CYPRESS_SELECTED_VIDEOS_TEST_PASSWORD="$(bo show credential concourse-main boclips.e2e selected-videos-test-password)"
 CYPRESS_LTI_CONSUMER_KEY="$(bo show credential concourse-main boclips.testing-lti consumer-key)"
 CYPRESS_LTI_CONSUMER_SECRET="$(bo show credential concourse-main boclips.testing-lti consumer-secret)"
+PERCY_TOKEN="$(bo show credential concourse-main boclips.e2e percy-token)"
 
 export CYPRESS_HQ_USERNAME
 export CYPRESS_HQ_PASSWORD
@@ -26,10 +27,11 @@ export CYPRESS_SELECTED_VIDEOS_TEST_PASSWORD
 export CYPRESS_LTI_CONSUMER_KEY
 export CYPRESS_LTI_CONSUMER_SECRET
 export SPEC
+export PERCY_TOKEN
 
 fly --target ci \
     execute \
     --config "$cwd/pipelines/tasks/run.yml" \
     --input source="$cwd" \
-    -v npm_script="cypress:run"
+    -v npm_script="cypress:percy"
     --output test-results=test-results
