@@ -5,6 +5,29 @@ context('Publishers', () => {
 
   const searchTerm: string = 'stabbed';
 
+  it('lands on a homepage', () => {
+    publishersPage.visit().login();
+
+    cy.get('.grid').should('be.visible');
+
+    cy.percySnapshot('Home Page', {
+      widths: [1280, 1440, 1680],
+    });
+  });
+
+  it('opens account panel', () => {
+    publishersPage.visit().login();
+
+    cy.wait(1000) // we need to wait for links to be fetched before opening account panel
+    publishersPage.openAccountPanel();
+
+    cy.get('#hs-eu-confirmation-button').click();
+
+    cy.percySnapshot('Account panel', {
+      widths: [1280, 1440, 1680],
+    });
+  });
+
   it('search', () => {
     cy.intercept({
       pathname: '/v1/videos',
