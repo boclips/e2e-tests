@@ -1,83 +1,61 @@
 import { PublishersPage } from '../page_objects/publishers/Publishers';
+import { VideoPage } from '../page_objects/publishers/VideoPage';
+import { CartPage } from '../page_objects/publishers/Cart';
+import Video from '../page_objects/domain/Video';
+import { generateToken } from '../../setup/generateToken';
+import { findVideos } from '../../setup/api/videoApi';
 
 context('Publishers', () => {
   const publishersPage = new PublishersPage();
+  const videoPage = new VideoPage();
+  const cartPage = new CartPage();
 
-  const searchTerm: string = 'stabbed';
+  const searchTerm: string = 'of';
 
-  it('lands on a homepage', () => {
-    publishersPage.visit().login();
-
-    cy.get('.grid').should('be.visible');
-
-    cy.percySnapshot('Home Page', {
-      widths: [1280, 1440, 1680],
-    });
-  });
-
-  it('opens account panel', () => {
-    publishersPage.visit().login();
-
-    cy.wait(1000) // we need to wait for links to be fetched before opening account panel
-    publishersPage.openAccountPanel();
-
-    cy.get('#hs-eu-confirmation-button').click();
-
-    cy.percySnapshot('Account panel', {
-      widths: [1280, 1440, 1680],
-    });
-  });
-
-  it('search', () => {
-    cy.intercept({
-      pathname: '/v1/videos',
-      query: {
-        query: searchTerm,
-      },
-    }).as('search');
-
-    publishersPage.visit().login().search(searchTerm);
-
-    cy.wait('@search');
-
-    cy.get('[data-qa="video-card-wrapper"]').should((videoCard) => {
-      expect(videoCard.length).to.be.at.least(1);
-    });
-
-    cy.get('#hs-eu-confirmation-button').click();
-
-    cy.percySnapshot('Search Page', {
-      widths: [1280, 1440, 1680],
-      percyCSS: '.plyr__video-wrapper { display: none!important; }',
-    });
-  });
-
-  it('should apply filters', () => {
-    cy.intercept({
-      pathname: '/v1/videos',
-      query: {
-        query: searchTerm,
-        duration: 'PT0S-PT1M',
-      },
-    }).as('searchForTerms');
+  it('should apply filters', async () => {
+    const videos: Video[] = await getVideos();
 
     publishersPage
       .visit()
       .login()
       .search(searchTerm)
-      .applyFilters('Up to 1 min');
+      .closeCookiesBanner()
+      .applyFiltersAndWaitForResponse('Up to 1 min')
+      .assertNumberOfVideosFound(videos.length)
+      .addToCartByTitle(videos[0].title)
+      .addToCartByTitle(videos[1].title)
+      .removeFromCartByTitle(videos[0].title)
+      .openVideoPageByTitle(videos[2].title);
 
-    cy.wait('@searchForTerms');
+    videoPage.addToCart();
+    publishersPage.goToCartPage().assertNumberOfItemsInCart(2);
 
-    cy.get('[data-qa="video-card-wrapper"]').should((videoCard) => {
-      expect(videoCard.length).to.be.at.least(1);
-    });
-
-    cy.get('#hs-eu-confirmation-button').click();
-
-    cy.percySnapshot('Search with filters', {
-      widths: [1280, 1440, 1680],
-      percyCSS: '.plyr__video-wrapper { display: none!important; }',
-    });
+    cartPage
+      .addTrim(videos[1].id!, '0:01', '0:10')
+      .enableTranscriptRequestedForItem(videos[1].id!)
+      .enableCaptionsRequestedForItem(videos[2].id!)
+      .addOtherTypeOfEditingForItem(videos[2].id!, 'make it shiny')
+      .assertTotalPrice('$1,200')
+      .clickPlaceOrder()
+      .assertItemHasAdditionalServices(videos[1].id!, [
+        'Trim: 0:01 - 0:10',
+        'Transcripts requested',
+      ])
+      .assertItemHasAdditionalServices(videos[2].id!, [
+        'English captions requested',
+        'Other type of editing: make it shiny',
+      ])
+      .clickConfirmOrder();
   });
+
+  const getVideos = async () => {
+    return await generateToken(
+      Cypress.env('HQ_USERNAME'),
+      Cypress.env('HQ_PASSWORD'),
+    )
+      .then(async (freshToken: string) => {
+        return await findVideos('of&duration=PT0S-PT1M', freshToken);
+      })
+      .catch(() => []);
+  };
 });
