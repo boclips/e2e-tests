@@ -24,6 +24,13 @@ export class PublishersPage {
     return this;
   }
 
+  public openYourOrdersPage() {
+    cy.findByText('Account').click();
+    cy.findByText('Your orders').click();
+
+    return this;
+  }
+
   public assertNumberOfVideosFound(videosNumber: number) {
     cy.get('[data-qa="video-card-wrapper"]').should((videoCard) => {
       expect(videoCard.length).to.be.at.least(videosNumber);

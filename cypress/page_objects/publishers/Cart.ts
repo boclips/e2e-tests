@@ -63,7 +63,6 @@ export class CartPage {
   }
 
   public assertItemHasAdditionalServices(id: string, services: string[]) {
-    console.log(id);
     const item = this.findSummaryItemById(id);
     services.forEach((service: string) => {
       item.should('contain', service);
@@ -72,17 +71,21 @@ export class CartPage {
     return this;
   }
 
-  private findItem(elementFromList: string) {
-    return cy
-      .findByText(`ID: ${elementFromList}`)
-      .parentsUntil('[data-qa="cart-item-wrapper"]')
-      .parent('div');
-  }
-
   public findSummaryItemById(id: string) {
     return cy
       .contains('[data-qa="order-summary-item-video-id"]', id)
       .parentsUntil('[data-qa="order-summary-item-wrapper"]')
+      .parent('div');
+  }
+
+  public getOrderId() {
+    return cy.get(By.dataQa('placed-order-id')).invoke('text');
+  }
+
+  private findItem(elementFromList: string) {
+    return cy
+      .findByText(`ID: ${elementFromList}`)
+      .parentsUntil('[data-qa="cart-item-wrapper"]')
       .parent('div');
   }
 }
