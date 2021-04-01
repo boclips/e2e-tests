@@ -10,7 +10,6 @@ import dateFormat from 'dateformat';
 import {
   addLicenseToOrderItemCypress,
   getOrderCypress,
-  updateOrderItemCypress,
   updateOrderStatusCypress,
 } from '../../setup/api/orderApi';
 import { findVideosCypress } from '../../setup/api/videoApi';
@@ -38,6 +37,7 @@ context('Publishers', () => {
   it('should apply filters', () => {
     const searchTerm: string = 'of';
 
+    const videoToBeAddedAndRemoved = videos[0];
     const orderedVideo = videos[1];
     const secondOrderedVideo = videos[2];
 
@@ -48,16 +48,16 @@ context('Publishers', () => {
       .closeCookiesBanner()
       .applyFiltersAndWaitForResponse('Up to 1 min')
       .assertNumberOfVideosFound(videos.length)
-      .addToCartByTitle(videos[0].title)
+      .addToCartByTitle(videoToBeAddedAndRemoved.title)
       .addToCartByTitle(orderedVideo.title)
-      .removeFromCartByTitle(videos[0].title)
+      .removeFromCartByTitle(videoToBeAddedAndRemoved.title)
       .openVideoPageByTitle(secondOrderedVideo.title);
 
     videoPage.addToCart();
     publishersPage.goToCartPage().assertNumberOfItemsInCart(2);
 
     cartPage
-      .addTrim(videos[1].id!, '0:01', '0:10')
+      .addTrim(orderedVideo.id!, '0:01', '0:10')
       .enableTranscriptRequestedForItem(orderedVideo.id!)
       .enableCaptionsRequestedForItem(secondOrderedVideo.id!)
       .addOtherTypeOfEditingForItem(secondOrderedVideo.id!, 'make it shiny')
