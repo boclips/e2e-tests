@@ -39,7 +39,6 @@ export class PublishersPage {
   }
 
   public addToCartByTitle(title: string) {
-    console.log(title);
     cy.contains(title)
       .parentsUntil('[data-qa="video-card-wrapper"]')
       .parent('div')

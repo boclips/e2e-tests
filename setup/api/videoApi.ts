@@ -95,6 +95,17 @@ export async function findVideos(
   return payload._embedded.videos;
 }
 
+export function findVideosCypress(searchParams: string, token: string) {
+  return cy.request({
+    method: 'GET',
+    url: Constants.API_URL + `/v1/videos?${searchParams}&page=0&size=20`,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+}
+
 async function sleepForMillis(millis: number): Promise<unknown> {
   return new Promise((resolve) => setTimeout(resolve, millis));
 }

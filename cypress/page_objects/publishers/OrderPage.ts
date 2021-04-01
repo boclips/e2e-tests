@@ -2,14 +2,18 @@ import { By } from '../../support/By';
 
 export class OrderPage {
   public assertStatus(status: string) {
-    cy.get(By.dataQa('status-field')).should('contain', status);
+    cy.get(By.dataQa('order-status-field')).should('contain', status);
 
     return this;
   }
 
   public assertOrderDate(date: string) {
     cy.get(By.dataQa('order-date-field')).should('contain', date);
+    return this;
+  }
 
+  public assertDeliveryDate(date: string) {
+    cy.get(By.dataQa('delivery-date-field')).should('contain', date);
     return this;
   }
 

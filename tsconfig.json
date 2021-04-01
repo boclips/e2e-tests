@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",
+    "esModuleInterop": true,
     "skipLibCheck": true,
     "strict": true,
     "types": [
@@ -11,7 +12,8 @@
       "cypress-axe",
       "@types/testing-library__cypress",
       "@percy/cypress"
-    ]
+    ],
+    "allowSyntheticDefaultImports": true
   },
   "include": ["../../node_modules/cypress", "cypress/**/*.ts", "setup/**/*.ts"]
 }

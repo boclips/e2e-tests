@@ -2,22 +2,42 @@ import { PublishersPage } from '../page_objects/publishers/Publishers';
 import { VideoPage } from '../page_objects/publishers/VideoPage';
 import { CartPage } from '../page_objects/publishers/Cart';
 import Video from '../page_objects/domain/Video';
-import { generateToken } from '../../setup/generateToken';
-import { findVideos } from '../../setup/api/videoApi';
+import { generateTokenCypress } from '../../setup/generateToken';
 import { YourOrdersPage } from '../page_objects/publishers/YourOrdersPage';
 import { OrderPage } from '../page_objects/publishers/OrderPage';
+import dateFormat from 'dateformat';
+
+import {
+  addLicenseToOrderItemCypress,
+  getOrderCypress,
+  updateOrderItemCypress,
+  updateOrderStatusCypress,
+} from '../../setup/api/orderApi';
+import { findVideosCypress } from '../../setup/api/videoApi';
 
 context('Publishers', () => {
+  const username = Cypress.env('HQ_USERNAME');
+  const password = Cypress.env('HQ_PASSWORD');
   const publishersPage = new PublishersPage();
   const videoPage = new VideoPage();
   const cartPage = new CartPage();
   const yourOrdersPage = new YourOrdersPage();
   const orderPage = new OrderPage();
+  let videos: Video[] = [];
 
-  it('should apply filters', async () => {
+  beforeEach(() => {
+    generateTokenCypress(username, password).then(({ body }) => {
+      findVideosCypress('query=of&duration=PT0S-PT1M', body.access_token).then(
+        ({ body: { _embedded } }) => {
+          videos = _embedded.videos;
+        },
+      );
+    });
+  });
+
+  it('should apply filters', () => {
     const searchTerm: string = 'of';
 
-    const videos: Video[] = await getVideos();
     const orderedVideo = videos[1];
     const secondOrderedVideo = videos[2];
 
@@ -56,13 +76,14 @@ context('Publishers', () => {
       .then((placedOrderId) => {
         publishersPage.openYourOrdersPage();
 
-        yourOrdersPage
-          .assertOrderHasStatus(placedOrderId, 'PROCESSING')
-          .openOrderPage(placedOrderId);
+        yourOrdersPage.assertOrderHasStatus(placedOrderId, 'PROCESSING');
+        deliverOrder(placedOrderId);
+        yourOrdersPage.openOrderPage(placedOrderId);
 
         orderPage
-          .assertOrderDate(new Date().toLocaleDateString('en-GB'))
-          .assertStatus('PROCESSING')
+          .assertOrderDate(dateFormat(new Date(), 'dd/mm/yy'))
+          .assertDeliveryDate(dateFormat(new Date(), 'dd/mm/yy'))
+          .assertStatus('DELIVERED')
           .assertTotalPrice('$1,200')
           .assertItemHasAdditionalServices(orderedVideo.id!, [
             'Trim: 0:01 - 0:10',
@@ -75,14 +96,16 @@ context('Publishers', () => {
       });
   });
 
-  const getVideos = async () => {
-    return await generateToken(
-      Cypress.env('HQ_USERNAME'),
-      Cypress.env('HQ_PASSWORD'),
-    )
-      .then(async (freshToken: string) => {
-        return await findVideos('of&duration=PT0S-PT1M', freshToken);
-      })
-      .catch(() => []);
+  const deliverOrder = (orderId: string) => {
+    return generateTokenCypress().then(({ body }) => {
+      const token = body.access_token;
+      getOrderCypress(orderId, token).then(({ body: { items } }) =>
+        addLicenseToOrderItemCypress(orderId, items[0].id, token).then(() =>
+          addLicenseToOrderItemCypress(orderId, items[1].id, token).then(() =>
+            updateOrderStatusCypress(orderId, 'DELIVERED', token),
+          ),
+        ),
+      );
+    });
   };
 });

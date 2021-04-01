@@ -27,3 +27,17 @@ export async function generateToken(
 
   return body.access_token;
 }
+
+export function generateTokenCypress(
+  username: string = OPERATOR_USERNAME,
+  password: string = OPERATOR_PASSWORD,
+) {
+  return cy.request({
+    method: 'POST',
+    url: Constants.TOKEN_URL,
+    body: `grant_type=password&client_id=boclips-admin&username=${username}&password=${password}`,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  });
+}
