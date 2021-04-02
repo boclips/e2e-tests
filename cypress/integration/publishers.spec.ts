@@ -5,7 +5,6 @@ import Video from '../page_objects/domain/Video';
 import { generateTokenCypress } from '../../setup/generateToken';
 import { YourOrdersPage } from '../page_objects/publishers/YourOrdersPage';
 import { OrderPage } from '../page_objects/publishers/OrderPage';
-import dateFormat from 'dateformat';
 
 import {
   addLicenseToOrderItemCypress,
@@ -81,8 +80,8 @@ context('Publishers', () => {
         yourOrdersPage.openOrderPage(placedOrderId);
 
         orderPage
-          .assertOrderDate(dateFormat(new Date(), 'dd/mm/yy'))
-          .assertDeliveryDate(dateFormat(new Date(), 'dd/mm/yy'))
+          .assertOrderDate(getTodayFormatted())
+          .assertDeliveryDate(getTodayFormatted())
           .assertStatus('DELIVERED')
           .assertTotalPrice('$1,200')
           .assertItemHasAdditionalServices(orderedVideo.id!, [
@@ -108,4 +107,7 @@ context('Publishers', () => {
       );
     });
   };
+
+  const getTodayFormatted = () =>
+    new Date().toLocaleDateString('en-GB').replace('/202', '/2');
 });
