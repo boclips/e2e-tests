@@ -85,7 +85,68 @@ export async function getParametrisedVideoFixtures(
     return matchingSubjects[0].id;
   }
 
-  const instructionalVideos = [
+  const instructionalVideos = getInstructionalVideos(
+    convertChannelNameToId,
+    convertSubjectNameToId,
+  );
+
+  const newsVideos = [
+    video({
+      providerId: convertChannelNameToId('Reuters'),
+      providerVideoId: 'reuters-13',
+      title: 'Gdansk Mayor Stabbed at a charity event',
+      description: 'Terrible news from Poland',
+      releasedOn: '2018-12-03T00:00:00',
+      videoTypes: ['NEWS'],
+    }),
+    video({
+      providerId: convertChannelNameToId('Reuters'),
+      providerVideoId: 'reuters-14',
+      title: "'Richard St. John: 8 secrets of success' goes viral on boclips",
+      description:
+        'Incredible news as the greatest video has exploded on the internet',
+      releasedOn: '2018-12-04T00:00:00',
+      videoTypes: ['NEWS'],
+    }),
+    video({
+      providerId: convertChannelNameToId('Reuters'),
+      providerVideoId: 'reuters-15',
+      title: 'Breaking news',
+      description: 'Latest piece of news about Richard',
+      releasedOn: '2018-12-05T00:00:00',
+      videoTypes: ['NEWS'],
+    }),
+  ];
+
+  const stockVideos = [
+    video({
+      providerId: convertChannelNameToId('Getty'),
+      providerVideoId: 'getty-12',
+      videoTypes: ['STOCK'],
+      title: 'Celebrities on the red carpet',
+      description: 'Not valuable for education',
+    }),
+  ];
+
+  const disabled = [
+    video({
+      providerId: convertChannelNameToId('Disabled From Streaming CP'),
+      providerVideoId: 'disabled-123',
+      title: 'Disabled',
+      description: 'Not legally allowed to show',
+    }),
+  ];
+
+  return [...instructionalVideos, ...newsVideos, ...stockVideos, ...disabled];
+}
+
+export function getInstructionalVideos(
+  convertChannelNameToId: (channelName: string) => string | undefined = () =>
+    'dummy-id',
+  convertSubjectNameToId: (channelName: string) => string | undefined = () =>
+    'dummy-id',
+) {
+  return [
     video({
       providerId: convertChannelNameToId('Minute Physics'),
       providerVideoId: 'minute-physics-1',
@@ -93,8 +154,8 @@ export async function getParametrisedVideoFixtures(
       description:
         "Why do people succeed? Is it because they\\'re smart? Or are they just lucky? Neither. Analyst Richard St. John condenses years of interviews into an unmissable 3-minute slideshow on the real secrets of success.",
       subjects: [
-        convertSubjectNameToId('Mathematics'),
-        convertSubjectNameToId('Physics'),
+        convertSubjectNameToId('Mathematics')!,
+        convertSubjectNameToId('Physics')!,
       ],
       ageRangeMin: 3,
       ageRangeMax: 5,
@@ -108,8 +169,8 @@ export async function getParametrisedVideoFixtures(
       description: 'This is now about dogs.',
       playbackId: 's3Gl6T0CC2I',
       subjects: [
-        convertSubjectNameToId('Biology'),
-        convertSubjectNameToId('Physics'),
+        convertSubjectNameToId('Biology')!,
+        convertSubjectNameToId('Physics')!,
       ],
       duration: 'PT1M30S',
       ageRangeMin: 4,
@@ -122,8 +183,8 @@ export async function getParametrisedVideoFixtures(
       description:
         "How many poets could cram eBay, Friendster and Monster.com into 3-minute poem worthy of a standing ovation? Enjoy Rives' unique talent.",
       subjects: [
-        convertSubjectNameToId('Biology'),
-        convertSubjectNameToId('Physics'),
+        convertSubjectNameToId('Biology')!,
+        convertSubjectNameToId('Physics')!,
       ],
       playbackId: '0_in8dv3xq',
       duration: 'PT1M30S',
@@ -137,8 +198,8 @@ export async function getParametrisedVideoFixtures(
       description:
         'Author Steven Johnson takes us on a 10-minute tour of The Ghost Map, his book about a cholera outbreak in 1854 London and the impact it had on science, cities and modern society.',
       subjects: [
-        convertSubjectNameToId('Biology'),
-        convertSubjectNameToId('Physics'),
+        convertSubjectNameToId('Biology')!,
+        convertSubjectNameToId('Physics')!,
       ],
       duration: 'PT5M30S',
       playbackId: '0_in8dv3xq',
@@ -152,8 +213,8 @@ export async function getParametrisedVideoFixtures(
       description:
         'Jeff Han shows off a cheap, scalable multi-touch and pressure-sensitive computer screen interface that may spell the end of point-and-click.',
       subjects: [
-        convertSubjectNameToId('Mathematics'),
-        convertSubjectNameToId('Physics'),
+        convertSubjectNameToId('Mathematics')!,
+        convertSubjectNameToId('Physics')!,
       ],
       playbackId: '0_in8dv3xq',
       duration: 'PT1M30S',
@@ -208,56 +269,7 @@ export async function getParametrisedVideoFixtures(
       title: 'Robert Neuwirth: The hidden world of shadow cities',
       description:
         'Robert Neuwirth, author of "Shadow Cities," finds the worlds squatter sites -- where a billion people now make their homes -- to be thriving centers of ingenuity and innovation. He takes us on a tour.',
-      subjects: [convertSubjectNameToId('Biology')],
+      subjects: [convertSubjectNameToId('Biology')!],
     }),
   ];
-
-  const newsVideos = [
-    video({
-      providerId: convertChannelNameToId('Reuters'),
-      providerVideoId: 'reuters-13',
-      title: 'Gdansk Mayor Stabbed at a charity event',
-      description: 'Terrible news from Poland',
-      releasedOn: '2018-12-03T00:00:00',
-      videoTypes: ['NEWS'],
-    }),
-    video({
-      providerId: convertChannelNameToId('Reuters'),
-      providerVideoId: 'reuters-14',
-      title: "'Richard St. John: 8 secrets of success' goes viral on boclips",
-      description:
-        'Incredible news as the greatest video has exploded on the internet',
-      releasedOn: '2018-12-04T00:00:00',
-      videoTypes: ['NEWS'],
-    }),
-    video({
-      providerId: convertChannelNameToId('Reuters'),
-      providerVideoId: 'reuters-15',
-      title: 'Breaking news',
-      description: 'Latest piece of news about Richard',
-      releasedOn: '2018-12-05T00:00:00',
-      videoTypes: ['NEWS'],
-    }),
-  ];
-
-  const stockVideos = [
-    video({
-      providerId: convertChannelNameToId('Getty'),
-      providerVideoId: 'getty-12',
-      videoTypes: ['STOCK'],
-      title: 'Celebrities on the red carpet',
-      description: 'Not valuable for education',
-    }),
-  ];
-
-  const disabled = [
-    video({
-      providerId: convertChannelNameToId('Disabled From Streaming CP'),
-      providerVideoId: 'disabled-123',
-      title: 'Disabled',
-      description: 'Not legally allowed to show',
-    }),
-  ];
-
-  return [...instructionalVideos, ...newsVideos, ...stockVideos, ...disabled];
 }

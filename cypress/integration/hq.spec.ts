@@ -1,13 +1,13 @@
 import uuid = require('uuid');
 import { HqPage } from '../page_objects/hq/HqPage';
-import { generateToken } from '../../setup/generateToken';
-import { getParametrisedVideoFixtures } from '../../setup/fixture/videos';
-import { findOneVideoId } from '../../setup/api/videoApi';
+import { generateTokenCypress } from '../../setup/generateToken';
+import { getInstructionalVideos } from '../../setup/fixture/videos';
+import { findVideosCypress } from '../../setup/api/videoApi';
 
 context('HQ', () => {
   const hqPage = new HqPage();
 
-  let token: string;
+  let videoId: string;
 
   it('should log in and view content partner page', () => {
     hqPage
@@ -77,25 +77,27 @@ context('HQ', () => {
       .findCreatedCollection();
   });
 
-  it('should edit video', async () => {
-    const videoId: string = await generateToken().then(
-      async (freshToken: string) => {
-        token = freshToken;
-        const allInstructionalVideos = await getParametrisedVideoFixtures(
-          freshToken,
-        );
-        return findOneVideoId(allInstructionalVideos[2].title, token);
-      },
-    );
-
-    hqPage
-      .visit()
-      .logIn()
-      .goToVideoPage()
-      .findVideo(videoId)
-      .goToEditPage()
-      .editVideo()
-      .validateVideoChange();
+  it('should edit video', () => {
+    generateTokenCypress()
+      .then(({ body }) => {
+        const allInstructionalVideos = getInstructionalVideos();
+        return findVideosCypress(
+          `query=${allInstructionalVideos[2].title}`,
+          body.access_token,
+        ).then(({ body: { _embedded } }) => {
+          videoId = _embedded.videos[0].id;
+        });
+      })
+      .then(() => {
+        hqPage
+          .visit()
+          .logIn()
+          .goToVideoPage()
+          .findVideo(videoId)
+          .goToEditPage()
+          .editVideo()
+          .validateVideoChange();
+      });
   });
 
   context('orders', () => {

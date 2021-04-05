@@ -173,11 +173,12 @@ export class HqPage {
   }
 
   public editVideo() {
-    cy.get(By.dataQa('edit-video-form-title')).clear().type('edit video title');
+    cy.get(By.dataQa('edit-video-form-title')).type(' edited');
 
     cy.get(By.dataQa('open-captions-modal')).first().click();
 
     cy.get(By.dataQa('edit-caption-text'))
+      .wait(2000)
       .clear()
       .type('WEBVTT\n\n00:00:00.000 --> 00:00:25.460\ncaption 1 value');
 
@@ -200,7 +201,9 @@ export class HqPage {
   }
 
   public validateVideoChange() {
-    cy.get(By.dataQa('video-title')).contains('edit video title');
+    cy.get(By.dataQa('video-title')).should((title) => {
+      expect(title.text()).contains('edited');
+    });
 
     return this;
   }
