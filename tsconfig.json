@@ -9,8 +9,7 @@
       "node-fetch",
       "cypress",
       "cypress-axe",
-      "@types/testing-library__cypress",
-      "@percy/cypress"
+      "@types/testing-library__cypress"
     ]
   },
   "include": ["../../node_modules/cypress", "cypress/**/*.ts", "setup/**/*.ts"]

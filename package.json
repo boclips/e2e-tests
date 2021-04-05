@@ -8,8 +8,6 @@
     "setup": "ts-node setup/run.ts",
     "cypress:open": "./node_modules/.bin/cypress open",
     "cypress:run": "./node_modules/.bin/cypress run",
-    "cypress:percy": "percy exec ./node_modules/.bin/cypress run",
-    "cypress:percy:open": "percy exec -- cypress open",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "npm run lint -- --fix",
     "compile": "tsc -p . --noEmit",
@@ -19,7 +17,6 @@
   "license": "ISC",
   "dependencies": {
     "@cypress/webpack-preprocessor": "^2.0.1",
-    "@percy/cli": "^1.0.0-beta.35",
     "@types/urijs": "^1.19.2",
     "@types/uuid": "^3.4.4",
     "eslint": "^7.1.0",
@@ -31,7 +28,6 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "@percy/cypress": "^2.3.4",
     "@testing-library/cypress": "^6.0.1",
     "@types/cypress-axe": "^0.4.0",
     "@types/node": "^12.6.6",
@@ -50,17 +46,5 @@
     "prettier": "2.0.5",
     "query-string": "^6.8.1",
     "raw-loader": "^2.0.0"
-  },
-  "percy": {
-    "version": 2,
-    "snapshot": {
-      "widths": [
-        1280,
-        1440,
-        1680
-      ],
-      "minHeight": 1024,
-      "percyCSS": ".plyr__video-wrapper { display: none!important; }"
-    }
   }
 }

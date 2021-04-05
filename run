@@ -22,7 +22,6 @@ set -e
 : "${CYPRESS_SELECTED_VIDEOS_TEST_PASSWORD:="$(bo show credential concourse-main boclips.e2e selected-videos-test-password)"}"
 : "${CYPRESS_LTI_CONSUMER_KEY:="$(bo show credential concourse-main boclips.testing-lti consumer-key)"}"
 : "${CYPRESS_LTI_CONSUMER_SECRET:="$(bo show credential concourse-main boclips.testing-lti consumer-secret)"}"
-: "${PERCY_TOKEN:="$(bo show credential concourse-main boclips.e2e percy-token)"}"
 
 export CYPRESS_API_BASE_URL
 export CYPRESS_TOKEN_URL
@@ -44,8 +43,7 @@ export CYPRESS_LTI_TOOL_CONSUMER_EMULATOR_URL
 export CYPRESS_LTI_LAUNCH_URL
 export CYPRESS_TEACHERS_USERNAME
 export CYPRESS_TEACHERS_PASSWORD
-export PERCY_TOKEN
 
 npm run setup
 
-npm run cypress:percy:open
+npm run cypress:open
