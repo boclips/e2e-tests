@@ -60,7 +60,7 @@ context('Publishers', () => {
       .enableTranscriptRequestedForItem(orderedVideo.id!)
       .enableCaptionsRequestedForItem(secondOrderedVideo.id!)
       .addOtherTypeOfEditingForItem(secondOrderedVideo.id!, 'make it shiny')
-      .assertTotalPrice('$1,200')
+      .assertTotalPrice('$900')
       .clickPlaceOrder()
       .assertItemHasAdditionalServices(orderedVideo.id!, [
         'Trim: 0:01 - 0:10',
@@ -83,7 +83,7 @@ context('Publishers', () => {
           .assertOrderDate(getTodayFormatted())
           .assertDeliveryDate(getTodayFormatted())
           .assertStatus('DELIVERED')
-          .assertTotalPrice('$1,200')
+          .assertTotalPrice('$900')
           .assertItemHasAdditionalServices(orderedVideo.id!, [
             'Trim: 0:01 - 0:10',
             'Transcripts requested',
