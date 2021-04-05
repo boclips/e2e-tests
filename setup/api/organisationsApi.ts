@@ -82,6 +82,7 @@ export async function createApiIntegrationOrganisation(
     },
   });
 
-  await assertApiResourceCreation(response, 'API Integration creation');
-  return extractIdFromLocation(response);
+  return (await assertApiResourceCreation(response, 'API Integration creation'))
+    ? extractIdFromLocation(response)
+    : 'no-location-header';
 }

@@ -19,10 +19,12 @@ export async function assertApiResourceCreation(
 ) {
   if (response.status < 400) {
     console.log(`😎 ${message} successful: ${response.status}`);
+    return true;
   } else if (response.status === 409) {
     console.log(
       `😍 ${message} ignored because it already exists: ${response.status}`,
     );
+    return false;
   } else {
     const body = await response.text();
     console.error(
