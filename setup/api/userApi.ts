@@ -1,4 +1,4 @@
-import { createApiIntegration } from './apiIntegrationApi';
+import { createApiIntegrationOrganisation } from './organisationsApi';
 import uuid = require('uuid');
 import { API_URL } from '../Constants';
 
@@ -12,7 +12,7 @@ export const createUserWithContentPackage = async (
   contentPackageId: string,
   token: string,
 ): Promise<Response | undefined> => {
-  const organisationId = await createApiIntegration(
+  const organisationId = await createApiIntegrationOrganisation(
     {
       name: uuid.v4() + '-ORGANISATION',
       role: uuid.v4(),

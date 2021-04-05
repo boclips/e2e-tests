@@ -1,7 +1,8 @@
 export interface ApiIntegrationFixture {
   name: string;
-  role: string;
-  contentPackageId: string;
+  role?: string;
+  tags?: string[];
+  contentPackageId?: string;
 }
 
 export function ltiApiIntegrationFixture(

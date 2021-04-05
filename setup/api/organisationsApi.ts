@@ -23,7 +23,10 @@ export async function ensureApiIntegrationAndReturnId(
   );
 
   if (!apiIntegrationId) {
-    apiIntegrationId = await createApiIntegration(apiIntegration, token);
+    apiIntegrationId = await createApiIntegrationOrganisation(
+      apiIntegration,
+      token,
+    );
   }
 
   return apiIntegrationId;
@@ -51,12 +54,12 @@ export async function findApiIntegrationIdByName(
   });
 }
 
-export async function updateApiIntegration(
-  apiIntegrationId: string,
+export async function updateOrganisation(
+  organisationId: string,
   domain: string,
   token: string,
 ) {
-  return fetch(`${API_URL}/v1/organisations/${apiIntegrationId}`, {
+  return fetch(`${API_URL}/v1/organisations/${organisationId}`, {
     method: 'POST',
     body: JSON.stringify({ domain }),
     headers: {
@@ -66,7 +69,7 @@ export async function updateApiIntegration(
   });
 }
 
-export async function createApiIntegration(
+export async function createApiIntegrationOrganisation(
   apiIntegration: ApiIntegrationFixture,
   token: string,
 ): Promise<string> {

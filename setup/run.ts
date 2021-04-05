@@ -9,7 +9,10 @@ import {
   getAgeRanges,
   insertAgeRange,
 } from './api/ageRangeApi';
-import { ensureApiIntegrationAndReturnId } from './api/apiIntegrationApi';
+import {
+  createApiIntegrationOrganisation,
+  ensureApiIntegrationAndReturnId,
+} from './api/organisationsApi';
 import { createContentPackage } from './api/contentPackageApi';
 import { getChannels, insertChannel } from './api/channelApi';
 import { getDisciplines, insertDiscipline } from './api/disciplineApi';
@@ -158,6 +161,16 @@ async function insertContentPartners(token: string) {
     }),
   );
 }
+async function insertDefaultOrganisation(token: string) {
+  return createApiIntegrationOrganisation(
+    {
+      name: 'default org',
+      role: 'default',
+      tags: ['DEFAULT_ORGANISATION'],
+    },
+    token,
+  );
+}
 
 async function setUp() {
   const token = await generateToken();
@@ -188,6 +201,9 @@ async function setUp() {
 
   await getChannels(token);
 
+  inserting('default organisation');
+  await insertDefaultOrganisation(token);
+
   inserting('content partners');
   await insertContentPartners(token);
 
@@ -201,7 +217,7 @@ async function setUp() {
   inserting('LTI fixtures');
   await setupLtiFixtures(token);
 
-  inserting('classroom accesrule fixtures');
+  inserting('classroom accessrule fixtures');
   await setupClassroomContentPackage(token);
 }
 
