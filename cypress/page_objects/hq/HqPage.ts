@@ -439,7 +439,7 @@ Crash Course Artificial Intelligence,CCAI_01_CLEAN_What-Is-AI,What Is Artificial
   }
 
   public setContentPartnerName(name: string) {
-    this.switchTabs('DETAILS');
+    this.switchTabs('Details');
 
     cy.get(By.dataQa('name-input')).type(name);
 
@@ -447,7 +447,7 @@ Crash Course Artificial Intelligence,CCAI_01_CLEAN_What-Is-AI,What Is Artificial
   }
 
   public setContentPartnerContract(name: string) {
-    this.switchTabs('DETAILS');
+    this.switchTabs('Details');
 
     cy.get(By.dataQa('contract-select')).click();
     cy.get(`.ant-select-item-option-content`)
@@ -459,7 +459,7 @@ Crash Course Artificial Intelligence,CCAI_01_CLEAN_What-Is-AI,What Is Artificial
   }
 
   public setContentPartnerDistributionMethods(...names: DistributionMethod[]) {
-    this.switchTabs('INGEST');
+    this.switchTabs('Ingest');
 
     cy.get('input[type="checkbox"]').then((checkboxes) => {
       if (names.find((it) => it === 'STREAM')) {
@@ -479,7 +479,7 @@ Crash Course Artificial Intelligence,CCAI_01_CLEAN_What-Is-AI,What Is Artificial
   }
 
   public setMarketingFiles() {
-    this.switchTabs('MARKETING');
+    this.switchTabs('Marketing');
 
     cy.get('.ant-upload-drag-container:visible').then((it) => {
       expect(it).to.have.length(3);
