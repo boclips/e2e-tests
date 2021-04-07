@@ -22,20 +22,20 @@ context('Publishers', () => {
   const yourOrdersPage = new YourOrdersPage();
   const orderPage = new OrderPage();
   let videos: Video[] = [];
+  const searchTerm: string = 'the';
 
   beforeEach(() => {
     generateTokenCypress(username, password).then(({ body }) => {
-      findVideosCypress('query=of&duration=PT0S-PT1M', body.access_token).then(
-        ({ body: { _embedded } }) => {
-          videos = _embedded.videos;
-        },
-      );
+      findVideosCypress(
+        `query=${searchTerm}&duration=PT0S-PT1M`,
+        body.access_token,
+      ).then(({ body: { _embedded } }) => {
+        videos = _embedded.videos;
+      });
     });
   });
 
   it('should apply filters', () => {
-    const searchTerm: string = 'of';
-
     const videoToBeAddedAndRemoved = videos[0];
     const orderedVideo = videos[1];
     const secondOrderedVideo = videos[2];
@@ -45,7 +45,7 @@ context('Publishers', () => {
       .login()
       .search(searchTerm)
       .closeCookiesBanner()
-      .applyFiltersAndWaitForResponse('Up to 1 min')
+      .applyFiltersAndWaitForResponse('Up to 1 min', searchTerm)
       .assertNumberOfVideosFound(videos.length)
       .addToCartByTitle(videoToBeAddedAndRemoved.title)
       .addToCartByTitle(orderedVideo.title)

@@ -79,11 +79,11 @@ export class PublishersPage {
     return this;
   }
 
-  public applyFiltersAndWaitForResponse(filterName: string) {
+  public applyFiltersAndWaitForResponse(filterName: string, query: string) {
     cy.intercept({
       pathname: '/v1/videos',
       query: {
-        query: 'of',
+        query: query,
         duration: 'PT0S-PT1M',
       },
     }).as('searchForTerms');
