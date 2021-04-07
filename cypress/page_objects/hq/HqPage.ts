@@ -461,14 +461,13 @@ Crash Course Artificial Intelligence,CCAI_01_CLEAN_What-Is-AI,What Is Artificial
   public setContentPartnerDistributionMethods(...names: DistributionMethod[]) {
     this.switchTabs('Ingest');
 
-    cy.get('input[type="checkbox"]').then((checkboxes) => {
-      if (names.find((it) => it === 'STREAM')) {
-        checkboxes[0].click();
-      }
-      if (names.find((it) => it === 'DOWNLOAD')) {
-        checkboxes[1].click();
-      }
-    });
+    if (names.find((it) => it === 'DOWNLOAD')) {
+      cy.findByText('Download (B2B)').click();
+    }
+
+    if (names.find((it) => it === 'STREAM')) {
+      cy.findByText('Stream (B2T, API, LTI)').click();
+    }
 
     cy.get('input[type="checkbox"]:checked').should(
       'have.length',
