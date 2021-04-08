@@ -46,4 +46,4 @@ export CYPRESS_TEACHERS_PASSWORD
 
 npm run setup
 
-npm run cypress:open
+DEBUG=cypress:webpack npm run cypress:open
