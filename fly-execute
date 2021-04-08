@@ -31,5 +31,5 @@ fly --target ci \
     execute \
     --config "$cwd/pipelines/tasks/run.yml" \
     --input source="$cwd" \
-    -v npm_script="cypress:run"
+    -v npm_script="cypress:run" \
     --output test-results=test-results
