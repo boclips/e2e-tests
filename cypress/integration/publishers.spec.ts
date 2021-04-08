@@ -35,8 +35,7 @@ context('Publishers', () => {
     });
   });
 
-  it('should apply filters', () => {
-    const videoToBeAddedAndRemoved = videos[0];
+  it('place order with additional services', () => {
     const orderedVideo = videos[1];
     const secondOrderedVideo = videos[2];
 
@@ -46,10 +45,7 @@ context('Publishers', () => {
       .search(searchTerm)
       .closeCookiesBanner()
       .applyFiltersAndWaitForResponse('Up to 1 min', searchTerm)
-      .assertNumberOfVideosFound(videos.length)
-      .addToCartByTitle(videoToBeAddedAndRemoved.title)
       .addToCartByTitle(orderedVideo.title)
-      .removeFromCartByTitle(videoToBeAddedAndRemoved.title)
       .openVideoPageByTitle(secondOrderedVideo.title);
 
     videoPage.addToCart();

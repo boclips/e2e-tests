@@ -31,27 +31,11 @@ export class PublishersPage {
     return this;
   }
 
-  public assertNumberOfVideosFound(videosNumber: number) {
-    cy.get('[data-qa="video-card-wrapper"]').should((videoCard) => {
-      expect(videoCard.length).to.be.at.least(videosNumber);
-    });
-    return this;
-  }
-
   public addToCartByTitle(title: string) {
     cy.contains(title)
       .parentsUntil('[data-qa="video-card-wrapper"]')
       .parent('div')
       .findByText('Add to cart')
-      .click();
-    return this;
-  }
-
-  public removeFromCartByTitle(title: string) {
-    cy.contains('[data-qa="video-title"]', title)
-      .parentsUntil('[data-qa="video-card-wrapper"]')
-      .parent('div')
-      .findByText('Remove')
       .click();
     return this;
   }
