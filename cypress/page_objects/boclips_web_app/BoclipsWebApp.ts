@@ -1,10 +1,10 @@
 import { By } from '../../support/By';
 
-export class PublishersPage {
+export class BoclipsWebAppPage {
   private readonly url: string;
 
   constructor() {
-    this.url = Cypress.env('PUBLISHERS_BASE_URL');
+    this.url = Cypress.env('BOCLIPS_WEB_APP_BASE_URL');
   }
 
   public visit() {

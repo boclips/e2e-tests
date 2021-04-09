@@ -1,10 +1,9 @@
-import { PublishersPage } from '../page_objects/publishers/Publishers';
-import { VideoPage } from '../page_objects/publishers/VideoPage';
-import { CartPage } from '../page_objects/publishers/Cart';
+import { VideoPage } from '../page_objects/boclips_web_app/VideoPage';
+import { CartPage } from '../page_objects/boclips_web_app/Cart';
 import Video from '../page_objects/domain/Video';
 import { generateTokenCypress } from '../../setup/generateToken';
-import { YourOrdersPage } from '../page_objects/publishers/YourOrdersPage';
-import { OrderPage } from '../page_objects/publishers/OrderPage';
+import { YourOrdersPage } from '../page_objects/boclips_web_app/YourOrdersPage';
+import { OrderPage } from '../page_objects/boclips_web_app/OrderPage';
 
 import {
   addLicenseToOrderItemCypress,
@@ -12,11 +11,12 @@ import {
   updateOrderStatusCypress,
 } from '../../setup/api/orderApi';
 import { findVideosCypress } from '../../setup/api/videoApi';
+import { BoclipsWebAppPage } from '../page_objects/boclips_web_app/BoclipsWebApp';
 
-context('Publishers', () => {
+context('Boclips Web App', () => {
   const username = Cypress.env('HQ_USERNAME');
   const password = Cypress.env('HQ_PASSWORD');
-  const publishersPage = new PublishersPage();
+  const boclipsWebAppPage = new BoclipsWebAppPage();
   const videoPage = new VideoPage();
   const cartPage = new CartPage();
   const yourOrdersPage = new YourOrdersPage();
@@ -35,11 +35,11 @@ context('Publishers', () => {
     });
   });
 
-  it('place order with additional services', () => {
+  it('should place order with additional services', () => {
     const orderedVideo = videos[1];
     const secondOrderedVideo = videos[2];
 
-    publishersPage
+    boclipsWebAppPage
       .visit()
       .login()
       .search(searchTerm)
@@ -49,7 +49,7 @@ context('Publishers', () => {
       .openVideoPageByTitle(secondOrderedVideo.title);
 
     videoPage.addToCart();
-    publishersPage.goToCartPage().assertNumberOfItemsInCart(2);
+    boclipsWebAppPage.goToCartPage().assertNumberOfItemsInCart(2);
 
     cartPage
       .addTrim(orderedVideo.id!, '0:01', '0:10')
@@ -69,7 +69,7 @@ context('Publishers', () => {
       .clickConfirmOrder()
       .getOrderId()
       .then((placedOrderId) => {
-        publishersPage.openYourOrdersPage();
+        boclipsWebAppPage.openYourOrdersPage();
 
         yourOrdersPage.assertOrderHasStatus(placedOrderId, 'PROCESSING');
         deliverOrder(placedOrderId);
