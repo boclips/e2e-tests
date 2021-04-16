@@ -15,6 +15,8 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands';
+import {configure} from '@testing-library/cypress'
+
 
 Cypress.on('uncaught:exception', (err, runnable) => {
   // returning false here prevents Cypress from
@@ -89,3 +91,5 @@ Cypress.on('fail', error => {
   // still need to throw the error so tests wont be marked as a pass
   throw error;
 });
+
+configure({testIdAttribute: 'data-qa'})
