@@ -77,7 +77,7 @@ context('HQ', () => {
       .findCreatedCollection();
   });
 
-  xit('should edit video', () => {
+  it('should edit video', () => {
     generateTokenCypress()
       .then(({ body }) => {
         const allInstructionalVideos = getInstructionalVideos();
