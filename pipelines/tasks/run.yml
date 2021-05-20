@@ -39,5 +39,5 @@ run:
   args: [((npm_script))]
 
 caches:
-  - path: ../../../root/.cache
-  - path: ../../../root/.npm
+- path: ../../../root/.cache
+- path: ../../../root/.npm
