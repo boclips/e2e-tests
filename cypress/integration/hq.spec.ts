@@ -28,44 +28,6 @@ context('HQ', () => {
       .videosTableHasVideo();
   });
 
-  it('should create a content partner', () => {
-    const contentPartnerName = uuid.v4();
-    hqPage
-      .visit()
-      .logIn()
-      .goToContentPartnerPage()
-      .createContentPartner()
-      .setContentPartnerName(contentPartnerName)
-      .setContentPartnerContract('Default Contract')
-      .setContentPartnerDistributionMethods('STREAM')
-      .setMarketingFiles()
-      .submitContentPartner()
-      .filterByContentPartner(contentPartnerName)
-      .editFirstAndOnlyContentPartner();
-  });
-
-  it('should create a content partner contract', () => {
-    const contractName = uuid.v4();
-    hqPage
-      .visit()
-      .logIn()
-      .goToContractPage()
-      .createContract()
-      .setContractName(contractName)
-      .setContractDocument()
-      .setContractRemittance('USD')
-      .setContractDates()
-      .setContractTerminationWarning('1')
-      .setContractMaximumLicense('2')
-      .setContractSellOffPeriod('3')
-      .setContractRoyaltySplitDownload('4')
-      .setContractRoyaltySplitStreaming('5')
-      .submitContract()
-      .editLatestContract()
-      .checkContractRemittance()
-      .checkContractDates();
-  });
-
   it('should create a collection', () => {
     hqPage
       .visit()
