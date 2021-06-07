@@ -162,8 +162,7 @@ export class HqPage {
   }
 
   public findVideo(videoId: string) {
-    cy.get(By.dataQa('search-input')).type(videoId);
-    cy.get(By.dataQa('search-video-button')).click();
+    cy.get(By.dataQa('search-input')).type(`${videoId}{enter}`);
     return this;
   }
 

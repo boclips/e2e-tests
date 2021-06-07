@@ -1,4 +1,3 @@
-import uuid = require('uuid');
 import { HqPage } from '../page_objects/hq/HqPage';
 import { generateTokenCypress } from '../../setup/generateToken';
 import { getInstructionalVideos } from '../../setup/fixture/videos';
