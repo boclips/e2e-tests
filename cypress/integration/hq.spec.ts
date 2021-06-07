@@ -57,8 +57,6 @@ context('HQ', () => {
           .findVideo(videoId)
           .goToEditPage()
           .editVideo()
-          .findVideo(videoId)
-          .validateVideoChange();
       });
   });
 
