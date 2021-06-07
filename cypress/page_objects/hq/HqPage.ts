@@ -200,9 +200,11 @@ export class HqPage {
   }
 
   public validateVideoChange() {
-    cy.get(By.dataQa('video-title')).should((title) => {
-      expect(title.text()).contains('edited');
-    });
+    cy.wait(1000)
+      .get(By.dataQa('video-title'))
+      .should((title) => {
+        expect(title.text()).contains('edited');
+      });
 
     return this;
   }
